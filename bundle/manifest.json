@@ -1,0 +1,148 @@
+{
+    "Bundle-SymbolicName": "timeslider",
+    "Bundle-Version": "3.0.0-SNAPSHOT",
+
+    "Bundle-Name": "${bundleName}",
+    "Bundle-Description": "${bundleDescription}",
+
+    "Config-Bundle-Location" : "/config",
+
+    "Require-Bundle": [{
+        "name": "map",
+        "version": "[2.0.0,)"
+    }],
+
+    // Announce the bundle's styles
+    "CSS-Themes-Extension": [{
+        "name": "*",
+        "files": ["./layout/timeslider.css"]
+    }],
+	
+    "layout-widgets": [{
+            "widgetRole": "timeSlider",
+            "template": "seasons",
+            "priority": 2,
+            "nomerge": true,
+            "window": {
+                "title": "Timeslider",
+                "marginBox": {
+                    "w": 450,
+					"h": 80,
+                    "l": 30,
+                    "b": 80
+                },
+                "minSize": {
+                    "w": 280
+                },
+                "fixEdgesInViewPort": {
+                    "r": false
+                },
+                "closable": false,
+                "minimizeOnClose": true,
+                "resizable": true,
+                "resizeAxis": {
+                    "r": true
+                },
+                "draggable": true,
+                "minimizable": false,
+                "maximizable": false,
+                "windowClass": "ctWindowEffect",
+                "dockTool": "timeSliderToggleTool",
+                "dockable": true,
+                "dockingBar": "${id}-dockingBarBottomLeft",
+                "tools": []
+            }
+        },
+        {
+            "widgetRole": "timeSlider",
+            "priority": 1,
+            "nomerge": true,
+            "window": {
+                "title": "Timeslider",
+                "marginBox": {
+                    "w": "30%",
+                    "h": "80%"
+                },
+                "minSize": {
+                    "w": 280
+                },
+                "closable": true,
+                "minimizeOnClose": true,
+                "resizable": true,
+                "draggable": true,
+                "maximizable": true,
+                "windowClass": "ctWindowEffect"
+            }
+        }],
+    "Components": [{
+        "name": "TimeSliderFactory",
+        "instanceFactory" : true,
+        "provides": ["dijit.Widget"],
+        "properties": {
+            // Anchor name to use in a template
+            "widgetRole": "timeSlider",
+            "timeSliderOpts": {
+                "options" : {
+                    "excludeDataAtLeadingThumb" : false,
+                    "excludeDataAtTrailingThumb" : false
+                },
+                //Default value is false
+                "loop" : false,
+                //Default value is false
+                "playing" : false,
+                //Default value is 1
+                "thumbCount" : 1,
+                //Rate at which the time animation plays. Default value is 1000 milliseconds
+                "thumbMovingRate" : 1000,
+                //An array of dates representing the stops (tics) on the TimeSlider
+                "timeStops" : [],
+                //Array of two integers, the first value determines where to put the first thumb. If it is a two thumb slider the second value determines where to place the additional thumb
+                "thumbIndexes" : [0,1]
+            },
+            "sliderLayout" : {
+                "timeExtent" : {
+                    "startTime" : "1/1/1976 UTC",
+                    "endTime" : "12/31/1976 UTC"
+                },
+                "stops" : 1,
+                "unit" : "esriTimeUnitsMonths",
+                "opts" : {
+                    "resetStartTime" : true
+                },
+                "selector" : "date",
+                "datePattern" : "yyyy-MM-dd"/*,
+                "timePattern" : "HH:mm:ss"*/
+            },
+            "service" : {
+                "id" : "huricane01",
+                "layer" : "0"
+            }
+        },
+        "references": [
+        {
+            "name": "_esriMap",
+            "providing": "esri.Map"
+        },
+        {
+            "name": "_esriMapReference",
+            "providing": "ct.mapping.map.EsriMapReference"
+        },{
+            "name" : "_mapModel",
+            "providing": "ct.mapping.map.MapModel"
+        }
+        ]
+    },{
+        "name": "TimeSliderToggleTool",
+        "impl": "ct/tools/Tool",
+        "provides": ["ct.tools.Tool"],
+        "propertiesConstructor": true,
+        "properties": {
+            "id": "timeSliderToggleTool",
+            "title": "${tool.title}",
+            "tooltip": "${tool.tooltip}",
+            "toolRole": "toolset",
+            "togglable": true,
+            "iconClass": "icon timeSliderTool"
+        }
+    }]
+}

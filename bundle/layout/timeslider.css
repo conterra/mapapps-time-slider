@@ -1,0 +1,5 @@
+.dijitButton .tsButton.dijitIcon,
+.dijitButton.dijitHover .tsButton.dijitIcon {
+	width: 16px;
+	height: 16px;
+}

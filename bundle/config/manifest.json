@@ -1,0 +1,97 @@
+{
+    "Bundle-SymbolicName": "timeslider-config",
+    "Bundle-Version": "2.0.0",
+
+    "Bundle-Name": "${bundleName}",
+    "Bundle-Description": "${bundleDescription}",
+
+    "Bundle-Namespace": "ct.bundles.timeslider.config",
+
+    "Require-Bundle": [{
+        "name": "dataform",
+        "version": "[2.0.0,)",
+        "policy" : "optional"
+    },{
+        "name": "wizard",
+        "version": "[2.0.0,)"
+    }],
+
+    "Components": [
+    // ======= Builder Menu Entry ========
+    {
+        "name": "BuilderEntry",
+        "impl": "ct.Stateful",
+        "provides": ["ct.bundles.wizard.MenuEntry"],
+        "propertiesConstructor": true,
+        "properties": {
+            "parentNodeId": "appBuilderMapWidgetsNode",
+            "menuNode": {
+                "title": "${menu.title}",
+                "iconUrl": "resource('styles/images/bundleIcon.png')",
+                "widget": "timeSliderBuilderWidget"
+            }
+        }
+    },
+
+    // ======= Builder Widget ========
+    {
+        "name": "BuilderWidget",
+        "impl": "ct.bundles.wizard.DataFormBuilderWidgetFactory",
+        "provides": ["dijit.wizard.Widget"],
+        "immediate": true,
+        "instanceFactory": true,
+        "properties": {
+            "dataformFile": "resource('./DataForm.json')",
+            "bid": "timeslider",
+            "pid": "timeslider-TimeSliderFactory",
+            "id": "timeSliderBuilderWidget",
+            "defaultProperties": {
+                "timeSliderOpts": {
+                    "options" : {
+                        "excludeDataAtLeadingThumb" : false,
+                        "excludeDataAtTrailingThumb" : false
+                    },
+                    //Default value is false
+                    "loop" : false,
+                    //Default value is false
+                    "playing" : false,
+                    //Default value is 1
+                    "thumbCount" : 1,
+                    //Rate at which the time animation plays. Default value is 1000 milliseconds
+                    "thumbMovingRate" : 1000,
+                    //An array of dates representing the stops (tics) on the TimeSlider
+                    "timeStops" : [],
+                    //Array of two integers, the first value determines where to put the first thumb. If it is a two thumb slider the second value determines where to place the additional thumb
+                    "thumbIndexes" : [0,1]
+                },
+                "sliderLayout" : {
+                    "timeExtent" : {
+                        "startTime" : "1976-01-01",
+                        "endTime" : "1976-12-31"
+                    },
+                    "stops" : 1,
+                    "unit" : "esriTimeUnitsMonths",
+                    "opts" : {
+                        "resetStartTime" : true
+                    },
+                    "selector" : "date",
+                    "datePattern" : "yyyy-MM-dd"/*,
+                    "timePattern" : "HH:mm:ss"*/
+                },
+                "service" : {
+                    "id" : "",
+                    "layer" : ""
+                }
+            },
+            "description": "${widget.description}",
+            "styleClass": "ctTimeSliderBuilderWidget"
+        },
+        "references": [{
+            "name": "_configAdminService",
+            "providing": "ct.framework.api.ConfigurationAdmin"
+        },{
+            "name": "_dataformService",
+            "providing": "ct.bundles.dataform.DataFormService"
+        }]
+    }]
+}

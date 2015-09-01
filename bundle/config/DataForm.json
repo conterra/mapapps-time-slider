@@ -1,0 +1,162 @@
+{
+    "dataform-version": "1.0.0",
+    "size": {
+        "h": 300,
+        "w": 500
+    },
+    "type": "gridpanel",
+    "showLabels": true,
+    "cols": 1,
+
+    "children": [
+    {
+        "type": "textbox",
+        "field": "service.id",
+        "title": "${widget.serviceId.title}",
+        "tooltip": "${widget.serviceId.tooltip}",
+        "required" : true
+    },
+    {
+        "type": "textbox",
+        "field": "service.layer",
+        "title": "${widget.layerId.title}",
+        "tooltip": "${widget.layerId.tooltip}",
+        "required" : true
+    },
+    {
+        "type": "datetextbox",
+        "field": "sliderLayout.timeExtent.startTime",
+        "title": "${widget.startTime.title}",
+        "tooltip": "${widget.startTime.tooltip}",
+        "required" : true
+    },
+    
+    {
+        "type": "datetextbox",
+        "field": "sliderLayout.timeExtent.endTime",
+        "title": "${widget.endTime.title}",
+        "tooltip": "${widget.endTime.tooltip}",
+        "required" : true
+    },
+    {
+        "type": "selectbox",
+        "field": "sliderLayout.unit",
+        "title": "${widget.unit.title}",
+        "tooltip": "${widget.unit.tooltip}",
+        "searchAttribute": "name",
+        "labelAttribute": "name",
+        "required": true,
+        "values": [
+        {
+            "name": "${widget.unit.units.seconds}",
+            "value": "esriTimeUnitsSeconds"
+        },
+        {
+            "name": "${widget.unit.units.minutes}",
+            "value": "esriTimeUnitsMinutes"
+        },
+        {
+            "name": "${widget.unit.units.hours}",
+            "value": "esriTimeUnitsHours"
+        },
+        {
+            "name": "${widget.unit.units.days}",
+            "value": "esriTimeUnitsDays"
+        },
+        {
+            "name": "${widget.unit.units.weeks}",
+            "value": "esriTimeUnitsWeeks"
+        },
+        {
+            "name": "${widget.unit.units.months}",
+            "value": "esriTimeUnitsMonths"
+        },
+        {
+            "name": "${widget.unit.units.years}",
+            "value": "esriTimeUnitsYears"
+        },
+        {
+            "name": "${widget.unit.units.decades}",
+            "value": "esriTimeUnitsDecades"
+        },
+        {
+            "name": "${widget.unit.units.centuries}",
+            "value": "esriTimeUnitsCenturies"
+        }
+        ]
+    },
+    {
+        "type": "numberspinner",
+        "min" : 1,
+        "field": "sliderLayout.stops",
+        "title": "${widget.stops.title}",
+        "tooltip": "${widget.stops.tooltip}",
+        "required" : true
+    },   
+    {
+        "type": "selectbox",
+        "field": "sliderLayout.datePattern",
+        "title": "${widget.datePattern.title}",
+        "tooltip": "${widget.datePattern.tooltip}",
+        "required": true,
+        "values": [
+        "yyyy-MM-dd",
+        "dd.MM.yyyy",
+        "yyyyMMdd",
+        "yy",
+        "yyyy",
+        "MM",
+        "MMM",
+        "MMMM"
+        ]
+    },
+    {
+        "type": "checkbox",
+        "field": "timeSliderOpts.loop",
+        "title": "${widget.loop.title}",
+        "tooltip": "${widget.loop.tooltip}"
+    },
+    /*{
+        "type": "checkbox",
+        "field": "timeSliderOpts.playing",
+        "title": "${widget.playing.title}",
+        "tooltip": "${widget.playing.tooltip}"
+    },*/
+    {
+        "type": "numberspinner",
+        "min" : 1,
+        "max" : 2,
+        "field": "timeSliderOpts.thumbCount",
+        "title": "${widget.thumbCount.title}",
+        "tooltip": "${widget.thumbCount.tooltip}",
+        "required" : true
+    },
+    {
+        "type": "numberspinner",
+        "min" : 1,
+        "field": "timeSliderOpts.thumbMovingRate",
+        "title": "${widget.thumbMovingRate.title}",
+        "tooltip": "${widget.thumbMovingRate.tooltip}",
+        "required" : true
+    },
+    /*{
+        "type": "textarea",
+        "field": "timeSliderOpts.timeStops",
+        "title": "${widget.timeStops.title}",
+        "tooltip": "${widget.timeStops.tooltip}",
+        "required" : false
+    },*/
+    {
+        "type": "checkbox",
+        "field": "timeSliderOpts.options.excludeDataAtLeadingThumb",
+        "title": "${widget.excludeDataAtLeadingThumb.title}",
+        "tooltip": "${widget.excludeDataAtLeadingThumb.tooltip}"
+    },
+    {
+        "type": "checkbox",
+        "field": "timeSliderOpts.options.excludeDataAtTrailingThumb",
+        "title": "${widget.excludeDataAtTrailingThumb.title}",
+        "tooltip": "${widget.excludeDataAtTrailingThumb.tooltip}"
+    }
+    ]
+}

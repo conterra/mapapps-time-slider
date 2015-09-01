@@ -1,0 +1,1 @@
+define({bundleName:"TimeSlider",bundleDescription:"Dieses Bundle stellt die Esri Time Slider Funktion zur Verf\u00fcgung.",tool:{title:"Time Slider",tooltip:"Time Slider"}});
