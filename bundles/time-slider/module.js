@@ -1,1 +1,6 @@
-define([".","./TimeSliderFactory","ct/tools/Tool","ct/mapping/mapcontent/ServiceTypes"],{});
+define([
+    ".",
+    "./TimeSliderFactory",
+    "ct/tools/Tool",
+    "ct/mapping/mapcontent/ServiceTypes"
+], {});

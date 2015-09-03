@@ -1,154 +1,147 @@
 {
-	"load": {
-		"allowedBundles": ["system",
-		"splashscreen",
-		"templates",
-		"themes",
-		"templatelayout",
-		"map",
-		"timeslider",
-		"windowmanager",
-		"timeslider",
-		"infoviewer",
-		"console",
-		"contentviewer",
-		"dataform",
-		"wizard"],
-		"require": ["${app}.app"],
-		"i18n": ["bundle"]
-	},
-	"bundles": {
-		"timeslider": {
-			"TimeSliderFactory": {
-				"timeSliderOpts": {
-					"options": {
-						"excludeDataAtLeadingThumb": true,
-						"excludeDataAtTrailingThumb": false
-					},
-					"loop": true,
-					"playing": false,
-					"thumbCount": 2,
-					"thumbMovingRate": 2000
-				},
-				"sliderLayout": {
-					"timeExtent": {
-						"startTime": "1976-01-01",
-						"endTime": "1976-12-31"
-					},
-					"stops": 1,
-					"unit": "esriTimeUnitsMonths",
-					"opts": {
-						"resetStartTime": true
-					},
-					"selector": "date",
-					"datePattern": "MMM"
-				},
-				"service": {
-					"id": "hurricane01",
-					"layer": "0"
-				}
-			}
-		},
-		"map": {
-			"MappingResourceRegistryFactory": {
-				"_knownServices": {
-					"services": [{
-						"id": "hurricane",
-						"type": "AGS_FEATURE",
-						"url": "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Hurricanes/NOAA_Tracks_1851_2007/MapServer",
-						"layers": [{
-							"id": 0,
-							"options": {
-								"autoGeneralize": true
-							}
-						}]
-					},
-					{
-						"id": "wells",
-						"url": "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSWells/MapServer",
-						"type": "AGS_DYNAMIC",
-						"layers": [{
-							"id": 0
-						}]
-					},
-					{
-						"id": "streets",
-						"type": "AGS_TILED",
-						"thumbnailPostfix": "/tile/6/23/36",
-						"url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"
-					},
-					{
-						"id": "worldImage",
-						"type": "AGS_TILED",
-						"url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
-					},
-					{
-						"id": "worldTopo",
-						"type": "AGS_TILED",
-						"thumbnailPostfix": "/tile/11/676/1067",
-						"url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"
-					}]
-				}
-			},
-			"MapModelFactory": {
-				"_configData": {
-					"maps": [{
-						"id": "default",
-						"glass_pane": [{
-							"id": "hurricane01",
-							"title": "Hurricane Server",
-							"service": "hurricane",
-							"layers": ["0"],
-							"enabled": true,
-							"options": {
-								"outFields": ["*"]
-							},
-							"infoTemplate": {
-								"title": "Hurricane",
-								"content": "<b>Category: </b>${CAT} <br> <b>Wind Speed: </b>${WIND_KTS}<br><b>Pressure: </b>${PRESSURE}<br>",
-								"dimensions": {
-									"width": 250,
-									"height": 150
-								}
-							}
-						}],
-						"operationalLayer": [],
-						"baseLayer": [{
-							"id": "background1",
-							"service": "worldTopo",
-							"layers": ["*"],
-							"enabled": true
-						}]
-					}]
-				}
-			},
-			"MapWidgetFactory": {
-				"esriMapOpts": {
-					"sliderStyle": "small",
-					"logo": false
-				}
-			},
-			"MapState": {
-				"initialExtent": {
-					"xmin": -18834083,
-					"ymin": -1105585,
-					"xmax": 733795,
-					"ymax": 10635142,
-					"spatialReference": {
-						"wkid": 3857
-					}
-				}
-			}
-		},
-		"templates": {
-			"TemplateSelector": {
-				"componentEnabled": false
-			}
-		},
-		"themes": {
-			"ThemeSelector": {
-				"componentEnabled": false
-			}
-		}
-	}
+    "load": {
+        "allowedBundles": [
+            "system",
+            "splashscreen",
+            "templates",
+            "themes",
+            "templatelayout",
+            "map",
+            "timeslider",
+            "windowmanager",
+            "timeslider",
+            "infoviewer",
+            "console",
+            "contentviewer",
+            "dataform",
+            "toolset",
+            "toolrules",
+            "wizard"
+        ],
+        "i18n": ["bundle"]
+    },
+    "bundles": {
+        "timeslider": {
+            "TimeSliderFactory": {
+                "timeSliderOpts": {
+                    "options": {
+                        "excludeDataAtLeadingThumb": true,
+                        "excludeDataAtTrailingThumb": false
+                    },
+                    "loop": true,
+                    "playing": false,
+                    "thumbCount": 2,
+                    "thumbMovingRate": 2000
+                },
+                "sliderLayout": {
+                    "timeExtent": {
+                        "startTime": "2000-08-04",
+                        "endTime": "2000-10-22"
+                    },
+                    "stops": 1,
+                    "unit": "esriTimeUnitsWeeks",
+                    "opts": {
+                        "resetStartTime": true
+                    },
+                    "selector": "date",
+                    "datePattern": "MMM"
+                },
+                "service": {
+                    "id": "hurricane01",
+                    "layer": "0"
+                }
+            }
+        },
+        "map": {
+            "MappingResourceRegistryFactory": {
+                "_knownServices": {
+                    "services": [
+                        {
+                            "id": "hurricane",
+                            "type": "AGS_DYNAMIC",
+                            "url": "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer",
+                            "layers": [
+                                {
+                                    "id": 0
+                                },
+                                {
+                                    "id": 1
+                                }
+                            ]
+                        },
+                        {
+                            "id": "darkbase",
+                            "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer",
+                            "type": "AGS_TILED"
+                        }
+                    ]
+                }
+            },
+            "MapModelFactory": {
+                "_configData": {
+                    "maps": [
+                        {
+                            "id": "default",
+                            "glass_pane": [],
+                            "operationalLayer": [
+                                {
+                                    "id": "hurricane01",
+                                    "title": "Hurricane Server",
+                                    "service": "hurricane",
+                                    "layers": ["0"],
+                                    "enabled": true
+                                }
+                            ],
+                            "baseLayer": [
+                                {
+                                    "id": "background1",
+                                    "service": "darkbase",
+                                    "enabled": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "MapWidgetFactory": {
+                "esriMapOpts": {
+                    "sliderStyle": "small",
+                    "logo": true
+                }
+            },
+            "MapState": {
+                "initialExtent": {
+                    "xmin": -18834083,
+                    "ymin": -1105585,
+                    "xmax": 733795,
+                    "ymax": 10635142,
+                    "spatialReference": {
+                        "wkid": 3857
+                    }
+                }
+            }
+        },
+        "templates": {
+            "TemplateSelector": {
+                "componentEnabled": false
+            }
+        },
+        "themes": {
+            "ThemeSelector": {
+                "componentEnabled": false
+            }
+        },
+        "toolrules": {
+            "ToolActiveStateManager": {
+                "activateOnStartToolIds": [
+                    "timeSliderToggleTool"
+                ]
+            }
+        },
+        "toolset": {
+            "ToolsetManager": {
+                "toolsets": []
+            }
+        }
+    }
 }
