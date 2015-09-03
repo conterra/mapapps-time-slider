@@ -9,16 +9,11 @@
             "map",
             "timeslider",
             "windowmanager",
-            "timeslider",
             "infoviewer",
-            "console",
             "contentviewer",
-            "dataform",
             "toolset",
-            "toolrules",
-            "wizard"
-        ],
-        "i18n": ["bundle"]
+            "toolrules"
+        ]
     },
     "bundles": {
         "timeslider": {
