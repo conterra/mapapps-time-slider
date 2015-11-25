@@ -1,14 +1,14 @@
 {
     "Bundle-SymbolicName": "timeslider",
-    "Bundle-Version": "3.0.0",
+    "Bundle-Version": "3.0.1",
     "Bundle-Name": "${bundleName}",
     "Bundle-Description": "${bundleDescription}",
+    "Bundle-Vendor": "con terra GmbH",
     "Product-Name": "map.apps Developer Network",
     "Config-Bundle-Location": "/config",
     "Require-Bundle": [
         {
-            "name": "map",
-            "version": "[3.0.0,)"
+            "name": "map"
         }
     ],
     "CSS-Themes-Extension": [
@@ -19,59 +19,19 @@
     ],
     "layout-widgets": [
         {
-            "widgetRole": "timeSlider",
-            "template": "seasons",
-            "priority": 2,
-            "nomerge": true,
+            "role": "timeSlider",
             "window": {
-                "title": "Timeslider",
+                "title": "Time",
                 "marginBox": {
-                    "w": 450,
-                    "h": 80,
                     "l": 30,
-                    "b": 80
+                    "b": 80,
+                    "w": 450,
+                    "h": 90
                 },
-                "minSize": {
-                    "w": 280
-                },
-                "fixEdgesInViewPort": {
-                    "r": false
-                },
-                "closable": false,
-                "minimizeOnClose": true,
-                "resizable": true,
-                "resizeAxis": {
-                    "r": true
-                },
-                "draggable": true,
-                "minimizable": false,
-                "maximizable": false,
-                "windowClass": "ctWindowEffect",
                 "dockTool": "timeSliderToggleTool",
-                "dockable": true,
-                "dockingBar": "${id}-dockingBarBottomLeft",
-                "tools": []
-            }
-        },
-        {
-            "widgetRole": "timeSlider",
-            "priority": 1,
-            "nomerge": true,
-            "window": {
-                "title": "Timeslider",
-                "marginBox": {
-                    "w": "30%",
-                    "h": "80%"
-                },
-                "minSize": {
-                    "w": 280
-                },
                 "closable": true,
                 "minimizeOnClose": true,
-                "resizable": true,
-                "draggable": true,
-                "maximizable": true,
-                "windowClass": "ctWindowEffect"
+                "resizable": true
             }
         }
     ],
@@ -136,7 +96,7 @@
                 "tooltip": "${tool.tooltip}",
                 "toolRole": "toolset",
                 "togglable": true,
-                "iconClass": "icon timeSliderTool"
+                "iconClass": "icon-time-forward"
             }
         }
     ]

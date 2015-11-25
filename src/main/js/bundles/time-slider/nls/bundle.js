@@ -13,4 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-define({root:{bundleName:"TimeSlider",bundleDescription:"This bundle provides the Esri time slider function.",tool:{title:"Time Slider",tooltip:"Time Slider"}},de:!0});
+define({
+    root: {
+        bundleName: "TimeSlider",
+        bundleDescription: "This bundle provides the Esri time slider function.",
+        tool: {
+            title: "Time Slider",
+            tooltip: "Time Slider"
+        }
+    },
+    de: true
+});

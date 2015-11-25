@@ -16,7 +16,8 @@
             "infoviewer",
             "contentviewer",
             "toolset",
-            "toolrules"
+            "toolrules",
+            "wizard"
         ]
     },
     "bundles": {
@@ -139,7 +140,25 @@
         },
         "toolset": {
             "ToolsetManager": {
-                "toolsets": []
+                "toolsets": [
+                    {
+                        "id": "dropdown1",
+                        "title": "Werkzeuge",
+                        "tools": [
+                            "timeSliderToggleTool"
+                        ],
+                        "container": "map",
+                        "__isDirty": true,
+                        "position": {
+                            "rel_t": 20,
+                            "rel_l": 20
+                        },
+                        "cssClass": "notitle",
+                        "windowType": "fixed",
+                        "tooltip": "Werkzeuge",
+                        "max_horizontal": 1
+                    }
+                ]
             }
         }
     }

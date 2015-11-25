@@ -13,4 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-define([".","ct/bundles/wizard/DataFormBuilderWidgetFactory"],function(a){return a});
+define([
+    ".",
+    "ct/Stateful",
+    "wizard/DataFormBuilderWidgetFactory"
+], {});
