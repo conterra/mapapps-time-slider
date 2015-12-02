@@ -55,6 +55,7 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/date/
                                     return timeStopString;
                                 }, this);
                                 timeSlider.setLabels(labels);
+                                timeSlider.singleThumbAsTimeInstant(!timeSliderOpts.cumulative || false);
                             } catch (e) {
                                 throw Error("TileSliderFactory: Cannot create time slider!", e);
                             }

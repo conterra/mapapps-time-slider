@@ -31,7 +31,8 @@
                     "loop": true,
                     "playing": false,
                     "thumbCount": 2,
-                    "thumbMovingRate": 2000
+                    "thumbMovingRate": 2000,
+                    "cumulative": true
                 },
                 "sliderLayout": {
                     "timeExtent": {
