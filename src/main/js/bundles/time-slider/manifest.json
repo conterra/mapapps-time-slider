@@ -1,103 +1,115 @@
 {
-    "Bundle-SymbolicName": "timeslider",
-    "Bundle-Version": "3.0.2",
-    "Bundle-Name": "${bundleName}",
-    "Bundle-Description": "${bundleDescription}",
-    "Bundle-Vendor": "con terra GmbH",
-    "Product-Name": "map.apps Developer Network",
-    "Config-Bundle-Location": "/config",
-    "Require-Bundle": [
-        {
-            "name": "map"
+  "Bundle-SymbolicName": "timeslider",
+  "Bundle-Version": "3.0.2",
+  "Bundle-Name": "${bundleName}",
+  "Bundle-Description": "${bundleDescription}",
+  "Bundle-Vendor": "con terra GmbH",
+  "Product-Name": "map.apps Developer Network",
+  "Config-Bundle-Location": "/config",
+  "Require-Bundle": [
+    {
+      "name": "map"
+    }
+  ],
+  "CSS-Themes-Extension": [
+    {
+      "name": "*",
+      "files": [
+        "./layout/timeslider.css"
+      ]
+    }
+  ],
+  "layout-widgets": [
+    {
+      "role": "timeSlider",
+      "window": {
+        "title": "Time",
+        "marginBox": {
+          "l": 30,
+          "b": 80,
+          "w": 450,
+          "h": 90
+        },
+        "dockTool": "timeSliderToggleTool",
+        "closable": true,
+        "minimizeOnClose": true,
+        "resizable": true
+      }
+    }
+  ],
+  "Components": [
+    {
+      "name": "TimeSliderFactory",
+      "instanceFactory": true,
+      "provides": [
+        "dijit.Widget"
+      ],
+      "properties": {
+        "widgetRole": "timeSlider",
+        "timeSliderOpts": {
+          "options": {
+            "excludeDataAtLeadingThumb": false,
+            "excludeDataAtTrailingThumb": false
+          },
+          "loop": false,
+          "playing": false,
+          "thumbCount": 1,
+          "thumbMovingRate": 1000,
+          "timeStops": [],
+          "thumbIndexes": [
+            0,
+            1
+          ]
+        },
+        "sliderLayout": {
+          "timeExtent": {
+            "startTime": "1/1/1976 UTC",
+            "endTime": "12/31/1976 UTC"
+          },
+          "stops": 1,
+          "unit": "esriTimeUnitsMonths",
+          "opts": {
+            "resetStartTime": true
+          },
+          "selector": "date",
+          "datePattern": "yyyy-MM-dd"
+        },
+        "service": {
+          "id": "huricane01",
+          "layer": "0"
         }
-    ],
-    "CSS-Themes-Extension": [
+      },
+      "references": [
         {
-            "name": "*",
-            "files": ["./layout/timeslider.css"]
-        }
-    ],
-    "layout-widgets": [
+          "name": "_esriMap",
+          "providing": "esri.Map"
+        },
         {
-            "role": "timeSlider",
-            "window": {
-                "title": "Time",
-                "marginBox": {
-                    "l": 30,
-                    "b": 80,
-                    "w": 450,
-                    "h": 90
-                },
-                "dockTool": "timeSliderToggleTool",
-                "closable": true,
-                "minimizeOnClose": true,
-                "resizable": true
-            }
-        }
-    ],
-    "Components": [
+          "name": "_esriMapReference",
+          "providing": "ct.mapping.map.EsriMapReference"
+        },
         {
-            "name": "TimeSliderFactory",
-            "instanceFactory": true,
-            "provides": ["dijit.Widget"],
-            "properties": {
-                "widgetRole": "timeSlider",
-                "timeSliderOpts": {
-                    "options": {
-                        "excludeDataAtLeadingThumb": false,
-                        "excludeDataAtTrailingThumb": false
-                    },
-                    "loop": false,
-                    "playing": false,
-                    "thumbCount": 1,
-                    "thumbMovingRate": 1000,
-                    "timeStops": [],
-                    "thumbIndexes": [0, 1]
-                },
-                "sliderLayout": {
-                    "timeExtent": {
-                        "startTime": "1/1/1976 UTC",
-                        "endTime": "12/31/1976 UTC"
-                    },
-                    "stops": 1,
-                    "unit": "esriTimeUnitsMonths",
-                    "opts": {
-                        "resetStartTime": true
-                    },
-                    "selector": "date",
-                    "datePattern": "yyyy-MM-dd"
-                },
-                "service": {
-                    "id": "huricane01",
-                    "layer": "0"
-                }
-            },
-            "references": [
-                {
-                    "name": "_esriMap",
-                    "providing": "esri.Map"
-                },
-                {
-                    "name": "_esriMapReference",
-                    "providing": "ct.mapping.map.EsriMapReference"
-                }, {
-                    "name": "_mapModel",
-                    "providing": "ct.mapping.map.MapModel"
-                }
-            ]
-        }, {
-            "name": "TimeSliderToggleTool",
-            "impl": "ct/tools/Tool",
-            "provides": ["ct.tools.Tool"],
-            "propertiesConstructor": true,
-            "properties": {
-                "id": "timeSliderToggleTool",
-                "title": "${tool.title}",
-                "tooltip": "${tool.tooltip}",
-                "toolRole": "toolset",
-                "togglable": true,
-                "iconClass": "icon-time-forward"
-            }
+          "name": "_mapModel",
+          "providing": "ct.mapping.map.MapModel"
         }
-    ]
+      ]
+    },
+    {
+      "name": "TimeSliderToggleTool",
+      "impl": "ct/tools/Tool",
+      "provides": [
+        "ct.tools.Tool"
+      ],
+      "propertiesConstructor": true,
+      "properties": {
+        "id": "timeSliderToggleTool",
+        "noGroup" : true,
+        "title": "${tool.title}",
+        "tooltip": "${tool.tooltip}",
+        "toolRole": "toolset",
+        "togglable": true,
+        "iconClass": "icon-time-forward"
+      }
+    }
+  ]
 }

@@ -17,7 +17,8 @@
             "contentviewer",
             "toolset",
             "toolrules",
-            "wizard"
+            "wizard",
+            "featureinfo"
         ]
     },
     "bundles": {
