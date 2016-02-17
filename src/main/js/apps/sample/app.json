@@ -1,167 +1,171 @@
 {
-    "load": {
-        "bundleLocations": [
-            "bundles",
-            "localbundles"
-        ],
-        "allowedBundles": [
-            "system",
-            "splashscreen",
-            "templates",
-            "themes",
-            "templatelayout",
-            "map",
-            "timeslider",
-            "windowmanager",
-            "infoviewer",
-            "contentviewer",
-            "toolset",
-            "toolrules",
-            "wizard",
-            "featureinfo"
+  "load": {
+    "bundleLocations": [
+      "bundles",
+      "localbundles"
+    ],
+    "allowedBundles": [
+      "system",
+      "splashscreen",
+      "templates",
+      "themes",
+      "templatelayout",
+      "map",
+      "timeslider",
+      "windowmanager",
+      "infoviewer",
+      "contentviewer",
+      "toolset",
+      "toolrules",
+      "wizard",
+      "featureinfo"
+    ]
+  },
+  "bundles": {
+    "timeslider": {
+      "TimeSliderFactory": {
+        "timeSliderOpts": {
+          "options": {
+            "excludeDataAtLeadingThumb": true,
+            "excludeDataAtTrailingThumb": false
+          },
+          "loop": true,
+          "playing": false,
+          "thumbCount": 2,
+          "thumbMovingRate": 2000,
+          "cumulative": true
+        },
+        "sliderLayout": {
+          "timeExtent": {
+            "startTime": "2000-08-04",
+            "endTime": "2000-10-22"
+          },
+          "stops": 1,
+          "unit": "esriTimeUnitsWeeks",
+          "opts": {
+            "resetStartTime": true
+          },
+          "selector": "date",
+          "datePattern": "MMM"
+        },
+        "service": [
+          {
+            "id": "hurricane01",
+            "layer": "0"
+          }
         ]
+      }
     },
-    "bundles": {
-        "timeslider": {
-            "TimeSliderFactory": {
-                "timeSliderOpts": {
-                    "options": {
-                        "excludeDataAtLeadingThumb": true,
-                        "excludeDataAtTrailingThumb": false
-                    },
-                    "loop": true,
-                    "playing": false,
-                    "thumbCount": 2,
-                    "thumbMovingRate": 2000,
-                    "cumulative": true
+    "map": {
+      "MappingResourceRegistryFactory": {
+        "_knownServices": {
+          "services": [
+            {
+              "id": "hurricane",
+              "type": "AGS_DYNAMIC",
+              "url": "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer",
+              "layers": [
+                {
+                  "id": 0
                 },
-                "sliderLayout": {
-                    "timeExtent": {
-                        "startTime": "2000-08-04",
-                        "endTime": "2000-10-22"
-                    },
-                    "stops": 1,
-                    "unit": "esriTimeUnitsWeeks",
-                    "opts": {
-                        "resetStartTime": true
-                    },
-                    "selector": "date",
-                    "datePattern": "MMM"
-                },
-                "service": {
-                    "id": "hurricane01",
-                    "layer": "0"
+                {
+                  "id": 1
                 }
-            }
-        },
-        "map": {
-            "MappingResourceRegistryFactory": {
-                "_knownServices": {
-                    "services": [
-                        {
-                            "id": "hurricane",
-                            "type": "AGS_DYNAMIC",
-                            "url": "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer",
-                            "layers": [
-                                {
-                                    "id": 0
-                                },
-                                {
-                                    "id": 1
-                                }
-                            ]
-                        },
-                        {
-                            "id": "darkbase",
-                            "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer",
-                            "type": "AGS_TILED"
-                        }
-                    ]
-                }
+              ]
             },
-            "MapModelFactory": {
-                "_configData": {
-                    "maps": [
-                        {
-                            "id": "default",
-                            "glass_pane": [],
-                            "operationalLayer": [
-                                {
-                                    "id": "hurricane01",
-                                    "title": "Hurricane Server",
-                                    "service": "hurricane",
-                                    "layers": ["0"],
-                                    "enabled": true
-                                }
-                            ],
-                            "baseLayer": [
-                                {
-                                    "id": "background1",
-                                    "service": "darkbase",
-                                    "enabled": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            "MapWidgetFactory": {
-                "esriMapOpts": {
-                    "sliderStyle": "small",
-                    "logo": true
-                }
-            },
-            "MapState": {
-                "initialExtent": {
-                    "xmin": -18834083,
-                    "ymin": -1105585,
-                    "xmax": 733795,
-                    "ymax": 10635142,
-                    "spatialReference": {
-                        "wkid": 3857
-                    }
-                }
+            {
+              "id": "darkbase",
+              "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer",
+              "type": "AGS_TILED"
             }
-        },
-        "templates": {
-            "TemplateSelector": {
-                "componentEnabled": false
-            }
-        },
-        "themes": {
-            "ThemeSelector": {
-                "componentEnabled": false
-            }
-        },
-        "toolrules": {
-            "ToolActiveStateManager": {
-                "activateOnStartToolIds": [
-                    "timeSliderToggleTool"
-                ]
-            }
-        },
-        "toolset": {
-            "ToolsetManager": {
-                "toolsets": [
-                    {
-                        "id": "dropdown1",
-                        "title": "Werkzeuge",
-                        "tools": [
-                            "timeSliderToggleTool"
-                        ],
-                        "container": "map",
-                        "__isDirty": true,
-                        "position": {
-                            "rel_t": 20,
-                            "rel_l": 20
-                        },
-                        "cssClass": "notitle",
-                        "windowType": "fixed",
-                        "tooltip": "Werkzeuge",
-                        "max_horizontal": 1
-                    }
-                ]
-            }
+          ]
         }
+      },
+      "MapModelFactory": {
+        "_configData": {
+          "maps": [
+            {
+              "id": "default",
+              "glass_pane": [],
+              "operationalLayer": [
+                {
+                  "id": "hurricane01",
+                  "title": "Hurricane Server",
+                  "service": "hurricane",
+                  "layers": [
+                    "0"
+                  ],
+                  "enabled": true
+                }
+              ],
+              "baseLayer": [
+                {
+                  "id": "background1",
+                  "service": "darkbase",
+                  "enabled": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "MapWidgetFactory": {
+        "esriMapOpts": {
+          "sliderStyle": "small",
+          "logo": true
+        }
+      },
+      "MapState": {
+        "initialExtent": {
+          "xmin": -18834083,
+          "ymin": -1105585,
+          "xmax": 733795,
+          "ymax": 10635142,
+          "spatialReference": {
+            "wkid": 3857
+          }
+        }
+      }
+    },
+    "templates": {
+      "TemplateSelector": {
+        "componentEnabled": false
+      }
+    },
+    "themes": {
+      "ThemeSelector": {
+        "componentEnabled": false
+      }
+    },
+    "toolrules": {
+      "ToolActiveStateManager": {
+        "activateOnStartToolIds": [
+          "timeSliderToggleTool"
+        ]
+      }
+    },
+    "toolset": {
+      "ToolsetManager": {
+        "toolsets": [
+          {
+            "id": "dropdown1",
+            "title": "Werkzeuge",
+            "tools": [
+              "timeSliderToggleTool"
+            ],
+            "container": "map",
+            "__isDirty": true,
+            "position": {
+              "rel_t": 20,
+              "rel_l": 20
+            },
+            "cssClass": "notitle",
+            "windowType": "fixed",
+            "tooltip": "Werkzeuge",
+            "max_horizontal": 1
+          }
+        ]
+      }
     }
+  }
 }

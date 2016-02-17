@@ -32,8 +32,11 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/date/
                                     } else {
                                         timeSlider.setTimeStops(layout.timeStops)
                                     }
-                                    var services = properties.services;
-                                    d_array.forEach(services, function(service) {
+                                    var service = properties.service;
+                                    if(!Array.isArray(service)) {
+                                        service = [service];
+                                    }
+                                    d_array.forEach(service, function(service) {
                                         var node = this._mapModel.getNodeById(service.id + "/" + service.layer);
                                         if (!node) {
                                             throw Error("TileSliderFactory: Service/Layer not found!");
