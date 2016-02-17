@@ -1,4 +1,7 @@
 {
+  "properties": {
+    "title": "Time Slider Sample"
+  },
   "load": {
     "bundleLocations": [
       "bundles",
