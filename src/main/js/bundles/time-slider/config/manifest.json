@@ -1,87 +1,98 @@
 {
-    "Bundle-SymbolicName": "timeslider-config",
-    "Bundle-Version": "3.0.2",
-    "Bundle-Name": "${bundleName}",
-    "Bundle-Description": "${bundleDescription}",
-    "Bundle-Vendor": "con terra GmbH",
-    "Require-Bundle": [
-        {
-            "name": "dataform"
-        },
-        {
-            "name": "wizard"
+  "Bundle-SymbolicName": "timeslider-config",
+  "Bundle-Version": "3.0.2",
+  "Bundle-Name": "${bundleName}",
+  "Bundle-Description": "${bundleDescription}",
+  "Bundle-Vendor": "con terra GmbH",
+  "Require-Bundle": [
+    {
+      "name": "dataform"
+    },
+    {
+      "name": "wizard"
+    }
+  ],
+  "Components": [
+    {
+      "name": "BuilderEntry",
+      "impl": "ct/Stateful",
+      "provides": [
+        "wizard.MenuEntry"
+      ],
+      "propertiesConstructor": true,
+      "properties": {
+        "parentNodeId": "appBuilderWidgetsNode",
+        "menuNode": {
+          "title": "${menu.title}",
+          "iconUrl": "resource('styles/images/bundleIcon.png')",
+          "widget": "timeSliderBuilderWidget"
         }
-    ],
-    "Components": [
-        {
-            "name": "BuilderEntry",
-            "impl": "ct/Stateful",
-            "provides": ["wizard.MenuEntry"],
-            "propertiesConstructor": true,
-            "properties": {
-                "parentNodeId": "appBuilderWidgetsNode",
-                "menuNode": {
-                    "title": "${menu.title}",
-                    "iconUrl": "resource('styles/images/bundleIcon.png')",
-                    "widget": "timeSliderBuilderWidget"
-                }
-            }
-        },
-        {
-            "name": "BuilderWidget",
-            "impl": "wizard/DataFormBuilderWidgetFactory",
-            "provides": ["dijit.wizard.Widget"],
-            "immediate": true,
-            "instanceFactory": true,
-            "properties": {
-                "dataformFile": "resource('./DataForm.json')",
-                "bid": "timeslider",
-                "pid": "timeslider-TimeSliderFactory",
-                "id": "timeSliderBuilderWidget",
-                "defaultProperties": {
-                    "timeSliderOpts": {
-                        "options": {
-                            "excludeDataAtLeadingThumb": false,
-                            "excludeDataAtTrailingThumb": false
-                        },
-                        "loop": false,
-                        "playing": false,
-                        "thumbCount": 1,
-                        "thumbMovingRate": 1000,
-                        "timeStops": [],
-                        "thumbIndexes": [0, 1]
-                    },
-                    "sliderLayout": {
-                        "timeExtent": {
-                            "startTime": "1976-01-01",
-                            "endTime": "1976-12-31"
-                        },
-                        "stops": 1,
-                        "unit": "esriTimeUnitsMonths",
-                        "opts": {
-                            "resetStartTime": true
-                        },
-                        "selector": "date",
-                        "datePattern": "yyyy-MM-dd",
-                        "timePattern": "HH:mm:ss"
-                    },
-                    "service": {
-                        "id": "",
-                        "layer": ""
-                    }
-                },
-                "description": "${widget.description}",
-                "styleClass": "ctTimeSliderBuilderWidget"
+      }
+    },
+    {
+      "name": "BuilderWidget",
+      "impl": "wizard/DataFormBuilderWidgetFactory",
+      "provides": [
+        "dijit.wizard.Widget"
+      ],
+      "immediate": true,
+      "instanceFactory": true,
+      "properties": {
+        "dataformFile": "resource('./DataForm.json')",
+        "bid": "timeslider",
+        "pid": "timeslider-TimeSliderFactory",
+        "id": "timeSliderBuilderWidget",
+        "defaultProperties": {
+          "timeSliderOpts": {
+            "options": {
+              "excludeDataAtLeadingThumb": false,
+              "excludeDataAtTrailingThumb": false
             },
-            "references": [
-                {
-                    "name": "_configAdminService",
-                    "providing": "ct.framework.api.ConfigurationAdmin"
-                }, {
-                    "name": "_dataformService",
-                    "providing": "dataform.DataFormService"
-                }
+            "loop": false,
+            "playing": false,
+            "thumbCount": 1,
+            "thumbMovingRate": 1000,
+            "cumulative": true,
+            "timeStops": [],
+            "thumbIndexes": [
+              0,
+              1
             ]
+          },
+          "sliderLayout": {
+            "timeExtent": {
+              "startTime": "1976-01-01",
+              "endTime": "1976-12-31"
+            },
+            "stops": 1,
+            "unit": "esriTimeUnitsMonths",
+            "opts": {
+              "resetStartTime": true
+            },
+            "selector": "date",
+            "datePattern": "yyyy-MM-dd",
+            "timePattern": "HH:mm:ss"
+          },
+          "service": [
+            {
+              "id": "",
+              "layer": ""
+            }
+          ]
+        },
+        "description": "${widget.description}",
+        "styleClass": "ctTimeSliderBuilderWidget"
+      },
+      "references": [
+        {
+          "name": "_configAdminService",
+          "providing": "ct.framework.api.ConfigurationAdmin"
+        },
+        {
+          "name": "_dataformService",
+          "providing": "dataform.DataFormService"
         }
-    ]
+      ]
+    }
+  ]
 }
