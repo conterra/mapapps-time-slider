@@ -16,7 +16,6 @@
 define([
     ".",
     "./TimeSliderFactory",
-    "./TimeSliderAction",
     "ct/tools/Tool",
     "ct/mapping/mapcontent/ServiceTypes"
 ], {});

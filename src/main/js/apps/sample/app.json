@@ -16,7 +16,9 @@
       "infoviewer",
       "contentviewer",
       "toolset",
-      "toolrules"
+      "toolrules",
+      "wizard",
+      "featureinfo"
     ]
   },
   "bundles": {
@@ -46,95 +48,13 @@
           "selector": "date",
           "datePattern": "MMM"
         },
-        "service": {
-          "id": "hurricane01",
-          "layer": "0"
-        }
-      }/*,
-      "TimeSliderTools": [
-        {
-          "id": "timeSlider_1",
-          "title": "TimeSlider 1",
-          "tooltip": "TimeSlider 1",
-          "timeSliderOpts": {
-            "options": {
-              "excludeDataAtLeadingThumb": true,
-              "excludeDataAtTrailingThumb": false
-            },
-            "loop": true,
-            "playing": false,
-            "thumbCount": 1,
-            "thumbMovingRate": 2000,
-            "cumulative": false
-          },
-          "sliderLayout": {
-            "timeExtent": {
-              "startTime": "2013-01-01",
-              "endTime": "2015-01-01"
-            },
-            "stops": 1,
-            "unit": "esriTimeUnitsYears",
-            "opts": {
-              "resetStartTime": true
-            },
-            "selector": "date",
-            "datePattern": "MMM"
-          },
-          "services": [
-            {
-              "id": "bistum01",
-              "layer": "0"
-            },
-            {
-              "id": "bistum01",
-              "layer": "1"
-            },
-            {
-              "id": "bistum01",
-              "layer": "2"
-            },
-            {
-              "id": "bistum01",
-              "layer": "3"
-            }
-          ]
-        },
-        {
-          "id": "timeSlider_2",
-          "title": "TimeSlider 2",
-          "tooltip": "TimeSlider 2",
-          "timeSliderOpts": {
-            "options": {
-              "excludeDataAtLeadingThumb": true,
-              "excludeDataAtTrailingThumb": false
-            },
-            "loop": true,
-            "playing": false,
-            "thumbCount": 2,
-            "thumbMovingRate": 2000,
-            "cumulative": true
-          },
-          "sliderLayout": {
-            "timeExtent": {
-              "startTime": "2000-08-04",
-              "endTime": "2000-10-22"
-            },
-            "stops": 1,
-            "unit": "esriTimeUnitsWeeks",
-            "opts": {
-              "resetStartTime": true
-            },
-            "selector": "date",
-            "datePattern": "MMM"
-          },
-          "services": [
-            {
-              "id": "hurricane01",
-              "layer": "0"
-            }
-          ]
-        }
-      ]*/
+        "service": [
+          {
+            "id": "hurricane01",
+            "layer": "0"
+          }
+        ]
+      }
     },
     "map": {
       "MappingResourceRegistryFactory": {

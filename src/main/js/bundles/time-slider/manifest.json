@@ -1,6 +1,6 @@
 {
   "Bundle-SymbolicName": "timeslider",
-  "Bundle-Version": "3.0.3-SNAPSHOT",
+  "Bundle-Version": "3.0.2",
   "Bundle-Name": "${bundleName}",
   "Bundle-Description": "${bundleDescription}",
   "Bundle-Vendor": "con terra GmbH",
@@ -110,56 +110,6 @@
         "togglable": true,
         "iconClass": "icon-time-forward"
       }
-    }/*,
-    {
-      "name": "TimeSliderTools",
-      "impl": "ct/tools/Tool",
-      "provides": [
-        "ct.tools.Tool"
-      ],
-      "propertiesConstructor": true,
-      "componentFactory": true,
-      "properties": {
-        "title": "${tool.title}",
-        "tooltip": "${tool.tooltip}",
-        "iconClass": "icon-time-forward",
-        "toolRole": "toolset",
-        "togglable": true,
-        "activateHandler": "activateTool",
-        "deactivateHandler": "deactivateTool"
-      },
-      "references": [
-        {
-          "name": "handlerScope",
-          "providing": "timeslider.TimeSliderAction"
-        }
-      ]
-    },
-    {
-      "name": "TimeSliderAction",
-      "provides": [
-        "timeslider.TimeSliderAction"
-      ],
-      "properties": {
-      },
-      "references": [
-        {
-          "name": "_esriMap",
-          "providing": "esri.Map"
-        },
-        {
-          "name": "_esriMapReference",
-          "providing": "ct.mapping.map.EsriMapReference"
-        },
-        {
-          "name": "_mapModel",
-          "providing": "ct.mapping.map.MapModel"
-        },
-        {
-          "name": "_windowManager",
-          "providing": "ct.framework.api.WindowManager"
-        }
-      ]
-    }*/
+    }
   ]
 }
