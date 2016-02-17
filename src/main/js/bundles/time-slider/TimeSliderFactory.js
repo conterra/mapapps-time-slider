@@ -32,15 +32,17 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/date/
                                     } else {
                                         timeSlider.setTimeStops(layout.timeStops)
                                     }
-                                    var service = properties.service;
-                                    var node = this._mapModel.getNodeById(service.id + "/" + service.layer);
-                                    if (!node) {
-                                        throw Error("TileSliderFactory: Service/Layer not found!");
-                                    }
-                                    if (node.get("type") === ServiceTypes.AGS_FEATURE) {
-                                        var esriLayer = this._esriMapReference.getEsriLayer(node);
-                                        esriLayer.setTimeDefinition(timeExtent);
-                                    }
+                                    var services = properties.services;
+                                    d_array.forEach(services, function(service) {
+                                        var node = this._mapModel.getNodeById(service.id + "/" + service.layer);
+                                        if (!node) {
+                                            throw Error("TileSliderFactory: Service/Layer not found!");
+                                        }
+                                        if (node.get("type") === ServiceTypes.AGS_FEATURE) {
+                                            var esriLayer = this._esriMapReference.getEsriLayer(node);
+                                            esriLayer.setTimeDefinition(timeExtent);
+                                        }
+                                    }, this);
                                 }
                                 timeSlider.setThumbIndexes(timeSliderOpts.thumbIndexes || [0, 1]);
                                 timeSlider.setThumbMovingRate(timeSliderOpts.thumbMovingRate || 1000);

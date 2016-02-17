@@ -103,7 +103,7 @@
       "propertiesConstructor": true,
       "properties": {
         "id": "timeSliderToggleTool",
-        "noGroup" : true,
+        "noGroup": true,
         "title": "${tool.title}",
         "tooltip": "${tool.tooltip}",
         "toolRole": "toolset",
