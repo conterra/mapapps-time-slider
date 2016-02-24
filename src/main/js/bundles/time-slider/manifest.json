@@ -56,6 +56,7 @@
           "thumbCount": 1,
           "thumbMovingRate": 1000,
           "timeStops": [],
+          "cumulative": true,
           "thumbIndexes": [
             0,
             1
