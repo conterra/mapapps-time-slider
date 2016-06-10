@@ -41,7 +41,7 @@ define({
                 }
             },
             loop: {title: "Loop", tooltip: "Start again when end is reached"},
-            playing: {title: "Playing", tooltip: "Automatically start playing"},
+            playOnStartup: {title: "Play on start", tooltip: "Automatically start playing"},
             timeStops: {
                 title: "Time stops",
                 tooltip: "Time stops of slider. If left empty time stops will be calculated from start to end date with given stop number."

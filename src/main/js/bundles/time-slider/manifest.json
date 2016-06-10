@@ -52,11 +52,11 @@
             "excludeDataAtTrailingThumb": false
           },
           "loop": false,
-          "playing": false,
+          "playOnStartup": false,
           "thumbCount": 1,
           "thumbMovingRate": 1000,
-          "timeStops": [],
           "cumulative": true,
+          "timeStops": [],
           "thumbIndexes": [
             0,
             1
@@ -64,16 +64,14 @@
         },
         "sliderLayout": {
           "timeExtent": {
-            "startTime": "1/1/1976 UTC",
-            "endTime": "12/31/1976 UTC"
+            "startTime": "1976-01-01",
+            "endTime": "1976-12-31"
           },
           "stops": 1,
           "unit": "esriTimeUnitsMonths",
-          "opts": {
-            "resetStartTime": true
-          },
           "selector": "date",
-          "datePattern": "yyyy-MM-dd"
+          "datePattern": "yyyy-MM-dd",
+          "timePattern": "HH:mm:ss"
         },
         "service": {
           "id": "huricane01",

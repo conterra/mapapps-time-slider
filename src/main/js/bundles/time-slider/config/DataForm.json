@@ -3,20 +3,6 @@
   "type": "gridpanel",
   "showLabels": true,
   "children": [
-    /*{
-      "type": "textbox",
-      "field": "service.id",
-      "title": "${widget.serviceId.title}",
-      "tooltip": "${widget.serviceId.tooltip}",
-      "required": true
-    },
-    {
-      "type": "textbox",
-      "field": "service.layer",
-      "title": "${widget.layerId.title}",
-      "tooltip": "${widget.layerId.tooltip}",
-      "required": true
-    },*/
     {
       "type": "datetextbox",
       "field": "sliderLayout.timeExtent.startTime",
@@ -109,12 +95,12 @@
       "title": "${widget.loop.title}",
       "tooltip": "${widget.loop.tooltip}"
     },
-    /*{
-        "type": "checkbox",
-        "field": "timeSliderOpts.playing",
-        "title": "${widget.playing.title}",
-        "tooltip": "${widget.playing.tooltip}"
-    },*/
+    {
+      "type": "checkbox",
+      "field": "timeSliderOpts.playOnStartup",
+      "title": "${widget.playOnStartup.title}",
+      "tooltip": "${widget.playOnStartup.tooltip}"
+    },
     {
       "type": "numberspinner",
       "min": 1,
@@ -138,13 +124,6 @@
       "tooltip": "${widget.thumbMovingRate.tooltip}",
       "required": true
     },
-    /*{
-        "type": "textarea",
-        "field": "timeSliderOpts.timeStops",
-        "title": "${widget.timeStops.title}",
-        "tooltip": "${widget.timeStops.tooltip}",
-        "required" : false
-    },*/
     {
       "type": "checkbox",
       "field": "timeSliderOpts.options.excludeDataAtLeadingThumb",

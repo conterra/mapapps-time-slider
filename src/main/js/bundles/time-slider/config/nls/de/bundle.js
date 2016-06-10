@@ -40,9 +40,9 @@ define({
             }
         },
         loop: {title: "Wiederholen", tooltip: "Wiederholt die Wiedergabe"},
-        playing: {title: "Abspielen", tooltip: "Beginnt das Abspielen automatisch"},
+        playOnStartup: {title: "Abspielen", tooltip: "Beginnt das Abspielen automatisch"},
         timeStops: {
-            title: "Skale",
+            title: "Skala",
             tooltip: "Skala des Time Sliders. Wenn nicht definiert, wird die Skala automatisch aus dem Start- und Enddatum sowie der Unterbrechungsanzahl berechnet."
         },
         thumbMovingRate: {title: "Animationsgeschwindigkeit", tooltip: "Geschwindigkeit der Animation [ms]."},

@@ -33,10 +33,10 @@
             "excludeDataAtTrailingThumb": false
           },
           "loop": true,
-          "playing": false,
+          "playOnStartup": true,
           "thumbCount": 2,
           "thumbMovingRate": 2000,
-          "cumulative": true
+          "cumulative": false
         },
         "sliderLayout": {
           "timeExtent": {
@@ -45,9 +45,6 @@
           },
           "stops": 1,
           "unit": "esriTimeUnitsWeeks",
-          "opts": {
-            "resetStartTime": true
-          },
           "selector": "date",
           "datePattern": "MMM"
         },
@@ -61,7 +58,7 @@
     },
     "banner": {
       "BannerWidget": {
-        "image": "https://conterra.de/~/media/conterra/images/site_logos/conterra-logo.ashx",
+        "image": "https://www.conterra.de/~/media/conterra/images/site_logos/conterra-logo.ashx",
         "imagePosition": "above",
         "link": "http://conterra.de"
       }
@@ -73,7 +70,7 @@
             {
               "id": "hurricane",
               "type": "AGS_DYNAMIC",
-              "url": "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer",
+              "url": "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer",
               "layers": [
                 {
                   "id": 0
@@ -85,7 +82,7 @@
             },
             {
               "id": "darkbase",
-              "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer",
+              "url": "https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer",
               "type": "AGS_TILED"
             }
           ]
