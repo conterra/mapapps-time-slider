@@ -36,7 +36,11 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                                 service = [service];
                             }
                             d_array.forEach(service, function (service) {
-                                var node = this._mapModel.getNodeById(service.id + "/" + service.layer);
+                                var mapModelNodeId = service.id;
+                                if (service.layer) {
+                                    mapModelNodeId = mapModelNodeId + "/" + service.layer;
+                                }
+                                var node = this._mapModel.getNodeById(mapModelNodeId);
                                 if (!node) {
                                     throw Error("TileSliderFactory: Service/Layer not found!");
                                 }
