@@ -4,8 +4,8 @@
   },
   "load": {
     "bundleLocations": [
-      "bundles",
-      "localbundles"
+      "localbundles",
+      "bundles"
     ],
     "allowedBundles": [
       "system",
@@ -73,10 +73,14 @@
               "url": "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer",
               "layers": [
                 {
-                  "id": 0
+                  "id": "0",
+                  "title": "Atlantic Hurricanes 2000",
+                  "enabled": true
                 },
                 {
-                  "id": 1
+                  "id": "1",
+                  "title": "Hurricane Track",
+                  "enabled": true
                 }
               ]
             },
