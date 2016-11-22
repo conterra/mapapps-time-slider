@@ -1,6 +1,7 @@
 {
   "properties": {
-    "title": "Time Slider Sample"
+    "title": "Time Slider Sample",
+     "amdPackages": "apprt@^3.2.1"
   },
   "load": {
     "bundleLocations": [
@@ -8,20 +9,20 @@
       "bundles"
     ],
     "allowedBundles": [
-      "system",
-      "splashscreen",
-      "templates",
-      "themes",
-      "templatelayout",
-      "map",
+      "system@^3.2.1",
+      "splashscreen@^3.2.1",
+      "templates@^3.2.1",
+      "themes@^3.2.1",
+      "templatelayout@^3.2.1",
+      "map@^3.2.1",
       "timeslider",
-      "windowmanager",
-      "infoviewer",
-      "contentviewer",
-      "toolset",
-      "toolrules",
-      "featureinfo",
-      "banner"
+      "windowmanager@^3.2.1",
+      "infoviewer@^3.2.1",
+      "contentviewer@^3.2.1",
+      "toolset@^3.2.1",
+      "toolrules@^3.2.1",
+      "featureinfo@^3.2.1",
+      "banner@^3.2.1"
     ]
   },
   "bundles": {

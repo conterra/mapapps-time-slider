@@ -8,7 +8,8 @@
   "Config-Bundle-Location": "/config",
   "Require-Bundle": [
     {
-      "name": "map"
+      "name": "map",
+      "version": "^3.2.1"
     }
   ],
   "CSS-Themes-Extension": [
