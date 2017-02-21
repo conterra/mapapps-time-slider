@@ -4,7 +4,7 @@
   "Bundle-Name": "${bundleName}",
   "Bundle-Description": "${bundleDescription}",
   "Bundle-Vendor": "con terra GmbH",
-    "Product-Name": "devnet-mapapps-time-slider",
+  "Product-Name": "devnet-mapapps-time-slider",
   "Config-Bundle-Location": "/config",
   "Require-Bundle": [
     {
@@ -24,10 +24,8 @@
     {
       "role": "timeSlider",
       "window": {
-        "title": "Time",
+        "title": "${tool.title}",
         "marginBox": {
-          "l": 30,
-          "b": 80,
           "w": 450,
           "h": 90
         },

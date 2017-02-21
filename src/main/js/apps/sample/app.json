@@ -1,7 +1,7 @@
 {
   "properties": {
     "title": "Time Slider Sample",
-     "amdPackages": "apprt@^3.2.1"
+    "amdPackages": "apprt@^3.2.1"
   },
   "load": {
     "bundleLocations": [
@@ -143,6 +143,27 @@
     "templates": {
       "TemplateSelector": {
         "componentEnabled": false
+      },
+      "TemplateModel": {
+        "_selectedTemplate": "seasons",
+        "_templates": [
+          {
+            "name": "seasons",
+            "widgets": [
+              {
+              "widgetRole": "timeSlider",
+                "window": {
+                  "marginBox": {
+                    "l": 30,
+                    "b": 80,
+                    "w": 450,
+                    "h": 90
+                  }
+                }
+              }
+            ]
+          }
+        ]
       }
     },
     "themes": {
