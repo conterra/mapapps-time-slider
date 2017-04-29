@@ -1,9 +1,12 @@
 # Time Slider Bundle
 The Time Slider bundle allows you to use the Esri time slider to display map content related to times.
 
-### Sample App ###
+Sample App
+------------------
 http://www.mapapps.de/mapapps/resources/apps/downloads_timeslider/index.html
 
+Development Guide
+------------------
 ### Define the mapapps remote base
 Before you can run the project you have to define the mapapps.remote.base property in the pom.xml-file:
 `<mapapps.remote.base>http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%</mapapps.remote.base>`
