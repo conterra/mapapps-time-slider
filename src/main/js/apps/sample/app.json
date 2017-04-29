@@ -15,14 +15,15 @@
       "themes@^3.2.1",
       "templatelayout@^3.2.1",
       "map@^3.2.1",
-      "timeslider",
       "windowmanager@^3.2.1",
       "infoviewer@^3.2.1",
       "contentviewer@^3.2.1",
       "toolset@^3.2.1",
       "toolrules@^3.2.1",
       "featureinfo@^3.2.1",
-      "banner@^3.2.1"
+      "banner@^3.2.1",
+      "custominfo@^3.2.1",
+      "timeslider"
     ]
   },
   "bundles": {
@@ -64,6 +65,36 @@
         "imagePosition": "above",
         "link": "http://developernetwork.conterra.de"
       }
+    },
+    "custominfo": {
+      "CustomInfoToggleTool": [
+        {
+          "id": "customInfoTool",
+          "activateOnStartup": true,
+          "title": "Information",
+          "tooltip": "Information",
+          "iconClass": "icon-custom-info-info",
+          "toolClass": "ctInfo",
+          "togglable": true,
+          "widgetSettings": {
+            "content": "This app shows the functionality of the Time Slider bundle which allows you to use the Esri time slider to display map content related to times. <br><br> Please click in the play button to start the timeslider.",
+            "window": {
+              "title": "Information",
+              "marginBox": {
+                "w": 300,
+                "h": 120,
+                "l": 25,
+                "b": 200
+              },
+              "draggable": true,
+              "closable": true,
+              "modal": false,
+              "maximizable": false,
+              "resizable": false
+            }
+          }
+        }
+      ]
     },
     "map": {
       "MappingResourceRegistryFactory": {
@@ -151,7 +182,7 @@
             "name": "seasons",
             "widgets": [
               {
-              "widgetRole": "timeSlider",
+                "widgetRole": "timeSlider",
                 "window": {
                   "marginBox": {
                     "l": 30,
