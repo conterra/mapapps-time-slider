@@ -23,11 +23,12 @@
       "featureinfo@^3.2.1",
       "banner@^3.2.1",
       "custominfo@^3.2.1",
-      "timeslider"
+      "dn_timeslider",
+      "wizard"
     ]
   },
   "bundles": {
-    "timeslider": {
+    "dn_timeslider": {
       "TimeSliderFactory": {
         "timeSliderOpts": {
           "options": {
@@ -182,7 +183,7 @@
             "name": "seasons",
             "widgets": [
               {
-                "widgetRole": "timeSlider",
+                "widgetRole": "timeSliderWidget",
                 "window": {
                   "marginBox": {
                     "l": 30,

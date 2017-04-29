@@ -58,10 +58,9 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                             selector: layout.selector || "date time",
                             datePattern: layout.datePattern || "yyyy-MM-dd",
                             timePattern: layout.timePattern || "HH:mm:ss"
-                        }
+                        };
                         var labels = d_array.map(timeSlider.timeStops, function (timeStop) {
-                            var timeStopString = d_locale.format(timeStop, opts);
-                            return timeStopString;
+                            return d_locale.format(timeStop, opts);
                         }, this);
                         timeSlider.setLabels(labels);
                         timeSlider.singleThumbAsTimeInstant(!timeSliderOpts.cumulative || false);

@@ -41,8 +41,8 @@
       "instanceFactory": true,
       "properties": {
         "dataformFile": "resource('./DataForm.json')",
-        "bid": "timeslider",
-        "pid": "timeslider-TimeSliderFactory",
+        "bid": "dn_timeslider",
+        "pid": "dn_timeslider-TimeSliderFactory",
         "id": "timeSliderBuilderWidget",
         "defaultProperties": {
           "timeSliderOpts": {

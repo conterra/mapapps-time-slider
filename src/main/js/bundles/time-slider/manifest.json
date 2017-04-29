@@ -1,5 +1,5 @@
 {
-  "Bundle-SymbolicName": "timeslider",
+  "Bundle-SymbolicName": "dn_timeslider",
   "Bundle-Version": "3.0.5-SNAPSHOT",
   "Bundle-Name": "${bundleName}",
   "Bundle-Description": "${bundleDescription}",
@@ -22,7 +22,7 @@
   ],
   "layout-widgets": [
     {
-      "role": "timeSlider",
+      "role": "timeSliderWidget",
       "window": {
         "title": "${tool.title}",
         "marginBox": {
@@ -44,7 +44,7 @@
         "dijit.Widget"
       ],
       "properties": {
-        "widgetRole": "timeSlider",
+        "widgetRole": "timeSliderWidget",
         "timeSliderOpts": {
           "options": {
             "excludeDataAtLeadingThumb": false,
