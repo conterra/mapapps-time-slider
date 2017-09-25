@@ -23,33 +23,30 @@
       "featureinfo@^3.2.1",
       "banner@^3.2.1",
       "custominfo@^3.2.1",
-      "dn_timeslider",
-      "wizard"
+      "dn_timeslider"
     ]
   },
   "bundles": {
     "dn_timeslider": {
       "TimeSliderFactory": {
-        "timeSliderOpts": {
-          "options": {
-            "excludeDataAtLeadingThumb": true,
-            "excludeDataAtTrailingThumb": false
-          },
+        "timeSliderOptions": {
+          "excludeDataAtLeadingThumb": true,
+          "excludeDataAtTrailingThumb": false,
           "loop": true,
           "playOnStartup": true,
           "thumbCount": 2,
           "thumbMovingRate": 2000,
-          "cumulative": false
+          "cumulative": false,
+          "labelSelector": "date",
+          "labelDatePattern": "MMM"
         },
-        "sliderLayout": {
+        "timeStopsOptions": {
           "timeExtent": {
             "startTime": "2000-08-04",
             "endTime": "2000-10-22"
           },
-          "stops": 1,
-          "unit": "esriTimeUnitsWeeks",
-          "selector": "date",
-          "datePattern": "MMM"
+          "timeIntervalLength": 1,
+          "timeIntervalUnits": "esriTimeUnitsWeeks"
         },
         "service": [
           {

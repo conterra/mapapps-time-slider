@@ -45,36 +45,35 @@
       ],
       "properties": {
         "widgetRole": "timeSliderWidget",
-        "timeSliderOpts": {
-          "options": {
-            "excludeDataAtLeadingThumb": false,
-            "excludeDataAtTrailingThumb": false
-          },
+        "timeSliderOptions": {
+          "excludeDataAtLeadingThumb": false,
+          "excludeDataAtTrailingThumb": false,
           "loop": false,
           "playOnStartup": false,
+          "cumulative": true,
           "thumbCount": 1,
           "thumbMovingRate": 1000,
-          "cumulative": true,
-          "timeStops": [],
           "thumbIndexes": [
             0,
             1
-          ]
+          ],
+          "labelSelector": "date time",
+          "labelDatePattern": "yyyy-MM-dd",
+          "labelTimePattern": "HH:mm:ss"
         },
-        "sliderLayout": {
+        "timeStopsOptions": {
+          "timeStops": [],
           "timeExtent": {
             "startTime": "1976-01-01",
             "endTime": "1976-12-31"
           },
-          "stops": 1,
-          "unit": "esriTimeUnitsMonths",
-          "selector": "date",
-          "datePattern": "yyyy-MM-dd",
-          "timePattern": "HH:mm:ss"
+          "timeIntervalCount": null,
+          "timeIntervalLength": 1,
+          "timeIntervalUnits": "esriTimeUnitsDays"
         },
         "service": {
-          "id": "huricane01",
-          "layer": "0"
+          "id": "service_id",
+          "layer": "layer_id"
         }
       },
       "references": [

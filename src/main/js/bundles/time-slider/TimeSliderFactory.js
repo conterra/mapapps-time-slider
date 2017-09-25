@@ -19,56 +19,76 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
             {
                 activate: function () {
                     var properties = this._properties;
-                    var timeSliderOpts = d_lang.mixin({}, properties.timeSliderOpts || {});
+                    var timeSliderOptions = d_lang.mixin({}, properties.timeSliderOptions || {});
                     try {
-                        var timeSlider = this._timeSlider = new TimeSlider(timeSliderOpts);
-                        var layout = properties.sliderLayout;
+                        // create esri layer object
+                        var timeSlider = this._timeSlider = new TimeSlider({
+                            excludeDataAtLeadingThumb: timeSliderOptions.excludeDataAtLeadingThumb,
+                            excludeDataAtTrailingThumb: timeSliderOptions.excludeDataAtTrailingThumb
+                        });
                         this._esriMap.setTimeSlider(timeSlider);
-                        if (layout) {
-                            var timeExtent = layout.timeExtent ? geometry.createTimeExtent(layout.timeExtent) : null;
-                            if (!layout.timeStops) {
-                                timeSlider.createTimeStopsByTimeInterval(timeExtent, layout.stops, layout.unit, layout.opts || {});
+
+                        // create time stops
+                        var timeStopsOptions = properties.timeStopsOptions;
+                        if (timeStopsOptions) {
+                            // create time extent
+                            var timeExtent = timeStopsOptions.timeExtent ? geometry.createTimeExtent(timeStopsOptions.timeExtent) : null;
+                            if (timeStopsOptions.timeStops && timeStopsOptions.timeStops.length > 0) {
+                                var timeStops = d_array.map(timeStopsOptions.timeStops, function (time) {
+                                    return new Date(time);
+                                });
+                                timeSlider.setTimeStops(timeStops);
+                            } else if (timeStopsOptions.timeIntervalCount && timeStopsOptions.timeIntervalCount > 1) {
+                                timeSlider.createTimeStopsByCount(timeExtent, timeStopsOptions.timeIntervalCount);
                             } else {
-                                timeSlider.setTimeStops(layout.timeStops)
+                                timeSlider.createTimeStopsByTimeInterval(timeExtent, timeStopsOptions.timeIntervalLength, timeStopsOptions.timeIntervalUnits || {});
                             }
-                            var service = properties.service;
-                            if (!Array.isArray(service)) {
-                                service = [service];
-                            }
-                            d_array.forEach(service, function (service) {
-                                var mapModelNodeId = service.id;
-                                if (service.layer) {
-                                    mapModelNodeId = mapModelNodeId + "/" + service.layer;
-                                }
-                                var node = this._mapModel.getNodeById(mapModelNodeId);
-                                if (!node) {
-                                    throw Error("TileSliderFactory: Service/Layer not found!");
-                                }
-                                if (node.get("type") === ServiceTypes.AGS_FEATURE) {
-                                    var esriLayer = this._esriMapReference.getEsriLayer(node);
-                                    esriLayer.setTimeDefinition(timeExtent);
-                                }
-                            }, this);
                         }
-                        timeSlider.setThumbCount(timeSliderOpts.thumbCount || 1);
-                        timeSlider.setThumbIndexes(timeSliderOpts.thumbIndexes || [0, 1]);
-                        timeSlider.setThumbMovingRate(timeSliderOpts.thumbMovingRate || 1000);
-                        timeSlider.setLoop(timeSliderOpts.loop || false);
+
+                        // set properties
+                        timeSlider.setThumbCount(timeSliderOptions.thumbCount || 1);
+                        timeSlider.setThumbIndexes(timeSliderOptions.thumbIndexes || [0, 1]);
+                        timeSlider.setThumbMovingRate(timeSliderOptions.thumbMovingRate || 1000);
+                        timeSlider.setLoop(timeSliderOptions.loop || false);
+                        timeSlider.singleThumbAsTimeInstant(!timeSliderOptions.cumulative);
+
+                        // create labels
                         var opts = {
-                            selector: layout.selector || "date time",
-                            datePattern: layout.datePattern || "yyyy-MM-dd",
-                            timePattern: layout.timePattern || "HH:mm:ss"
+                            selector: timeSliderOptions.labelSelector || "date time",
+                            datePattern: timeSliderOptions.labelDatePattern || "yyyy-MM-dd",
+                            timePattern: timeSliderOptions.labelTtimePattern || "HH:mm:ss"
                         };
                         var labels = d_array.map(timeSlider.timeStops, function (timeStop) {
                             return d_locale.format(timeStop, opts);
                         }, this);
                         timeSlider.setLabels(labels);
-                        timeSlider.singleThumbAsTimeInstant(!timeSliderOpts.cumulative || false);
-                        if (timeSliderOpts.playOnStartup) {
+
+                        // start timeslider on startup
+                        if (timeSliderOptions.playOnStartup) {
                             d_aspect.after(timeSlider, "startup", function () {
                                 timeSlider.play();
                             });
                         }
+
+                        // get service / services
+                        var service = properties.service;
+                        if (!Array.isArray(service)) {
+                            service = [service];
+                        }
+                        d_array.forEach(service, function (service) {
+                            var mapModelNodeId = service.id;
+                            if (service.layer) {
+                                mapModelNodeId = mapModelNodeId + "/" + service.layer;
+                            }
+                            var node = this._mapModel.getNodeById(mapModelNodeId);
+                            if (!node) {
+                                throw Error("TileSliderFactory: Service/Layer not found!");
+                            }
+                            if (node.get("type") === ServiceTypes.AGS_FEATURE) {
+                                var esriLayer = this._esriMapReference.getEsriLayer(node);
+                                esriLayer.setTimeDefinition(timeExtent);
+                            }
+                        }, this);
                     } catch (e) {
                         throw Error("TileSliderFactory: Cannot create time slider!", e);
                     }
