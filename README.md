@@ -3,7 +3,99 @@ The Time Slider bundle allows you to use the Esri time slider to display map con
 
 Sample App
 ------------------
-http://www.mapapps.de/mapapps/resources/apps/downloads_timeslider/index.html
+https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider/index.html
+
+Installation Guide
+------------------
+**Requirement: map.apps 3.2.1**
+
+1. First, you need to add the bundle "dn_timeslider" to your app.
+2. After that, add a service that supports time-aware layers.
+3. Finally you can configure your time slider.
+
+#### Configurable Components of dn_timeslider:
+
+##### TimeSliderFactory:
+```
+"dn_timeslider": {
+    "TimeSliderFactory": {
+        "timeSliderOptions": {
+            // When true, subtracts one second to the time extent's end time to exclude data at the exact end time instant.
+            "excludeDataAtLeadingThumb": false,
+            // When true, adds one second to the time extent's start time to exclude data at the exact start time instant.
+            "excludeDataAtTrailingThumb": false,
+            // Determines whether or not loop.
+            "loop": false,
+            // Play the time slider on startup.
+            "playOnStartup": false,
+            // When true cumulative data is displayed from the start time to the current thumb location.
+            "cumulative": false,
+            // The number of thumbs to display.
+            "thumbCount": 1,
+            // Change the rate at which the time animation plays.
+            "thumbMovingRate": 1000,
+            // Array of two integers, the first value determines where to put the first thumb.
+            "thumbIndexes": [
+                0,
+                1
+            ],
+            // Dojo locale settings to format date labels.
+            // Choice of ‘time’,’date’ (default: date and time).
+            "labelSelector": "date time",
+            // Override pattern with this string.
+            "labelDatePattern": "yyyy-MM-dd",
+            // Override pattern with this string.
+            "labelTimePattern": "HH:mm:ss"
+        },
+        "timeStopsOptions": {
+            // Explained in the next section.
+        },
+        // Add here services that can be controlled by the timeslider.
+        "service": [
+            {
+                "id": "hurricane01",
+                "layer": "0"
+            }
+        ]
+    }
+}
+```
+
+##### There are three ways to define the time stops:
+###### 1. Use predefined time tops
+```
+"timeStopsOptions": {
+    "timeStops": [
+        "2000-08-04",
+        "2000-08-20",
+        "2000-09-02",
+        "2000-09-24",
+        "2000-10-06",
+        "2000-10-22"
+    ]
+}
+```
+###### 2. Use time tops count
+```
+"timeStopsOptions": {
+    "timeExtent": {
+        "startTime": "2000-08-04",
+        "endTime": "2000-10-22"
+    },
+    "timeIntervalCount": 10
+}
+```
+###### 3. Use time interval
+```
+"timeStopsOptions": {
+    "timeExtent": {
+        "startTime": "2000-08-04",
+        "endTime": "2000-10-22"
+    },
+    "timeIntervalLength": 1,
+    "timeIntervalUnits": "esriTimeUnitsWeeks"
+}
+```
 
 Development Guide
 ------------------
