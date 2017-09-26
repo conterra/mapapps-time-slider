@@ -50,7 +50,7 @@
           "excludeDataAtTrailingThumb": false,
           "loop": false,
           "playOnStartup": false,
-          "cumulative": true,
+          "cumulative": false,
           "thumbCount": 1,
           "thumbMovingRate": 1000,
           "thumbIndexes": [
