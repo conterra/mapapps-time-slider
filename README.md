@@ -96,6 +96,19 @@ Installation Guide
     "timeIntervalUnits": "esriTimeUnitsWeeks"
 }
 ```
+###### Possible values for timeIntervalUnits:
+
+- esriTimeUnitsCenturies
+- esriTimeUnitsDays
+- esriTimeUnitsDecades
+- esriTimeUnitsHours
+- esriTimeUnitsMilliseconds
+- esriTimeUnitsMinutes
+- esriTimeUnitsMonths
+- esriTimeUnitsSeconds
+- esriTimeUnitsUnknown
+- esriTimeUnitsWeeks
+- esriTimeUnitsYears
 
 Development Guide
 ------------------
