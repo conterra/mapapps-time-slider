@@ -61,8 +61,8 @@ Installation Guide
 }
 ```
 
-##### There are three ways to define the time stops:
-###### 1. Use predefined time tops
+##### There are four ways to define the time stops:
+###### 1. Use predefined time stops
 ```
 "timeStopsOptions": {
     "timeStops": [
@@ -75,7 +75,87 @@ Installation Guide
     ]
 }
 ```
-###### 2. Use time tops count
+###### 2. Use Moment.js to define time stops
+You can use Moment.js functions to create time stops. Have a look at the Modify.js documentation to get more information: https://momentjs.com/docs/#/manipulating/
+```
+"momentTimeStops": {
+    // Add a new time stop to now, but with 0 mins, 0 secs, and 0 ms and add 30 minutes
+    [
+        {
+            "method": "startOf",
+            "args": [
+                "hour"
+            ]
+        },
+        {
+            "method": "add",
+            "args": [
+                30,
+                "minutes"
+            ]
+        }
+    ],
+    // add a new time stop one hour later than the previous time stop
+    {
+        "method": "add",
+        "args": [
+            1,
+            "hours"
+        ]
+    },
+    // add a new time stop one hour and 30 minutes later than the previous time stop
+    [
+        {
+            "method": "add",
+            "args": [
+                1,
+                "hours"
+            ]
+        },
+        {
+            "method": "add",
+            "args": [
+                30,
+                "minutes"
+            ]
+        }
+    ],
+    // add a new time stop 1 hours and 35 minutes later than the previous time stop
+    [
+        {
+            "method": "add",
+            "args": [
+                1,
+                "hours"
+            ]
+        },
+        {
+            "method": "subtract",
+            "args": [
+                25,
+                "minutes"
+            ]
+        }
+    ],
+    // add a new time stop one hour before the end of the day
+    [
+        {
+            "method": "endOf",
+            "args": [
+                "day"
+            ]
+        },
+        {
+            "method": "subtract",
+            "args": [
+                1,
+                "hour"
+            ]
+        }
+    ]
+}
+```
+###### 3. Use time tops count
 ```
 "timeStopsOptions": {
     "timeExtent": {
@@ -85,7 +165,7 @@ Installation Guide
     "timeIntervalCount": 10
 }
 ```
-###### 3. Use time interval
+###### 4. Use time interval
 ```
 "timeStopsOptions": {
     "timeExtent": {

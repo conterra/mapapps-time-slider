@@ -63,10 +63,7 @@
         },
         "timeStopsOptions": {
           "timeStops": [],
-          "momentTimeStopsOptions": {
-            "initialMomentTimeStop": [],
-            "furtherMomentTimeStops": []
-          },
+          "momentTimeStops": [],
           "timeExtent": {
             "startTime": "1976-01-01",
             "endTime": "1976-12-31"

@@ -38,32 +38,25 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                                     return new Date(time);
                                 });
                                 timeSlider.setTimeStops(timeStops);
-                            } else if (timeStopsOptions.momentTimeStopsOptions) {
-                                var momentTimeStops = [];
+                            } else if (timeStopsOptions.momentTimeStops) {
+                                var mTimeStops = [];
                                 var momentObj = moment();
-                                var momentTimeStopsOptions = timeStopsOptions.momentTimeStopsOptions;
-                                if (!momentTimeStopsOptions.initialMomentTimeStop) {
-                                    // do nothing
-                                } else if (Array.isArray(momentTimeStopsOptions.initialMomentTimeStop)) {
-                                    d_array.forEach(momentTimeStopsOptions.initialMomentTimeStop, function (timeStop) {
-                                        momentObj[timeStop.method].apply(momentObj, timeStop.args);
-                                    });
-                                } else {
-                                    momentObj[momentTimeStopsOptions.initialMomentTimeStop.method].apply(momentObj, momentTimeStopsOptions.initialMomentTimeStop.args);
-                                }
-                                momentTimeStops.push(momentObj.toDate());
-                                d_array.forEach(momentTimeStopsOptions.furtherMomentTimeStops, function (timeStop) {
-                                    if (Array.isArray(timeStop)) {
+                                var momentTimeStops = timeStopsOptions.momentTimeStops;
+                                d_array.forEach(momentTimeStops, function (timeStop) {
+                                    if (!timeStop) {
+                                        // do nothing
+                                    } else if (Array.isArray(timeStop)) {
                                         d_array.forEach(timeStop, function (time) {
                                             momentObj[time.method].apply(momentObj, time.args);
                                         });
                                     } else {
                                         momentObj[timeStop.method].apply(momentObj, timeStop.args);
                                     }
-                                    momentTimeStops.push(momentObj.toDate());
+                                    mTimeStops.push(momentObj.toDate());
                                 });
-                                timeSlider.setTimeStops(momentTimeStops);
-                            } else if (timeStopsOptions.timeIntervalCount && timeStopsOptions.timeIntervalCount > 1) {
+                                timeSlider.setTimeStops(mTimeStops);
+                            }
+                            else if (timeStopsOptions.timeIntervalCount && timeStopsOptions.timeIntervalCount > 1) {
                                 timeSlider.createTimeStopsByCount(timeExtent, timeStopsOptions.timeIntervalCount);
                             } else {
                                 timeSlider.createTimeStopsByTimeInterval(timeExtent, timeStopsOptions.timeIntervalLength, timeStopsOptions.timeIntervalUnits || {});
@@ -110,13 +103,18 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                                 esriLayer.setTimeDefinition(timeExtent);
                             }
                         }, this);
-                    } catch (e) {
+                    } catch
+                        (e) {
                         throw Error("TileSliderFactory: Cannot create time slider!", e);
                     }
                 },
-                createInstance: function () {
-                    return this._timeSlider;
-                },
+                createInstance:
+
+                    function () {
+                        return this._timeSlider;
+                    }
+
+                ,
                 deactivate: function () {
                     var timeSlider = this._timeSlider;
                     var esriMap = this._esriMap;
@@ -132,5 +130,7 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                         this._timeSlider = null;
                     }
                 }
-            });
-    });
+            })
+            ;
+    })
+;
