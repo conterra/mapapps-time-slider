@@ -63,6 +63,10 @@
         },
         "timeStopsOptions": {
           "timeStops": [],
+          "momentTimeStopsOptions": {
+            "initialMomentTimeStop": [],
+            "furtherMomentTimeStops": []
+          },
           "timeExtent": {
             "startTime": "1976-01-01",
             "endTime": "1976-12-31"
@@ -71,10 +75,7 @@
           "timeIntervalLength": 1,
           "timeIntervalUnits": "esriTimeUnitsDays"
         },
-        "service": {
-          "id": "service_id",
-          "layer": "layer_id"
-        }
+        "mapModelNodeIds": []
       },
       "references": [
         {

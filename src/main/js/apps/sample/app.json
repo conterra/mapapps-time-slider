@@ -48,11 +48,8 @@
           "timeIntervalLength": 1,
           "timeIntervalUnits": "esriTimeUnitsWeeks"
         },
-        "service": [
-          {
-            "id": "hurricane01",
-            "layer": "0"
-          }
+        "mapModelNodeIds": [
+          "hurricane01/0"
         ]
       }
     },

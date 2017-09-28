@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspect", "dojo/date/locale", "esri/dijit/TimeSlider", "ct/mapping/geometry", "ct/mapping/mapcontent/ServiceTypes"],
-    function (d_lang, declare, d_array, d_aspect, d_locale, TimeSlider, geometry, ServiceTypes) {
+define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspect", "dojo/date/locale", "esri/dijit/TimeSlider", "ct/mapping/geometry", "ct/mapping/mapcontent/ServiceTypes", "esri/moment"],
+    function (d_lang, declare, d_array, d_aspect, d_locale, TimeSlider, geometry, ServiceTypes, moment) {
         return declare([],
             {
                 activate: function () {
@@ -38,6 +38,31 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                                     return new Date(time);
                                 });
                                 timeSlider.setTimeStops(timeStops);
+                            } else if (timeStopsOptions.momentTimeStopsOptions) {
+                                var momentTimeStops = [];
+                                var momentObj = moment();
+                                var momentTimeStopsOptions = timeStopsOptions.momentTimeStopsOptions;
+                                if (!momentTimeStopsOptions.initialMomentTimeStop) {
+                                    // do nothing
+                                } else if (Array.isArray(momentTimeStopsOptions.initialMomentTimeStop)) {
+                                    d_array.forEach(momentTimeStopsOptions.initialMomentTimeStop, function (timeStop) {
+                                        momentObj[timeStop.method].apply(momentObj, timeStop.args);
+                                    });
+                                } else {
+                                    momentObj[momentTimeStopsOptions.initialMomentTimeStop.method].apply(momentObj, momentTimeStopsOptions.initialMomentTimeStop.args);
+                                }
+                                momentTimeStops.push(momentObj.toDate());
+                                d_array.forEach(momentTimeStopsOptions.furtherMomentTimeStops, function (timeStop) {
+                                    if (Array.isArray(timeStop)) {
+                                        d_array.forEach(timeStop, function (time) {
+                                            momentObj[time.method].apply(momentObj, time.args);
+                                        });
+                                    } else {
+                                        momentObj[timeStop.method].apply(momentObj, timeStop.args);
+                                    }
+                                    momentTimeStops.push(momentObj.toDate());
+                                });
+                                timeSlider.setTimeStops(momentTimeStops);
                             } else if (timeStopsOptions.timeIntervalCount && timeStopsOptions.timeIntervalCount > 1) {
                                 timeSlider.createTimeStopsByCount(timeExtent, timeStopsOptions.timeIntervalCount);
                             } else {
@@ -56,7 +81,7 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                         var opts = {
                             selector: timeSliderOptions.labelSelector || "date time",
                             datePattern: timeSliderOptions.labelDatePattern || "yyyy-MM-dd",
-                            timePattern: timeSliderOptions.labelTtimePattern || "HH:mm:ss"
+                            timePattern: timeSliderOptions.labelTimePattern || "HH:mm:ss"
                         };
                         var labels = d_array.map(timeSlider.timeStops, function (timeStop) {
                             return d_locale.format(timeStop, opts);
@@ -70,19 +95,15 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                             });
                         }
 
-                        // get service / services
-                        var service = properties.service;
-                        if (!Array.isArray(service)) {
-                            service = [service];
+                        // get layer / layers
+                        var mapModelNodeIds = properties.mapModelNodeIds;
+                        if (!Array.isArray(mapModelNodeIds)) {
+                            mapModelNodeIds = [mapModelNodeIds];
                         }
-                        d_array.forEach(service, function (service) {
-                            var mapModelNodeId = service.id;
-                            if (service.layer) {
-                                mapModelNodeId = mapModelNodeId + "/" + service.layer;
-                            }
+                        d_array.forEach(mapModelNodeIds, function (mapModelNodeId) {
                             var node = this._mapModel.getNodeById(mapModelNodeId);
                             if (!node) {
-                                throw Error("TileSliderFactory: Service/Layer not found!");
+                                throw Error("TileSliderFactory: Layer not found!");
                             }
                             if (node.get("type") === ServiceTypes.AGS_FEATURE) {
                                 var esriLayer = this._esriMapReference.getEsriLayer(node);
