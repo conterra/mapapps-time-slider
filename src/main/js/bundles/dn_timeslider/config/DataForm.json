@@ -4,62 +4,65 @@
   "showLabels": true,
   "children": [
     {
-      "type": "datetextbox",
-      "field": "sliderLayout.timeExtent.startTime",
-      "title": "${widget.startTime.title}",
-      "tooltip": "${widget.startTime.tooltip}",
-      "required": true
+      "type": "textarea",
+      "field": "mapModelNodeIds",
+      "title": "${widget.mapModelNodeIds.title}",
+      "tooltip": "${widget.mapModelNodeIds.tooltip}"
     },
     {
       "type": "datetextbox",
-      "field": "sliderLayout.timeExtent.endTime",
+      "field": "timeStopsOptions.timeExtent.startTime",
+      "title": "${widget.startTime.title}",
+      "tooltip": "${widget.startTime.tooltip}"
+    },
+    {
+      "type": "datetextbox",
+      "field": "timeStopsOptions.timeExtent.endTime",
       "title": "${widget.endTime.title}",
-      "tooltip": "${widget.endTime.tooltip}",
-      "required": true
+      "tooltip": "${widget.endTime.tooltip}"
     },
     {
       "type": "selectbox",
-      "field": "sliderLayout.unit",
-      "title": "${widget.unit.title}",
-      "tooltip": "${widget.unit.tooltip}",
+      "field": "timeStopsOptions.timeIntervalUnit",
+      "title": "${widget.timeIntervalUnit.title}",
+      "tooltip": "${widget.timeIntervalUnit.tooltip}",
       "searchAttribute": "name",
       "labelAttribute": "name",
-      "required": true,
       "values": [
         {
-          "name": "${widget.unit.units.seconds}",
+          "name": "${widget.timeIntervalUnit.units.seconds}",
           "value": "esriTimeUnitsSeconds"
         },
         {
-          "name": "${widget.unit.units.minutes}",
+          "name": "${widget.timeIntervalUnit.units.minutes}",
           "value": "esriTimeUnitsMinutes"
         },
         {
-          "name": "${widget.unit.units.hours}",
+          "name": "${widget.timeIntervalUnit.units.hours}",
           "value": "esriTimeUnitsHours"
         },
         {
-          "name": "${widget.unit.units.days}",
+          "name": "${widget.timeIntervalUnit.units.days}",
           "value": "esriTimeUnitsDays"
         },
         {
-          "name": "${widget.unit.units.weeks}",
+          "name": "${widget.timeIntervalUnit.units.weeks}",
           "value": "esriTimeUnitsWeeks"
         },
         {
-          "name": "${widget.unit.units.months}",
+          "name": "${widget.timeIntervalUnit.units.months}",
           "value": "esriTimeUnitsMonths"
         },
         {
-          "name": "${widget.unit.units.years}",
+          "name": "${widget.timeIntervalUnit.units.years}",
           "value": "esriTimeUnitsYears"
         },
         {
-          "name": "${widget.unit.units.decades}",
+          "name": "${widget.timeIntervalUnit.units.decades}",
           "value": "esriTimeUnitsDecades"
         },
         {
-          "name": "${widget.unit.units.centuries}",
+          "name": "${widget.timeIntervalUnit.units.centuries}",
           "value": "esriTimeUnitsCenturies"
         }
       ]
@@ -67,16 +70,28 @@
     {
       "type": "numberspinner",
       "min": 1,
-      "field": "sliderLayout.stops",
-      "title": "${widget.stops.title}",
-      "tooltip": "${widget.stops.tooltip}",
+      "field": "timeStopsOptions.timeIntervalLength",
+      "title": "${widget.timeIntervalLength.title}",
+      "tooltip": "${widget.timeIntervalLength.tooltip}",
       "required": true
     },
     {
       "type": "selectbox",
-      "field": "sliderLayout.datePattern",
-      "title": "${widget.datePattern.title}",
-      "tooltip": "${widget.datePattern.tooltip}",
+      "field": "timeSliderOptions.labelSelector",
+      "title": "${widget.labelSelector.title}",
+      "tooltip": "${widget.labelSelector.tooltip}",
+      "required": true,
+      "values": [
+        "date time",
+        "date",
+        "time"
+      ]
+    },
+    {
+      "type": "selectbox",
+      "field": "timeSliderOptions.labelDatePattern",
+      "title": "${widget.labelDatePattern.title}",
+      "tooltip": "${widget.labelDatePattern.tooltip}",
       "required": true,
       "values": [
         "yyyy-MM-dd",
@@ -90,49 +105,59 @@
       ]
     },
     {
+      "type": "selectbox",
+      "field": "timeSliderOptions.labelTimePattern",
+      "title": "${widget.labelTimePattern.title}",
+      "tooltip": "${widget.labelTimePattern.tooltip}",
+      "required": true,
+      "values": [
+        "HH:mm:ss",
+        "HH:mm",
+        "HH"
+      ]
+    },
+    {
       "type": "checkbox",
-      "field": "timeSliderOpts.loop",
+      "field": "timeSliderOptions.loop",
       "title": "${widget.loop.title}",
       "tooltip": "${widget.loop.tooltip}"
     },
     {
       "type": "checkbox",
-      "field": "timeSliderOpts.playOnStartup",
+      "field": "timeSliderOptions.playOnStartup",
       "title": "${widget.playOnStartup.title}",
       "tooltip": "${widget.playOnStartup.tooltip}"
     },
     {
-      "type": "numberspinner",
-      "min": 1,
-      "max": 2,
-      "field": "timeSliderOpts.thumbCount",
-      "title": "${widget.thumbCount.title}",
-      "tooltip": "${widget.thumbCount.tooltip}",
-      "required": true
-    },
-    {
       "type": "checkbox",
-      "field": "timeSliderOpts.cumulative",
+      "field": "timeSliderOptions.cumulative",
       "title": "${widget.cumulative.title}",
       "tooltip": "${widget.cumulative.tooltip}"
     },
     {
       "type": "numberspinner",
       "min": 1,
-      "field": "timeSliderOpts.thumbMovingRate",
+      "max": 2,
+      "field": "timeSliderOptions.thumbCount",
+      "title": "${widget.thumbCount.title}",
+      "tooltip": "${widget.thumbCount.tooltip}"
+    },
+    {
+      "type": "numberspinner",
+      "min": 100,
+      "field": "timeSliderOptions.thumbMovingRate",
       "title": "${widget.thumbMovingRate.title}",
-      "tooltip": "${widget.thumbMovingRate.tooltip}",
-      "required": true
+      "tooltip": "${widget.thumbMovingRate.tooltip}"
     },
     {
       "type": "checkbox",
-      "field": "timeSliderOpts.options.excludeDataAtLeadingThumb",
+      "field": "timeSliderOptions.excludeDataAtLeadingThumb",
       "title": "${widget.excludeDataAtLeadingThumb.title}",
       "tooltip": "${widget.excludeDataAtLeadingThumb.tooltip}"
     },
     {
       "type": "checkbox",
-      "field": "timeSliderOpts.options.excludeDataAtTrailingThumb",
+      "field": "timeSliderOptions.excludeDataAtTrailingThumb",
       "title": "${widget.excludeDataAtTrailingThumb.title}",
       "tooltip": "${widget.excludeDataAtTrailingThumb.tooltip}"
     }

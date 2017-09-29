@@ -20,14 +20,13 @@ define({
         menu: {title: "Time Slider"},
         widget: {
             description: "Configuration of the time slider widget",
-            serviceId: {title: "Service ID", tooltip: "ID of service as defined in MapModel"},
-            layerId: {title: "Layer ID", tooltip: "ID of layer as defined in MapModel"},
+            mapModelNodeId: {title: "Mapmodel Node IDs", tooltip: "IDs of layers as defined in MapModel"},
             startTime: {title: "Starting date", tooltip: "Starting date for time slider"},
             endTime: {title: "Ending date", tooltip: "Ending date for time slider"},
-            stops: {title: "Stops", tooltip: "Stops depending on the unit, i.e. every second month"},
-            unit: {
+            timeIntervalLength: {title: "Length", tooltip: "Length of one time interval (i.e. every second month)"},
+            timeIntervalUnit: {
                 title: "Unit",
-                tooltip: "Unit of time slider",
+                tooltip: "Unit of the time interval",
                 units: {
                     seconds: "Seconds",
                     minutes: "Minutes",
@@ -40,16 +39,14 @@ define({
                     centuries: "Centuries"
                 }
             },
+            labelSelector: {title: "Format", tooltip: "Format for time slider"},
+            labelDatePattern: {title: "Date pattern", tooltip: "Date pattern for time slider"},
+            labelTimePattern: {title: "Time pattern", tooltip: "Time pattern for time slider"},
             loop: {title: "Loop", tooltip: "Start again when end is reached"},
             playOnStartup: {title: "Play on start", tooltip: "Automatically start playing"},
-            timeStops: {
-                title: "Time stops",
-                tooltip: "Time stops of slider. If left empty time stops will be calculated from start to end date with given stop number."
-            },
-            thumbMovingRate: {title: "Moving rate", tooltip: "Moving rate of animation [ms]."},
             cumulative: {title: "Cumulative", tooltip: "Cumulative"},
             thumbCount: {title: "Selector type", tooltip: "Type of selector (1 for single, 2 for range)"},
-            datePattern: {title: "Date pattern", tooltip: "Date pattern for time slider"},
+            thumbMovingRate: {title: "Moving rate", tooltip: "Moving rate of animation [ms]."},
             excludeDataAtLeadingThumb: {title: "Exclude first data", tooltip: "Exclude data at leading thumb"},
             excludeDataAtTrailingThumb: {title: "Exclude last data", tooltip: "Exclude data at trailing thumb"}
         }

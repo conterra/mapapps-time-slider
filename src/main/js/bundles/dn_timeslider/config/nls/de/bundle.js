@@ -19,14 +19,13 @@ define({
     menu: {title: "Time Slider"},
     widget: {
         description: "Konfiguration des Time Sliders.",
-        serviceId: {title: "Dienste-Id", tooltip: "Id des Dienstes (wie im MapModel)"},
-        layerId: {title: "Layer ID", tooltip: "Id des layer (wie im MapModel)"},
+        mapModelNodeId: {title: "Mapmodel Knoten IDs", tooltip: "ID der Layer im MapModel"},
         startTime: {title: "Startdatum", tooltip: "Startdatum des Time Sliders"},
         endTime: {title: "Enddatum", tooltip: "Enddatum des Time Sliders"},
-        stops: {title: "Unterbrechungen", tooltip: "Unterbrechungen alle x [Einheit], bspw. alle 3 Monate"},
-        unit: {
+        timeIntervalLength: {title: "L\u00e4nge", tooltip: "L\u00e4nge eines Zeitintervalls (bspw. 3 Monate)"},
+        timeIntervalUnit: {
             title: "Einheit",
-            tooltip: "Einheit des Time Sliders",
+            tooltip: "Einheit des Zeitintervalls",
             units: {
                 seconds: "Sekunden",
                 minutes: "Minuten",
@@ -39,16 +38,14 @@ define({
                 centuries: "Jahrhunderte"
             }
         },
+        labelSelector: {title: "Format", tooltip: "Format der Skalenanzeige"},
+        labelDatePattern: {title: "Datumsformat", tooltip: "Datumsformat der Skalenanzeige"},
+        labelTimePattern: {title: "Zeitformat", tooltip: "Zeitformat der Skalenanzeige"},
         loop: {title: "Wiederholen", tooltip: "Wiederholt die Wiedergabe"},
         playOnStartup: {title: "Abspielen", tooltip: "Beginnt das Abspielen automatisch"},
-        timeStops: {
-            title: "Skala",
-            tooltip: "Skala des Time Sliders. Wenn nicht definiert, wird die Skala automatisch aus dem Start- und Enddatum sowie der Unterbrechungsanzahl berechnet."
-        },
-        thumbMovingRate: {title: "Animationsgeschwindigkeit", tooltip: "Geschwindigkeit der Animation [ms]."},
         cumulative: {title: "Kumulativ", tooltip: "Kumulativ"},
         thumbCount: {title: "Abschnitte", tooltip: "Anzahl der Abschnitte (1 f\u00fcr einfach, 2 f\u00fcr Bereich)."},
-        datePattern: {title: "Datumsformat", tooltip: "Datumsformat der Skalenanzeige"},
+        thumbMovingRate: {title: "Animationsgeschwindigkeit", tooltip: "Geschwindigkeit der Animation [ms]."},
         excludeDataAtLeadingThumb: {title: "Ersten Datensatz ignorieren", tooltip: "Ignoriert den ersten Datensatz"},
         excludeDataAtTrailingThumb: {title: "Letzten Datensatz ignorieren", tooltip: "Ignoriert den letzten Datensatz"}
     }

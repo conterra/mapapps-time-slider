@@ -59,7 +59,7 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/aspec
                             else if (timeStopsOptions.timeIntervalCount && timeStopsOptions.timeIntervalCount > 1) {
                                 timeSlider.createTimeStopsByCount(timeExtent, timeStopsOptions.timeIntervalCount);
                             } else {
-                                timeSlider.createTimeStopsByTimeInterval(timeExtent, timeStopsOptions.timeIntervalLength, timeStopsOptions.timeIntervalUnits || {});
+                                timeSlider.createTimeStopsByTimeInterval(timeExtent, timeStopsOptions.timeIntervalLength, timeStopsOptions.timeIntervalUnit || {});
                             }
                         }
 

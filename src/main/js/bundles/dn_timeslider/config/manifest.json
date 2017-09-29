@@ -45,39 +45,34 @@
         "pid": "dn_timeslider-TimeSliderFactory",
         "id": "timeSliderBuilderWidget",
         "defaultProperties": {
-          "timeSliderOpts": {
-            "options": {
-              "excludeDataAtLeadingThumb": false,
-              "excludeDataAtTrailingThumb": false
-            },
+          "timeSliderOptions": {
+            "excludeDataAtLeadingThumb": false,
+            "excludeDataAtTrailingThumb": false,
             "loop": false,
             "playOnStartup": false,
+            "cumulative": false,
             "thumbCount": 1,
             "thumbMovingRate": 1000,
-            "cumulative": true,
-            "timeStops": [],
             "thumbIndexes": [
               0,
               1
-            ]
+            ],
+            "labelSelector": "date time",
+            "labelDatePattern": "yyyy-MM-dd",
+            "labelTimePattern": "HH:mm:ss"
           },
-          "sliderLayout": {
+          "timeStopsOptions": {
+            "timeStops": [],
+            "momentTimeStops": [],
             "timeExtent": {
               "startTime": "1976-01-01",
               "endTime": "1976-12-31"
             },
-            "stops": 1,
-            "unit": "esriTimeUnitsMonths",
-            "selector": "date",
-            "datePattern": "yyyy-MM-dd",
-            "timePattern": "HH:mm:ss"
+            "timeIntervalCount": null,
+            "timeIntervalLength": 1,
+            "timeIntervalUnit": "esriTimeUnitsDays"
           },
-          "service": [
-            {
-              "id": "",
-              "layer": ""
-            }
-          ]
+          "mapModelNodeIds": []
         },
         "description": "${widget.description}",
         "styleClass": "ctTimeSliderBuilderWidget"

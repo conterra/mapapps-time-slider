@@ -13,4 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-define(["dojo/i18n!./nls/bundle"],function(){return{}});
+define(["dojo/i18n!./nls/bundle"], function () {
+    return {}
+});
