@@ -50,12 +50,9 @@ Installation Guide
         "timeStopsOptions": {
             // Explained in the next section.
         },
-        // Add here services that can be controlled by the timeslider.
-        "service": [
-            {
-                "id": "hurricane01",
-                "layer": "0"
-            }
+        // Add layers that can be controlled by the timeslider.
+        "mapModelNodeIds": [
+            "hurricane01/0"
         ]
     }
 }
