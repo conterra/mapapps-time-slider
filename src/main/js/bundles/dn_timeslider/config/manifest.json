@@ -70,7 +70,7 @@
             },
             "timeIntervalCount": null,
             "timeIntervalLength": 1,
-            "timeIntervalUnit": "esriTimeUnitsDays"
+            "timeIntervalUnits": "esriTimeUnitsDays"
           },
           "mapModelNodeIds": []
         },
