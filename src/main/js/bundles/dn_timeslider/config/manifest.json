@@ -1,6 +1,6 @@
 {
   "Bundle-SymbolicName": "timeslider-config",
-  "Bundle-Version": "4.0.1",
+  "Bundle-Version": "4.0.2-SNAPSHOT",
   "Bundle-Name": "${bundleName}",
   "Bundle-Description": "${bundleDescription}",
   "Bundle-Vendor": "con terra GmbH",
