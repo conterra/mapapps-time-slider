@@ -50,5 +50,5 @@ define({
             excludeDataAtLeadingThumb: {title: "Exclude first data", tooltip: "Exclude data at leading thumb"},
             excludeDataAtTrailingThumb: {title: "Exclude last data", tooltip: "Exclude data at trailing thumb"}
         }
-    }, de: !0
+    }, de: true
 });
