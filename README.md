@@ -1,21 +1,19 @@
 # Time Slider Bundle
 The Time Slider bundle allows you to use the Esri time slider to display map content related to times.
 
-Sample App
-------------------
+## Sample App
 https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider/index.html
 
-Installation Guide
-------------------
+## Installation Guide
 **Requirement: map.apps 3.2.1**
 
 1. First, you need to add the bundle "dn_timeslider" to your app.
 2. After that, add a service that supports time-aware layers.
 3. Finally you can configure your time slider.
 
-#### Configurable Components of dn_timeslider:
+### Configurable Components of dn_timeslider:
 
-##### TimeSliderFactory:
+#### TimeSliderFactory:
 ```
 "dn_timeslider": {
     "TimeSliderFactory": {
@@ -58,8 +56,8 @@ Installation Guide
 }
 ```
 
-##### There are four ways to define the time stops:
-###### 1. Use predefined time stops
+#### There are four ways to define the time stops:
+##### 1. Use predefined time stops
 ```
 "timeStopsOptions": {
     "timeStops": [
@@ -72,7 +70,7 @@ Installation Guide
     ]
 }
 ```
-###### 2. Use Moment.js to define time stops
+##### 2. Use Moment.js to define time stops
 You can use Moment.js functions to create time stops. Have a look at the Modify.js documentation to get more information: https://momentjs.com/docs/#/manipulating/
 ```
 "momentTimeStops": {
@@ -152,7 +150,7 @@ You can use Moment.js functions to create time stops. Have a look at the Modify.
     ]
 }
 ```
-###### 3. Use time tops count
+##### 3. Use time tops count
 ```
 "timeStopsOptions": {
     "timeExtent": {
@@ -162,7 +160,7 @@ You can use Moment.js functions to create time stops. Have a look at the Modify.
     "timeIntervalCount": 10
 }
 ```
-###### 4. Use time interval
+##### 4. Use time interval
 ```
 "timeStopsOptions": {
     "timeExtent": {
@@ -173,7 +171,7 @@ You can use Moment.js functions to create time stops. Have a look at the Modify.
     "timeIntervalUnits": "esriTimeUnitsWeeks"
 }
 ```
-###### Possible values for timeIntervalUnits:
+##### Possible values for timeIntervalUnits:
 
 - esriTimeUnitsCenturies
 - esriTimeUnitsDays
@@ -187,13 +185,12 @@ You can use Moment.js functions to create time stops. Have a look at the Modify.
 - esriTimeUnitsWeeks
 - esriTimeUnitsYears
 
-Development Guide
-------------------
+## Development Guide
 ### Define the mapapps remote base
 Before you can run the project you have to define the mapapps.remote.base property in the pom.xml-file:
 `<mapapps.remote.base>http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%</mapapps.remote.base>`
 
-##### Other methods to to define the mapapps.remote.base property.
+### Other methods to to define the mapapps.remote.base property.
 1. Goal parameters
 `mvn install -Dmapapps.remote.base=http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%`
 
