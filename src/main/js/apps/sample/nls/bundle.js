@@ -15,16 +15,7 @@
  */
 module.exports = {
     root: {
-        bundleName: "Time Slider",
-        bundleDescription: "Time Slider",
-        windowTitle: "Time Slider",
-        tool: {
-            title: "Time Slider",
-            tooltip: "Time Slider"
-        },
-        ui: {
-            layer: "Layer:"
-        }
+        apptitle: "Time Slider Sample"
     },
-    de: true
+    "de": true
 };

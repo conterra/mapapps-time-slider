@@ -1,110 +1,135 @@
 {
-  "Bundle-SymbolicName": "dn_timeslider",
-  "Bundle-Version": "4.0.2-SNAPSHOT",
-  "Bundle-Name": "${bundleName}",
-  "Bundle-Description": "${bundleDescription}",
-  "Bundle-Vendor": "con terra GmbH",
-  "Product-Name": "devnet-mapapps-time-slider",
-  "Config-Bundle-Location": "/config",
-  "Require-Bundle": [
-    {
-      "name": "map",
-      "version": "^3.2.1"
-    }
-  ],
-  "CSS-Themes-Extension": [
-    {
-      "name": "*",
-      "files": [
-        "./layout/timeslider.css"
-      ]
-    }
-  ],
-  "layout-widgets": [
-    {
-      "role": "timeSliderWidget",
-      "window": {
-        "title": "${tool.title}",
-        "marginBox": {
-          "w": 450,
-          "h": 90
-        },
-        "dockTool": "timeSliderToggleTool",
-        "closable": true,
-        "minimizeOnClose": true,
-        "resizable": true
-      }
-    }
-  ],
-  "Components": [
-    {
-      "name": "TimeSliderFactory",
-      "instanceFactory": true,
-      "provides": [
-        "dijit.Widget"
-      ],
-      "properties": {
-        "widgetRole": "timeSliderWidget",
-        "timeSliderOptions": {
-          "excludeDataAtLeadingThumb": false,
-          "excludeDataAtTrailingThumb": false,
-          "loop": false,
-          "playOnStartup": false,
-          "cumulative": false,
-          "thumbCount": 1,
-          "thumbMovingRate": 1000,
-          "thumbIndexes": [
-            0,
-            1
-          ],
-          "labelSelector": "date time",
-          "labelDatePattern": "yyyy-MM-dd",
-          "labelTimePattern": "HH:mm:ss"
-        },
-        "timeStopsOptions": {
-          "timeStops": [],
-          "momentTimeStops": [],
-          "timeExtent": {
-            "startTime": "1976-01-01",
-            "endTime": "1976-12-31"
-          },
-          "timeIntervalCount": null,
-          "timeIntervalLength": 1,
-          "timeIntervalUnits": "esriTimeUnitsDays"
-        },
-        "mapModelNodeIds": []
-      },
-      "references": [
+    "name": "dn_timeslider",
+    "version": "1.0.0-SNAPSHOT",
+    "title": "${bundleName}",
+    "description": "${bundleDescription}",
+    "vendor": "con terra GmbH",
+    "keywords": [
+        "sample"
+    ],
+    "icon": {},
+    "license": {},
+    "productName": "devnet-mapapps-time-slider",
+    "layout-widgets": [
         {
-          "name": "_esriMap",
-          "providing": "esri.Map"
+            "widgetRole": "timeSliderWidget",
+            "sublayout": [
+                "desktop"
+            ],
+            "window": {
+                "title": "${windowTitle}",
+                "dockTool": "timeSliderToggleTool",
+                "closable": true,
+                "maximizable": true,
+                "minimizeOnClose": true,
+                "resizable": true,
+                "marginBox": {
+                    "w": 1000,
+                    "h": 200,
+                    "b": 60,
+                    "l": 20
+                },
+                "minSize": {
+                    "w": 500,
+                    "h": 200
+                },
+                "windowClass": "timeslider-window"
+            }
         },
         {
-          "name": "_esriMapReference",
-          "providing": "ct.mapping.map.EsriMapReference"
+            "widgetRole": "timeSliderWidget",
+            "sublayout": [
+                "tablet_landscape",
+                "tablet_portrait"
+            ],
+            "window": {
+                "title": "${windowTitle}",
+                "dockTool": "timeSliderToggleTool",
+                "closable": true,
+                "maximizable": true,
+                "minimizeOnClose": true,
+                "resizable": false,
+                "marginBox": {
+                    "w": "100%",
+                    "h": "50%",
+                    "b": 0
+                },
+                "windowClass": "timeslider-window"
+            }
         },
         {
-          "name": "_mapModel",
-          "providing": "ct.mapping.map.MapModel"
+            "widgetRole": "timeSliderWidget",
+            "sublayout": [
+                "mobile_landscape",
+                "mobile_portrait"
+            ],
+            "window": {
+                "title": "${windowTitle}",
+                "dockTool": "timeSliderToggleTool",
+                "dockable": true,
+                "dockingBar": "${id}-dockingBarBottomLeft",
+                "closable": true,
+                "maximizable": true,
+                "minimizeOnClose": true,
+                "resizable": false,
+                "marginBox": {
+                    "w": "100%",
+                    "h": "70%",
+                    "b": 0
+                },
+                "windowClass": "timeslider-window"
+            }
         }
-      ]
-    },
-    {
-      "name": "TimeSliderToggleTool",
-      "impl": "ct/tools/Tool",
-      "provides": [
-        "ct.tools.Tool"
-      ],
-      "propertiesConstructor": true,
-      "properties": {
-        "id": "timeSliderToggleTool",
-        "noGroup": true,
-        "title": "${tool.title}",
-        "tooltip": "${tool.tooltip}",
-        "toolRole": "toolset",
-        "togglable": true,
-        "iconClass": "icon-time-forward"
-      }
-    }
-  ]
+    ],
+    "components": [
+        {
+            "name": "TimeSliderToggleTool",
+            "impl": "ct/tools/Tool",
+            "provides": [
+                "ct.tools.Tool"
+            ],
+            "propertiesConstructor": true,
+            "properties": {
+                "id": "timeSliderToggleTool",
+                "title": "${tool.title}",
+                "tooltip": "${tool.tooltip}",
+                "iconClass": "icon-calendar",
+                "toolRole": "toolset",
+                "togglable": true,
+                "rules": {
+                    "noGroup": true
+                }
+            }
+        },
+        {
+            "name": "TimeSliderWidgetFactory",
+            "provides": [
+                "dijit.Widget"
+            ],
+            "instanceFactory": true,
+            "properties": {
+                "widgetRole": "timeSliderWidget"
+            },
+            "references": [
+                {
+                    "name": "_timeSliderWidgetModel",
+                    "providing": "dn_timeslider.TimeSliderWidgetModel"
+                }
+            ]
+        },
+        {
+            "name": "Config",
+            "impl": "./TimeSliderWidgetModel",
+            "provides": "dn_timeslider.TimeSliderWidgetModel",
+            "properties": {
+                "timeStopsOptions": {}
+            },
+            "references": [
+                {
+                    "name": "_mapWidgetModel",
+                    "providing": "map-widget.MapWidgetModel"
+                }
+            ]
+        }
+    ]
 }

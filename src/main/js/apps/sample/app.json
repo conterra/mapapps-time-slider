@@ -1,231 +1,232 @@
 {
-  "properties": {
-    "title": "Time Slider Sample",
-    "amdPackages": "apprt@^3.2.1"
-  },
-  "load": {
-    "bundleLocations": [
-      "localbundles",
-      "bundles"
-    ],
-    "allowedBundles": [
-      "system@^3.2.1",
-      "splashscreen@^3.2.1",
-      "templates@^3.2.1",
-      "themes@^3.2.1",
-      "templatelayout@^3.2.1",
-      "map@^3.2.1",
-      "windowmanager@^3.2.1",
-      "infoviewer@^3.2.1",
-      "contentviewer@^3.2.1",
-      "toolset@^3.2.1",
-      "toolrules@^3.2.1",
-      "featureinfo@^3.2.1",
-      "banner@^3.2.1",
-      "custominfo@^3.2.1",
-      "dn_timeslider"
-    ]
-  },
-  "bundles": {
-    "dn_timeslider": {
-      "TimeSliderFactory": {
-        "timeSliderOptions": {
-          "excludeDataAtLeadingThumb": true,
-          "excludeDataAtTrailingThumb": false,
-          "loop": true,
-          "playOnStartup": true,
-          "thumbCount": 2,
-          "thumbMovingRate": 2000,
-          "cumulative": false,
-          "labelSelector": "date",
-          "labelDatePattern": "MMM"
-        },
-        "timeStopsOptions": {
-          "timeExtent": {
-            "startTime": "2000-08-04",
-            "endTime": "2000-10-22"
-          },
-          "timeIntervalLength": 1,
-          "timeIntervalUnits": "esriTimeUnitsWeeks"
-        },
-        "mapModelNodeIds": [
-          "hurricane01/0"
+    "properties": {
+        "title": "${apptitle}"
+    },
+    "load": {
+        "bundleLocations": [
+            "localbundles",
+            "bundles"
+        ],
+        "allowedBundles": [
+            "system",
+            "console",
+            "notifier",
+            "splashscreen",
+            "templatelayout",
+            "template-seasons",
+            "theme-everlasting",
+            "theme-winter",
+            "theme-spring",
+            "theme-summer",
+            "theme-autumn",
+            "map-init",
+            "toolset",
+            "banner",
+            "basemaptoggler",
+            "viewmodeswitcher",
+            "mapnavigation",
+            "popups-default",
+            "scalebar",
+            "locateme",
+            "printing",
+            "share-link",
+            "omnisearch",
+            "locator-store",
+            "dn_timeslider"
+        ],
+        "require": [
+            "${app}.app"
+        ],
+        "i18n": [
+            "bundle"
         ]
-      }
     },
-    "banner": {
-      "BannerWidget": {
-        "label": "Developer Network",
-        "image": "https://conterra.de/themes/conterra/logo.svg",
-        "imagePosition": "above",
-        "link": "http://developernetwork.conterra.de"
-      }
-    },
-    "custominfo": {
-      "CustomInfoToggleTool": [
-        {
-          "id": "customInfoTool",
-          "activateOnStartup": true,
-          "title": "Information",
-          "tooltip": "Information",
-          "iconClass": "icon-custom-info-info",
-          "toolClass": "ctInfo",
-          "togglable": true,
-          "widgetSettings": {
-            "content": "This app shows the functionality of the Time Slider bundle which allows you to use the Esri time slider to display map content related to times. <br><br> Please click in the play button to start the timeslider.",
-            "window": {
-              "title": "Information",
-              "marginBox": {
-                "w": 300,
-                "h": 120,
-                "l": 25,
-                "b": 200
-              },
-              "draggable": true,
-              "closable": true,
-              "modal": false,
-              "maximizable": false,
-              "resizable": false
+    "bundles": {
+        "dn_timeslider": {
+            "Config": {
+                /*"timeStopsOptions": {
+                    "timeStops": [
+                        "2000-08-04",
+                        "2000-08-20",
+                        "2000-09-02",
+                        "2000-09-24",
+                        "2000-10-06",
+                        "2000-10-22"
+                    ]
+                }*/
+                "timeStopsOptions": {
+                    "timeExtent": {
+                        "start": "2000-08-01T00:00Z",
+                        "end": "2000-10-01T00:00Z"
+                    },
+                    "timeIntervalLength": 7,
+                    "timeIntervalUnits": "days"
+                }
+                /*"timeStopsOptions": {
+                    "timeExtent": {
+                        "start": "2000-07-01T00:00Z",
+                        "end": "2000-10-01T00:00Z"
+                    },
+                    "timeStopCount": 4
+                }*/
             }
-          }
-        }
-      ]
-    },
-    "map": {
-      "MappingResourceRegistryFactory": {
-        "_knownServices": {
-          "services": [
-            {
-              "id": "hurricane",
-              "type": "AGS_DYNAMIC",
-              "url": "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer",
-              "layers": [
-                {
-                  "id": "0",
-                  "title": "Atlantic Hurricanes 2000",
-                  "enabled": true
+        },
+        "banner": {
+            "BannerWidget": {
+                "label": "Developer Network",
+                "image": "https://conterra.de/themes/conterra/logo.svg",
+                "imagePosition": "above",
+                "link": "http://developernetwork.conterra.de"
+            }
+        },
+        "basemaptoggler": {
+            "Config": {
+                "nextBasemap": "hybrid"
+            }
+        },
+        "map-init": {
+            "Config": {
+                "map": {
+                    "layers": [
+                        {
+                            "id": "hurricane",
+                            "title": "Atlantic Hurricanes 2000",
+                            "type": "AGS_FEATURE",
+                            "url": "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0"
+                        }/*,
+                        {
+                            "id": "buchdrucker",
+                            "title": "Gefährdung Buchdrucker",
+                            "type": "AGS_FEATURE",
+                            "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/MapServer/1"
+                        },
+                        {
+                            "id": "kupferstecher",
+                            "title": "Gefährdung Kupferstecher",
+                            "type": "AGS_FEATURE",
+                            "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/MapServer/2"
+                        }*/
+                    ],
+                    "basemap": "streets",
+                    "ground": {
+                        "url": "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
+                        "type": "ELEVATION"
+                    }
                 },
-                {
-                  "id": "1",
-                  "title": "Hurricane Track",
-                  "enabled": true
+                "view": {
+                    "viewmode": "2D",
+                    "extent": {
+                        "xmin": -18834083,
+                        "ymin": -1105585,
+                        "xmax": 733795,
+                        "ymax": 10635142,
+                        "spatialReference": 3857
+                    }
                 }
-              ]
-            },
-            {
-              "id": "darkbase",
-              "url": "https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer",
-              "type": "AGS_TILED"
             }
-          ]
-        }
-      },
-      "MapModelFactory": {
-        "_configData": {
-          "maps": [
-            {
-              "id": "default",
-              "glass_pane": [],
-              "operationalLayer": [
-                {
-                  "id": "hurricane01",
-                  "title": "Hurricane Server",
-                  "service": "hurricane",
-                  "layers": [
-                    "0"
-                  ],
-                  "enabled": true
-                }
-              ],
-              "baseLayer": [
-                {
-                  "id": "background1",
-                  "service": "darkbase",
-                  "enabled": true
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "MapWidgetFactory": {
-        "esriMapOpts": {
-          "sliderStyle": "small",
-          "logo": true
-        }
-      },
-      "MapState": {
-        "initialExtent": {
-          "xmin": -18834083,
-          "ymin": -1105585,
-          "xmax": 733795,
-          "ymax": 10635142,
-          "spatialReference": {
-            "wkid": 3857
-          }
-        }
-      }
-    },
-    "templates": {
-      "TemplateSelector": {
-        "componentEnabled": false
-      },
-      "TemplateModel": {
-        "_selectedTemplate": "seasons",
-        "_templates": [
-          {
-            "name": "seasons",
-            "widgets": [
-              {
-                "widgetRole": "timeSliderWidget",
-                "window": {
-                  "marginBox": {
-                    "l": 30,
-                    "b": 80,
-                    "w": 450,
-                    "h": 90
-                  }
-                }
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "themes": {
-      "ThemeSelector": {
-        "componentEnabled": false
-      }
-    },
-    "toolrules": {
-      "ToolActiveStateManager": {
-        "activateOnStartToolIds": [
-          "timeSliderToggleTool"
-        ]
-      }
-    },
-    "toolset": {
-      "ToolsetManager": {
-        "toolsets": [
-          {
-            "id": "dropdown1",
-            "title": "Werkzeuge",
-            "tools": [
-              "timeSliderToggleTool"
-            ],
-            "container": "map",
-            "__isDirty": true,
-            "position": {
-              "rel_t": 20,
-              "rel_l": 20
+        },
+        "themes": {
+            "ThemeModel": {
+                "_selectedTheme": "everlasting"
             },
-            "cssClass": "notitle",
-            "windowType": "fixed",
-            "tooltip": "Werkzeuge",
-            "max_horizontal": 1
-          }
-        ]
-      }
+            "ThemeSelector": {
+                "componentEnabled": true
+            }
+        },
+        "templates": {
+            "TemplateModel": {
+                "_templates": [
+                    {
+                        "name": "seasons",
+                        "widgets": [
+                            {
+                                "widgetRole": "drawer_button",
+                                "attachTo": "map_topleft",
+                                "props": {
+                                    "layoutIndex": 0
+                                }
+                            },
+                            {
+                                "widgetRole": "sharelink",
+                                "window": {
+                                    "dockable": false,
+                                    "dockingBar": null
+                                }
+                            },
+                            {
+                                "widgetRole": "legend",
+                                "sublayout": [
+                                    "mobile_portrait",
+                                    "mobile_landscape"
+                                ],
+                                "window": {
+                                    "dockable": false,
+                                    "dockingBar": null
+                                }
+                            },
+                            {
+                                "widgetRole": "printing",
+                                "window": {
+                                    "dockable": false,
+                                    "dockingBar": null
+                                }
+                            },
+                            {
+                                "widgetRole": "banner",
+                                "sublayout": [
+                                    "mobile_portrait"
+                                ],
+                                "attachTo": "footer_right"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "toolset": {
+            "ToolsetManager": {
+                "toolsets": [
+                    {
+                        "id": "mapview_tools",
+                        "tools": [
+                            "locateMeTool",
+                            "zoomInTool",
+                            "zoomOutTool",
+                            "compassTool",
+                            "restoreInitialViewTool",
+                            "viewmodeSwitcherTool"
+                        ],
+                        "registerWidget": {
+                            "widgetRole": "mapview_tools"
+                        },
+                        "container": "ignore",
+                        "windowType": "container",
+                        "cssClass": "muted"
+                    },
+                    {
+                        "id": "drawer_left",
+                        "title": "Werkzeuge",
+                        "cssClass": "ct-main-app-menu",
+                        "tools": [
+                            "printingToggleTool",
+                            "sharelinkTool",
+                            "timeSliderToggleTool"
+                        ],
+                        "registerWidget": {
+                            "widgetRole": "drawer_button"
+                        },
+                        "container": "ignore",
+                        "windowType": "drawer_left"
+                    }
+                ]
+            }
+        },
+        "toolrules": {
+            "ToolActiveStateManager": {
+                "activateOnStartToolIds": [
+                    "timeSliderToggleTool"
+                ]
+            }
+        }
     }
-  }
 }
