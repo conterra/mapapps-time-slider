@@ -106,11 +106,11 @@
                 type: Array,
                 default: () => []
             },
-            startTimeStopId: {
+            startTimeStopIndex: {
                 type: Number,
                 default: 0
             },
-            endTimeStopId: {
+            endTimeStopIndex: {
                 type: Number,
                 default: 1
             },
@@ -125,11 +125,11 @@
             },
             sliderValue: {
                 get: function () {
-                    return [this.startTimeStopId, this.endTimeStopId];
+                    return [this.startTimeStopIndex, this.endTimeStopIndex];
                 },
                 set: function (value) {
-                    this.startTimeStopId = value[0];
-                    this.endTimeStopId = value[1];
+                    this.startTimeStopIndex = value[0];
+                    this.endTimeStopIndex = value[1];
                 }
             }
         },

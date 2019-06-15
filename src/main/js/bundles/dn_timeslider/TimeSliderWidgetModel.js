@@ -25,8 +25,8 @@ export default declare({
     layers: [],
     selectedLayerIds: [],
     timeStops: [],
-    startTimeStopId: 0,
-    endTimeStopId: 1,
+    startTimeStopIndex: 0,
+    endTimeStopIndex: 1,
     playSlider: false,
 
     activate() {
@@ -54,8 +54,8 @@ export default declare({
     },
 
     setFilter() {
-        let start = this.timeStops[this.startTimeStopId].date;
-        let end = this.timeStops[this.endTimeStopId].date;
+        let start = this.timeStops[this.startTimeStopIndex].date;
+        let end = this.timeStops[this.endTimeStopIndex].date;
         const timeExtent = new TimeExtent({
             start: start,
             end: end
@@ -93,32 +93,32 @@ export default declare({
     },
 
     nextTimeStop() {
-        if (this.endTimeStopId === this.timeStops.length - 1) {
+        if (this.endTimeStopIndex === this.timeStops.length - 1) {
             if (this._properties.loop) {
-                let distance = this.endTimeStopId - this.startTimeStopId;
-                this.startTimeStopId = 0;
-                this.endTimeStopId = distance;
+                let distance = this.endTimeStopIndex - this.startTimeStopIndex;
+                this.startTimeStopIndex = 0;
+                this.endTimeStopIndex = distance;
             } else {
                 this.stop();
             }
         } else {
-            this.startTimeStopId++;
-            this.endTimeStopId++;
+            this.startTimeStopIndex++;
+            this.endTimeStopIndex++;
         }
     },
 
     previousTimeStop() {
-        if (this.startTimeStopId === 0) {
+        if (this.startTimeStopIndex === 0) {
             if (this._properties.loop) {
-                let distance = this.endTimeStopId - this.startTimeStopId;
-                this.endTimeStopId = this.timeStops.length - 1;
-                this.startTimeStopId = this.timeStops.length - 1 - distance;
+                let distance = this.endTimeStopIndex - this.startTimeStopIndex;
+                this.endTimeStopIndex = this.timeStops.length - 1;
+                this.startTimeStopIndex = this.timeStops.length - 1 - distance;
             } else {
                 this.stop();
             }
         } else {
-            this.startTimeStopId--;
-            this.endTimeStopId--;
+            this.startTimeStopIndex--;
+            this.endTimeStopIndex--;
         }
     },
 
