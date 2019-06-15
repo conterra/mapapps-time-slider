@@ -51,7 +51,11 @@
                     },
                     "timeIntervalLength": 7,
                     "timeIntervalUnits": "days"
-                }
+                },
+                "labelPattern": "DD.MM",
+                "playOnStartup": false,
+                "thumbMovingRate": 1000,
+                "loop": true
             }
         },
         "banner": {
