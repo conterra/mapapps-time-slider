@@ -45,6 +45,14 @@ export default declare({
         this.timeStops = this._getTimeStops();
     },
 
+    startup() {
+        if (this._properties.playOnStartup) {
+            this.play();
+        } else {
+            this.setFilter();
+        }
+    },
+
     setFilter() {
         let start = this.timeStops[this.startTimeStopId].date;
         let end = this.timeStops[this.endTimeStopId].date;
@@ -76,7 +84,7 @@ export default declare({
         this.playSlider = true;
         this.interval = setInterval(() => {
             this.nextTimeStop();
-        }, 1000);
+        }, this._properties.thumbMovingRate || 1000);
     },
 
     stop() {
@@ -86,9 +94,13 @@ export default declare({
 
     nextTimeStop() {
         if (this.endTimeStopId === this.timeStops.length - 1) {
-            let distance = this.endTimeStopId - this.startTimeStopId;
-            this.startTimeStopId = 0;
-            this.endTimeStopId = distance;
+            if (this._properties.loop) {
+                let distance = this.endTimeStopId - this.startTimeStopId;
+                this.startTimeStopId = 0;
+                this.endTimeStopId = distance;
+            } else {
+                this.stop();
+            }
         } else {
             this.startTimeStopId++;
             this.endTimeStopId++;
@@ -97,9 +109,13 @@ export default declare({
 
     previousTimeStop() {
         if (this.startTimeStopId === 0) {
-            let distance = this.endTimeStopId - this.startTimeStopId;
-            this.endTimeStopId = this.timeStops.length - 1;
-            this.startTimeStopId = this.timeStops.length - 1 - distance;
+            if (this._properties.loop) {
+                let distance = this.endTimeStopId - this.startTimeStopId;
+                this.endTimeStopId = this.timeStops.length - 1;
+                this.startTimeStopId = this.timeStops.length - 1 - distance;
+            } else {
+                this.stop();
+            }
         } else {
             this.startTimeStopId--;
             this.endTimeStopId--;
@@ -178,6 +194,6 @@ export default declare({
     },
 
     _getTimeStop(momentObj) {
-        return {date: momentObj.toDate(), label: momentObj.format("DD.MM")}
+        return {date: momentObj.toDate(), label: momentObj.format(this._properties.labelPattern || "DD.MM.YYYY")}
     }
 })

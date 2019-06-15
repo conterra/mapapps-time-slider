@@ -20,7 +20,7 @@
             :min="0"
             :step="1"
             ticks="always"
-            tick-size="2"
+            tick-size="3"
             :tick-labels="sliderLabels"
         ></v-range-slider>
         <v-layout

@@ -122,7 +122,11 @@
             "impl": "./TimeSliderWidgetModel",
             "provides": "dn_timeslider.TimeSliderWidgetModel",
             "properties": {
-                "timeStopsOptions": {}
+                "timeStopsOptions": {},
+                "labelPattern": "DD.MM",
+                "playOnStartup": false,
+                "thumbMovingRate": 1000,
+                "loop": false
             },
             "references": [
                 {

@@ -35,7 +35,7 @@ export default class TimeSliderWidgetFactory {
 
         // listen to view model methods
         widget.$on('startup', () => {
-            model.setFilter();
+            model.startup();
         });
         widget.$on('setFilter', () => {
             model.setFilter();
