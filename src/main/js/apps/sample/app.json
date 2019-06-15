@@ -44,31 +44,14 @@
     "bundles": {
         "dn_timeslider": {
             "Config": {
-                /*"timeStopsOptions": {
-                    "timeStops": [
-                        "2000-08-04",
-                        "2000-08-20",
-                        "2000-09-02",
-                        "2000-09-24",
-                        "2000-10-06",
-                        "2000-10-22"
-                    ]
-                }*/
                 "timeStopsOptions": {
                     "timeExtent": {
-                        "start": "2000-08-01T00:00Z",
-                        "end": "2000-10-01T00:00Z"
+                        "start": "2000-08-04T00:00Z",
+                        "end": "2000-10-22T00:00Z"
                     },
                     "timeIntervalLength": 7,
                     "timeIntervalUnits": "days"
                 }
-                /*"timeStopsOptions": {
-                    "timeExtent": {
-                        "start": "2000-07-01T00:00Z",
-                        "end": "2000-10-01T00:00Z"
-                    },
-                    "timeStopCount": 4
-                }*/
             }
         },
         "banner": {
@@ -93,19 +76,7 @@
                             "title": "Atlantic Hurricanes 2000",
                             "type": "AGS_FEATURE",
                             "url": "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0"
-                        }/*,
-                        {
-                            "id": "buchdrucker",
-                            "title": "Gefährdung Buchdrucker",
-                            "type": "AGS_FEATURE",
-                            "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/MapServer/1"
-                        },
-                        {
-                            "id": "kupferstecher",
-                            "title": "Gefährdung Kupferstecher",
-                            "type": "AGS_FEATURE",
-                            "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/MapServer/2"
-                        }*/
+                        }
                     ],
                     "basemap": "streets",
                     "ground": {

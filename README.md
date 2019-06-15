@@ -1,5 +1,5 @@
 # Time Slider Bundle
-The Time Slider bundle allows you to use the Esri time slider to display map content related to times.
+The Time Slider bundle allows the user to change the time extent for FeatureLayers.
 
 ## Sample App
 https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider4/index.html
@@ -41,8 +41,8 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider4/index.htm
 ```
 "timeStopsOptions": {
     "timeExtent": {
-        "start": "2000-07-01T00:00Z",
-        "end": "2000-10-01T00:00Z"
+        "start": "2000-08-04T00:00Z",
+        "end": "2000-10-22T00:00Z"
     },
     "timeStopCount": 4
 }
@@ -51,8 +51,8 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider4/index.htm
 ```
 "timeStopsOptions": {
     "timeExtent": {
-        "start": "2000-08-01T00:00Z",
-        "end": "2000-10-01T00:00Z"
+        "start": "2000-08-04T00:00Z",
+        "end": "2000-10-22T00:00Z"
     },
     "timeIntervalLength": 7,
     "timeIntervalUnits": "days"
