@@ -27,6 +27,7 @@ export default declare({
     timeStops: [],
     startTimeStopId: 0,
     endTimeStopId: 1,
+    playSlider: false,
 
     activate() {
         this.locale = Locale.getCurrent().getLanguage();
@@ -69,6 +70,40 @@ export default declare({
         layerIds.forEach((layerId) => {
             this._setFilterToLayer(layerId, filter);
         })
+    },
+
+    play() {
+        this.playSlider = true;
+        this.interval = setInterval(() => {
+            this.nextTimeStop();
+        }, 1000);
+    },
+
+    stop() {
+        this.playSlider = false;
+        clearInterval(this.interval);
+    },
+
+    nextTimeStop() {
+        if (this.endTimeStopId === this.timeStops.length - 1) {
+            let distance = this.endTimeStopId - this.startTimeStopId;
+            this.startTimeStopId = 0;
+            this.endTimeStopId = distance;
+        } else {
+            this.startTimeStopId++;
+            this.endTimeStopId++;
+        }
+    },
+
+    previousTimeStop() {
+        if (this.startTimeStopId === 0) {
+            let distance = this.endTimeStopId - this.startTimeStopId;
+            this.endTimeStopId = this.timeStops.length - 1;
+            this.startTimeStopId = this.timeStops.length - 1 - distance;
+        } else {
+            this.startTimeStopId--;
+            this.endTimeStopId--;
+        }
     },
 
     _setFilterToLayer(layerId, filter) {

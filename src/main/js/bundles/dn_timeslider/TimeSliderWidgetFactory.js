@@ -35,7 +35,7 @@ export default class TimeSliderWidgetFactory {
 
         // listen to view model methods
         widget.$on('startup', () => {
-
+            model.setFilter();
         });
         widget.$on('setFilter', () => {
             model.setFilter();
@@ -43,9 +43,21 @@ export default class TimeSliderWidgetFactory {
         widget.$on('resetFilter', () => {
             model.resetFilter();
         });
+        widget.$on('nextTimeStop', () => {
+            model.nextTimeStop();
+        });
+        widget.$on('previousTimeStop', () => {
+            model.previousTimeStop();
+        });
+        widget.$on('play', () => {
+            model.play();
+        });
+        widget.$on('stop', () => {
+            model.stop();
+        });
 
         Binding.for(widget, model)
-            .syncAll("locale", "layers", "selectedLayerIds", "timeStops", "startTimeStopId", "endTimeStopId")
+            .syncAll("locale", "layers", "selectedLayerIds", "timeStops", "startTimeStopId", "endTimeStopId", "playSlider")
             .enable()
             .syncToLeftNow();
     }

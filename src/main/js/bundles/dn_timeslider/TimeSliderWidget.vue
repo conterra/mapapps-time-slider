@@ -23,6 +23,54 @@
             tick-size="2"
             :tick-labels="sliderLabels"
         ></v-range-slider>
+        <v-layout
+            row
+            wrap>
+            <v-flex
+                md4
+                xs4>
+                <v-btn
+                    block
+                    ripple
+                    color="primary"
+                    @click="$emit('previousTimeStop', {})"
+                >
+                    <v-icon>skip_previous</v-icon>
+                </v-btn>
+            </v-flex>
+            <v-flex
+                md4
+                xs4>
+                <v-btn v-if="!playSlider"
+                       block
+                       ripple
+                       color="primary"
+                       @click="$emit('play', {})"
+                >
+                    <v-icon>play_arrow</v-icon>
+                </v-btn>
+                <v-btn v-else
+                       block
+                       ripple
+                       color="primary"
+                       @click="$emit('stop', {})"
+                >
+                    <v-icon>stop</v-icon>
+                </v-btn>
+            </v-flex>
+            <v-flex
+                md4
+                xs4>
+                <v-btn
+                    block
+                    ripple
+                    color="primary"
+                    @click="$emit('nextTimeStop', {})"
+                >
+                    <v-icon>skip_next</v-icon>
+                </v-btn>
+            </v-flex>
+        </v-layout>
     </v-container>
 </template>
 <script>
@@ -65,13 +113,15 @@
             endTimeStopId: {
                 type: Number,
                 default: 1
+            },
+            playSlider: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {
             sliderLabels: function () {
-                return this.timeStops.map((stop) => {
-                    return stop.label;
-                })
+                return this.timeStops.map((stop) => stop.label)
             },
             sliderValue: {
                 get: function () {
@@ -96,9 +146,7 @@
         },
         methods: {
             setFilter: function () {
-                setTimeout(() => {
-                    this.$emit('setFilter');
-                }, 100);
+                this.$emit('setFilter');
             }
         }
     };
