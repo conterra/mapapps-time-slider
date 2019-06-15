@@ -1,6 +1,6 @@
 {
     "name": "dn_timeslider",
-    "version": "1.0.0-SNAPSHOT",
+    "version": "2.0.0-SNAPSHOT",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
@@ -25,13 +25,13 @@
                 "resizable": true,
                 "marginBox": {
                     "w": 1000,
-                    "h": 200,
+                    "h": 250,
                     "b": 60,
                     "l": 20
                 },
                 "minSize": {
                     "w": 500,
-                    "h": 200
+                    "h": 250
                 },
                 "windowClass": "timeslider-window"
             }
