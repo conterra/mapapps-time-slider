@@ -22,19 +22,23 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider4/index.htm
         "labelPattern": "DD.MM.YYYY",
         "playOnStartup": false,
         "thumbMovingRate": 1000,
-        "loop": false
+        "loop": false,
+        "startTimeStopIndex": 0,
+        "endTimeStopIndex": 1
     }
 }
 ```
 
 ##### Properties
-| Property         | Type    | Possible Values                                                    | Default          | Description                                |
-|------------------|---------|--------------------------------------------------------------------|------------------|--------------------------------------------|
-| timeStopsOptions | Object  |                                                                    |                  | Detailed description below                 |
-| labelPattern     | String  | [More information](https://momentjs.com/docs/#/displaying/format/) | ```DD.MM.YYYY``` | The label pattern for the slider ticks     |
-| playOnStartup    | Boolean | ```true``` &#124; ```false```                                      | ```false```      | Play the slider on startup                 |
-| thumbMovingRate  | Integer |                                                                    | ```1000```       | Moving rate in milliseconds                |
-| loop             | Boolean | ```true``` &#124; ```false```                                      | ```false```      | Restart when the end time has been reached |
+| Property           | Type    | Possible Values                                                    | Default Value    | Description                                |
+|--------------------|---------|--------------------------------------------------------------------|------------------|--------------------------------------------|
+| timeStopsOptions   | Object  |                                                                    |                  | Detailed description below                 |
+| labelPattern       | String  | [More information](https://momentjs.com/docs/#/displaying/format/) | ```DD.MM.YYYY``` | The label pattern for the slider ticks     |
+| playOnStartup      | Boolean | ```true``` &#124; ```false```                                      | ```false```      | Play the slider on startup                 |
+| thumbMovingRate    | Integer |                                                                    | ```1000```       | Moving rate in milliseconds                |
+| loop               | Boolean | ```true``` &#124; ```false```                                      | ```false```      | Restart when the end time has been reached |
+| startTimeStopIndex | Integer |                                                                    | ```0```          | Restart when the end time has been reached |
+| endTimeStopIndex   | Integer |                                                                    | ```1```          | Restart when the end time has been reached |
 
 #### There are three ways to define the time stops:
 ##### 1. Use predefined time stops

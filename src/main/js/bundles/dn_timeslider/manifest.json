@@ -126,7 +126,9 @@
                 "labelPattern": "DD.MM.YYYY",
                 "playOnStartup": false,
                 "thumbMovingRate": 1000,
-                "loop": false
+                "loop": false,
+                "startTimeStopIndex": 0,
+                "endTimeStopIndex": 1
             },
             "references": [
                 {

@@ -43,6 +43,9 @@ export default declare({
             this.selectedLayerIds = [this.layers[0].id];
         });
         this.timeStops = this._getTimeStops();
+        let properties = this._properties;
+        this.startTimeStopIndex = properties.startTimeStopIndex;
+        this.endTimeStopIndex = properties.endTimeStopIndex;
     },
 
     startup() {

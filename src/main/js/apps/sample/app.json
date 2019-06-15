@@ -55,7 +55,9 @@
                 "labelPattern": "DD.MM",
                 "playOnStartup": false,
                 "thumbMovingRate": 1000,
-                "loop": true
+                "loop": true,
+                "startTimeStopIndex": 0,
+                "endTimeStopIndex": 1
             }
         },
         "banner": {
