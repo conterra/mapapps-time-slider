@@ -51,7 +51,7 @@
                 "resizable": false,
                 "marginBox": {
                     "w": "100%",
-                    "h": 258,
+                    "h": 206,
                     "b": 0
                 },
                 "windowClass": "timeslider-window"
@@ -74,7 +74,7 @@
                 "resizable": false,
                 "marginBox": {
                     "w": "100%",
-                    "h": 258,
+                    "h": 206,
                     "b": 0
                 },
                 "windowClass": "timeslider-window"
