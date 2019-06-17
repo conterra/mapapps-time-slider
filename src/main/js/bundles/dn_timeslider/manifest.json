@@ -93,7 +93,7 @@
                 "id": "timeSliderToggleTool",
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
-                "iconClass": "icon-calendar",
+                "iconClass": "icon-time-clock",
                 "toolRole": "toolset",
                 "togglable": true,
                 "rules": {

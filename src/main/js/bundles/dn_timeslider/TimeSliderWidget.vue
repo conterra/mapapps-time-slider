@@ -37,7 +37,7 @@
                     color="primary"
                     @click="$emit('previousTimeStop', {})"
                 >
-                    <v-icon>skip_previous</v-icon>
+                    <v-icon>icon-time-rewind</v-icon>
                 </v-btn>
             </v-flex>
             <v-flex
@@ -49,7 +49,7 @@
                        color="primary"
                        @click="$emit('play', {})"
                 >
-                    <v-icon>play_arrow</v-icon>
+                    <v-icon>icon-play</v-icon>
                 </v-btn>
                 <v-btn v-else
                        block
@@ -57,7 +57,7 @@
                        color="primary"
                        @click="$emit('stop', {})"
                 >
-                    <v-icon>stop</v-icon>
+                    <v-icon>icon-pause</v-icon>
                 </v-btn>
             </v-flex>
             <v-flex
@@ -69,7 +69,7 @@
                     color="primary"
                     @click="$emit('nextTimeStop', {})"
                 >
-                    <v-icon>skip_next</v-icon>
+                    <v-icon>icon-time-forward</v-icon>
                 </v-btn>
             </v-flex>
         </v-layout>
