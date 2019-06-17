@@ -18,6 +18,7 @@
         <v-range-slider
             v-model="sliderValue"
             :max="timeStops.length - 1"
+            class="px-2"
             :min="0"
             :step="1"
             ticks="always"
