@@ -25,13 +25,13 @@
                 "resizable": true,
                 "marginBox": {
                     "w": 800,
-                    "h": 258,
+                    "h": 206,
                     "b": 60,
                     "l": 20
                 },
                 "minSize": {
                     "w": 400,
-                    "h": 258
+                    "h": 206
                 },
                 "windowClass": "timeslider-window"
             }
@@ -128,7 +128,9 @@
                 "thumbMovingRate": 1000,
                 "loop": false,
                 "startTimeStopIndex": 0,
-                "endTimeStopIndex": 1
+                "endTimeStopIndex": 1,
+                "selectedLayerIds": [],
+                "showLayerSelection": false
             },
             "references": [
                 {

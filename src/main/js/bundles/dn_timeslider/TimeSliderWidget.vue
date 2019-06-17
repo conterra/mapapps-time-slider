@@ -3,8 +3,9 @@
         grid-list-md
         fluid
         class="pa-1">
-        <div>{{ i18n.layer }}</div>
+        <div v-if="showLayerSelection">{{ i18n.layer }}</div>
         <v-select
+            v-if="showLayerSelection"
             :items="layers"
             item-value="id"
             item-text="title"
@@ -115,6 +116,10 @@
                 default: 1
             },
             playSlider: {
+                type: Boolean,
+                default: false
+            },
+            showLayerSelection: {
                 type: Boolean,
                 default: false
             }

@@ -57,7 +57,9 @@
                 "thumbMovingRate": 1000,
                 "loop": true,
                 "startTimeStopIndex": 0,
-                "endTimeStopIndex": 1
+                "endTimeStopIndex": 1,
+                "selectedLayerIds": [],
+                "showLayerSelection": false
             }
         },
         "banner": {

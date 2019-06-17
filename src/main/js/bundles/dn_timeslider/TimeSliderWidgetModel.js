@@ -28,12 +28,18 @@ export default declare({
     startTimeStopIndex: 0,
     endTimeStopIndex: 1,
     playSlider: false,
+    showLayerSelection:false,
 
     activate() {
         this.locale = Locale.getCurrent().getLanguage();
+        let properties = this._properties;
         let layers = this.layers = this._getLayers();
         if (layers.length) {
-            this.selectedLayerIds = [layers[0].id];
+            if (properties.selectedLayerIds && properties.selectedLayerIds.length) {
+                this.selectedLayerIds = properties.selectedLayerIds;
+            } else {
+                this.selectedLayerIds = [layers[0].id];
+            }
         }
 
         let mapWidgetModel = this._mapWidgetModel;
@@ -43,7 +49,6 @@ export default declare({
             this.selectedLayerIds = [this.layers[0].id];
         });
         this.timeStops = this._getTimeStops();
-        let properties = this._properties;
         this.startTimeStopIndex = properties.startTimeStopIndex;
         this.endTimeStopIndex = properties.endTimeStopIndex;
     },

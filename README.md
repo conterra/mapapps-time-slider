@@ -24,7 +24,11 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider4/index.htm
         "thumbMovingRate": 1000,
         "loop": false,
         "startTimeStopIndex": 0,
-        "endTimeStopIndex": 1
+        "endTimeStopIndex": 1,
+        "selectedLayerIds": [
+            "hurricane"
+        ],
+        "showLayerSelection": false
     }
 }
 ```
@@ -39,6 +43,8 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider4/index.htm
 | loop               | Boolean | ```true``` &#124; ```false```                                                 | ```false```      | Restart when the end time has been reached |
 | startTimeStopIndex | Integer |                                                                               | ```0```          | Start time stop index                      |
 | endTimeStopIndex   | Integer |                                                                               | ```1```          | End time stop index                        |
+| selectedLayerIds   | Array   |                                                                               | ```[]```         | Layers influenced by the TimeSlider        |
+| showLayerSelection | Boolean | ```true``` &#124; ```false```                                                 | ```false```      | Allow users to change selected layers      |
 
 #### Timestops
 There are three ways to define the time stops:

@@ -57,7 +57,7 @@ export default class TimeSliderWidgetFactory {
         });
 
         Binding.for(widget, model)
-            .syncAll("locale", "layers", "selectedLayerIds", "timeStops", "startTimeStopIndex", "endTimeStopIndex", "playSlider")
+            .syncAll("locale", "layers", "selectedLayerIds", "timeStops", "startTimeStopIndex", "endTimeStopIndex", "playSlider", "showLayerSelection")
             .enable()
             .syncToLeftNow();
     }
