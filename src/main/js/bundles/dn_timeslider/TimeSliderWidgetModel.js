@@ -28,7 +28,7 @@ export default declare({
     startTimeStopIndex: 0,
     endTimeStopIndex: 1,
     playSlider: false,
-    showLayerSelection:false,
+    showLayerSelection: false,
 
     activate() {
         this.locale = Locale.getCurrent().getLanguage();
@@ -51,6 +51,7 @@ export default declare({
         this.timeStops = this._getTimeStops();
         this.startTimeStopIndex = properties.startTimeStopIndex;
         this.endTimeStopIndex = properties.endTimeStopIndex;
+        this.showLayerSelection = properties.showLayerSelection;
     },
 
     startup() {
