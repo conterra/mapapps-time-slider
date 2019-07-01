@@ -94,12 +94,20 @@
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "iconClass": "icon-time-clock",
+                "activateHandler": "onToolActivated",
+                "deactivateHandler": "onToolDeactivated",
                 "toolRole": "toolset",
                 "togglable": true,
                 "rules": {
                     "noGroup": true
                 }
-            }
+            },
+            "references": [
+                {
+                    "name": "handlerScope",
+                    "providing": "dn_timeslider.TimeSliderWidgetModel"
+                }
+            ]
         },
         {
             "name": "TimeSliderWidgetFactory",

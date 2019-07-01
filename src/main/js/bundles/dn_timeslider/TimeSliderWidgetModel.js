@@ -54,12 +54,20 @@ export default declare({
         this.showLayerSelection = properties.showLayerSelection;
     },
 
-    startup() {
+    onToolActivated() {
         if (this._properties.playOnStartup) {
             this.play();
         } else {
             this.setFilter();
         }
+    },
+
+    onToolDeactivated() {
+        this.stop();
+        this.resetFilter();
+    },
+
+    startup() {
     },
 
     setFilter() {
@@ -136,9 +144,17 @@ export default declare({
         if (layer) {
             let mapWidgetModel = this._mapWidgetModel;
             let view = mapWidgetModel.view;
-            view && view.whenLayerView(layer).then(function (layerView) {
-                layerView.filter = filter;
-            });
+            if (view) {
+                view.whenLayerView(layer).then(function (layerView) {
+                    layerView.filter = filter;
+                });
+            } else {
+                mapWidgetModel.watch("view", ({value: view}) => {
+                    view && view.whenLayerView(layer).then(function (layerView) {
+                        layerView.filter = filter;
+                    });
+                });
+            }
         }
     },
 
