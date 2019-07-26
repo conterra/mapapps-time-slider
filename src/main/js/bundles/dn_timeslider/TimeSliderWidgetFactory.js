@@ -25,38 +25,38 @@ export default class TimeSliderWidgetFactory {
     }
 
     createInstance() {
-        return new VueDijit(this.widget);
+        return new VueDijit(this.vm);
     }
 
     _initComponent() {
-        const widget = this.widget = new Vue(TimeSliderWidget);
+        const vm = this.vm = new Vue(TimeSliderWidget);
         let model = this._timeSliderWidgetModel;
-        widget.i18n = this._i18n.get().ui;
+        vm.i18n = this._i18n.get().ui;
 
         // listen to view model methods
-        widget.$on('startup', () => {
+        vm.$on('startup', () => {
             model.startup();
         });
-        widget.$on('setFilter', () => {
+        vm.$on('setFilter', () => {
             model.setFilter();
         });
-        widget.$on('resetFilter', () => {
+        vm.$on('resetFilter', () => {
             model.resetFilter();
         });
-        widget.$on('nextTimeStop', () => {
+        vm.$on('nextTimeStop', () => {
             model.nextTimeStop();
         });
-        widget.$on('previousTimeStop', () => {
+        vm.$on('previousTimeStop', () => {
             model.previousTimeStop();
         });
-        widget.$on('play', () => {
+        vm.$on('play', () => {
             model.play();
         });
-        widget.$on('stop', () => {
+        vm.$on('stop', () => {
             model.stop();
         });
 
-        Binding.for(widget, model)
+        Binding.for(vm, model)
             .syncAll("selectedLayerIds", "startTimeStopIndex", "endTimeStopIndex")
             .syncAllToLeft("timeStops", "locale", "layers", "playSlider", "showLayerSelection")
             .enable()
