@@ -71,6 +71,9 @@ export default declare({
     },
 
     setFilter() {
+        if (!this.timeStops.length) {
+            return;
+        }
         let start = this.timeStops[this.startTimeStopIndex].date;
         let end = this.timeStops[this.endTimeStopIndex].date;
         const timeExtent = new TimeExtent({
