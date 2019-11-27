@@ -19,6 +19,8 @@ import FeatureFilter from "esri/views/layers/support/FeatureFilter";
 import Locale from "ct/Locale";
 import moment from "esri/moment";
 
+const _tool = Symbol("_tool");
+
 export default declare({
 
     locale: "en",
@@ -54,7 +56,8 @@ export default declare({
         this.showLayerSelection = properties.showLayerSelection;
     },
 
-    onToolActivated() {
+    onToolActivated(event) {
+        this[_tool] = event.tool;
         if (this._properties.playOnStartup) {
             this.play();
         } else {
@@ -63,6 +66,7 @@ export default declare({
     },
 
     onToolDeactivated() {
+        this[_tool] = null;
         this.stop();
         this.resetFilter();
     },
@@ -71,7 +75,7 @@ export default declare({
     },
 
     setFilter() {
-        if (!this.timeStops.length) {
+        if (!this.timeStops.length || !this[_tool]) {
             return;
         }
         let start = this.timeStops[this.startTimeStopIndex].date;
