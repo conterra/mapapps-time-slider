@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import TimeSliderWidget from "./TimeSliderWidget.vue";
-import Vue from "apprt-vue/Vue";
-import VueDijit from "apprt-vue/VueDijit";
+import TimeSlider from "esri/widgets/TimeSlider";
+import EsriDijit from "esri-widgets/EsriDijit";
 import Binding from "apprt-binding/Binding";
+import moment from "esri/moment";
+
+const _timeSliderWidget = Symbol("_timeSliderWidget");
 
 export default class TimeSliderWidgetFactory {
 
@@ -25,41 +27,106 @@ export default class TimeSliderWidgetFactory {
     }
 
     createInstance() {
-        return new VueDijit(this.vm);
+        return new EsriDijit(this[_timeSliderWidget]);
     }
 
     _initComponent() {
-        const vm = this.vm = new Vue(TimeSliderWidget);
-        let model = this._timeSliderWidgetModel;
-        vm.i18n = this._i18n.get().ui;
-
-        // listen to view model methods
-        vm.$on('startup', () => {
-            model.startup();
-        });
-        vm.$on('setFilter', () => {
-            model.setFilter();
-        });
-        vm.$on('resetFilter', () => {
-            model.resetFilter();
-        });
-        vm.$on('nextTimeStop', () => {
-            model.nextTimeStop();
-        });
-        vm.$on('previousTimeStop', () => {
-            model.previousTimeStop();
-        });
-        vm.$on('play', () => {
-            model.play();
-        });
-        vm.$on('stop', () => {
-            model.stop();
-        });
-
-        Binding.for(vm, model)
-            .syncAll("selectedLayerIds", "startTimeStopIndex", "endTimeStopIndex")
-            .syncAllToLeft("timeStops", "locale", "layers", "playSlider", "showLayerSelection")
+        const timeSliderProperties = this._getTimeSliderProperties();
+        const timeSliderWidget = this[_timeSliderWidget] = new TimeSlider(timeSliderProperties);
+        const mapWidgetModel = this._mapWidgetModel;
+        const binding = Binding.for(timeSliderWidget, mapWidgetModel)
+            .syncToLeft("view")
             .enable()
             .syncToLeftNow();
+
+        timeSliderWidget.own(binding);
+    }
+
+    _getTimeSliderProperties() {
+        const properties = this._properties;
+        const timeSliderProperties = {
+            class: "ct-timeslider",
+            fullTimeExtent: this._getFullTimeExtent(),
+            mode: properties.mode,
+            loop: properties.loop,
+            playRate: properties.playRate,
+            timeVisible: properties.timeVisible
+        };
+        const stops = this._getStops();
+        if (stops) {
+            timeSliderProperties.stops = stops;
+        }
+        const values = this._getValues();
+        if (values) {
+            timeSliderProperties.values = values;
+        }
+        return timeSliderProperties;
+    }
+
+    _getFullTimeExtent() {
+        const properties = this._properties;
+        const fullTimeExtent = properties.fullTimeExtent;
+        let start = moment();
+        let end = moment().add(1, 'year');
+        if (fullTimeExtent.start) {
+            start = moment(fullTimeExtent.start);
+        }
+        if (fullTimeExtent.end) {
+            end = moment(fullTimeExtent.end);
+        }
+        return {
+            start: start.toDate(),
+            end: end.toDate()
+        }
+    }
+
+    _getValues() {
+        const properties = this._properties;
+        if (properties.values) {
+            return properties.values.map((dateString) => moment(dateString).toDate());
+        } else {
+            return null;
+        }
+    }
+
+    _getStops() {
+        const properties = this._properties;
+        const stopsProperties = properties.stops;
+        let stops = null;
+        if (stopsProperties) {
+            if (stopsProperties.dates) {
+                stops = {};
+                stops.dates = stopsProperties.map((dateString) => moment(dateString).toDate());
+            } else {
+                if (stopsProperties.count) {
+                    stops = {};
+                    const defaultStopCount = 10;
+                    stops.count = stopsProperties.count || defaultStopCount;
+                } else if (stopsProperties.interval) {
+                    stops = {};
+                    stops.interval = {
+                        value: stopsProperties.interval.value || 1,
+                        unit: stopsProperties.interval.unit || "years"
+                    }
+                }
+                if (stopsProperties.timeExtent && stops) {
+                    let start = null;
+                    let end = null;
+                    if (stopsProperties.timeExtent.start) {
+                        start = moment(stopsProperties.timeExtent.start);
+                    }
+                    if (stopsProperties.timeExtent.end) {
+                        end = moment(stopsProperties.timeExtent.end);
+                    }
+                    if (start && end) {
+                        stops.timeExtent = {
+                            start: start.toDate(),
+                            end: end.toDate()
+                        }
+                    }
+                }
+            }
+        }
+        return stops;
     }
 }

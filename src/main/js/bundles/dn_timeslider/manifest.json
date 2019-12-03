@@ -1,6 +1,6 @@
 {
     "name": "dn_timeslider",
-    "version": "5.0.2-SNAPSHOT",
+    "version": "6.0.0-SNAPSHOT",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
@@ -24,14 +24,14 @@
                 "minimizeOnClose": true,
                 "resizable": true,
                 "marginBox": {
-                    "w": 800,
+                    "w": 100,
                     "h": 206,
                     "b": 60,
                     "l": 20
                 },
                 "minSize": {
-                    "w": 400,
-                    "h": 206
+                    "w": 900,
+                    "h": 100
                 },
                 "windowClass": "timeslider-window"
             }
@@ -83,6 +83,31 @@
     ],
     "components": [
         {
+            "name": "Config",
+            "impl": "./TimeSliderWidgetFactory",
+            "provides": [
+                "dijit.Widget",
+                "dn_timeslider.TimeSliderWidget"
+            ],
+            "instanceFactory": true,
+            "properties": {
+                "widgetRole": "timeSliderWidget",
+                "fullTimeExtent": {},
+                "stops": null,
+                "values": null,
+                "mode": "time-window",
+                "loop": true,
+                "playRate": 1000,
+                "timeVisible": false
+            },
+            "references": [
+                {
+                    "name": "_mapWidgetModel",
+                    "providing": "map-widget.MapWidgetModel"
+                }
+            ]
+        },
+        {
             "name": "TimeSliderToggleTool",
             "impl": "ct/tools/Tool",
             "provides": [
@@ -94,58 +119,10 @@
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "iconClass": "icon-time-clock",
-                "activateHandler": "onToolActivated",
-                "deactivateHandler": "onToolDeactivated",
                 "toolRole": "toolset",
                 "togglable": true,
-                "rules": {
-                    "noGroup": true
-                }
-            },
-            "references": [
-                {
-                    "name": "handlerScope",
-                    "providing": "dn_timeslider.TimeSliderWidgetModel"
-                }
-            ]
-        },
-        {
-            "name": "TimeSliderWidgetFactory",
-            "provides": [
-                "dijit.Widget"
-            ],
-            "instanceFactory": true,
-            "properties": {
-                "widgetRole": "timeSliderWidget"
-            },
-            "references": [
-                {
-                    "name": "_timeSliderWidgetModel",
-                    "providing": "dn_timeslider.TimeSliderWidgetModel"
-                }
-            ]
-        },
-        {
-            "name": "Config",
-            "impl": "./TimeSliderWidgetModel",
-            "provides": "dn_timeslider.TimeSliderWidgetModel",
-            "properties": {
-                "timeStopsOptions": {},
-                "labelPattern": "DD.MM.YYYY",
-                "playOnStartup": false,
-                "thumbMovingRate": 1000,
-                "loop": false,
-                "startTimeStopIndex": 0,
-                "endTimeStopIndex": 1,
-                "selectedLayerIds": [],
-                "showLayerSelection": false
-            },
-            "references": [
-                {
-                    "name": "_mapWidgetModel",
-                    "providing": "map-widget.MapWidgetModel"
-                }
-            ]
+                "noGroup": true
+            }
         }
     ]
 }

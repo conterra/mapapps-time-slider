@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.conterra.devnet</groupId>
     <artifactId>mapapps-time-slider</artifactId>
-    <version>5.0.2-SNAPSHOT</version>
+    <version>6.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <repositories>
         <repository>
@@ -442,7 +442,7 @@
                                     <!-- remove bundleLocations from app.json -->
                                     <token>\s*"bundleLocations"\s*:\s*\[\s*"localbundles"\s*,\s*"bundles"\s*\]\s*,\s*
                                     </token>
-                                    <value />
+                                    <value/>
                                 </replacement>
                             </replacements>
                         </configuration>
@@ -536,7 +536,7 @@
         <root.build.outputPath>${project.build.directory}/webapp</root.build.outputPath>
         <js.build.outputPath>${root.build.outputPath}/js</js.build.outputPath>
 
-        <mapapps.version>4.7.2</mapapps.version>
+        <mapapps.version>4.8.0-SNAPSHOT</mapapps.version>
         <!-- JS lib versions -->
         <apprt.version>${mapapps.version}</apprt.version>
         <!-- java lib versions -->
@@ -551,10 +551,10 @@
             *://*:*/**;
         </proxy.allowedServerUrls>
         <proxy.allowedSSLDNs>*</proxy.allowedSSLDNs>
-        <proxy.use.rules />
+        <proxy.use.rules></proxy.use.rules>
         <jetty.port>9090</jetty.port>
         <mvn.cmd>mvn</mvn.cmd>
-        <gulp.task />
+        <gulp.task></gulp.task>
 
         <!-- required for release build -->
         <scm.push>false</scm.push>

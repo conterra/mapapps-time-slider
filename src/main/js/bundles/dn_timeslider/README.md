@@ -1,13 +1,24 @@
-# Time Slider Bundle
-The Time Slider bundle adds the Esri TimeSlider widget to a map.apps app.
+# dn_timeslider
 
-## Sample App
-https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider4/index.html
+The Time Slider bundle allows the user to change the time extent for FeatureLayers.
 
-## Installation Guide
+## Usage
 **Requirement: map.apps 4.8.0**
 
-[dn_timeslider Documentation](https://github.com/conterra/mapapps-time-slider/tree/master/src/main/js/bundles/dn_timeslider)
+1. First you need to add the bundle dn_timeslider to your app.
+2. Then you need to configure it.
+
+To make the functions of this bundle available to the user, the following tool can be added to a toolset:
+
+| Tool ID              | Component            | Description              |
+|----------------------|----------------------|--------------------------|
+| timeSliderToggleTool | timeSliderToggleTool | Show or hide the widget. |
+
+## Configuration Reference
+
+### Config
+
+TODO
 
 ## Development Guide
 ### Define the mapapps remote base
