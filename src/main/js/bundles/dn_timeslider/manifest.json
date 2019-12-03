@@ -86,10 +86,8 @@
             "name": "Config",
             "impl": "./TimeSliderWidgetFactory",
             "provides": [
-                "dijit.Widget",
-                "dn_timeslider.TimeSliderWidget"
+                "dn_timeslider.TimeSliderWidgetFactory"
             ],
-            "instanceFactory": true,
             "properties": {
                 "widgetRole": "timeSliderWidget",
                 "fullTimeExtent": {},
@@ -119,10 +117,18 @@
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "iconClass": "icon-time-clock",
+                "activateHandler": "onToolActivated",
+                "deactivateHandler": "onToolDeactivated",
                 "toolRole": "toolset",
                 "togglable": true,
                 "noGroup": true
-            }
+            },
+            "references": [
+                {
+                    "name": "handlerScope",
+                    "providing": "dn_timeslider.TimeSliderWidgetFactory"
+                }
+            ]
         }
     ]
 }

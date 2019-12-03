@@ -19,27 +19,84 @@ import Binding from "apprt-binding/Binding";
 import moment from "esri/moment";
 
 const _timeSliderWidget = Symbol("_timeSliderWidget");
+const _serviceregistration = Symbol("_serviceregistration");
+const _binding = Symbol("_binding");
+const _bundleContext = Symbol("_bundleContext");
+const _initialTimeExtent = Symbol("_initialTimeExtent");
 
 export default class TimeSliderWidgetFactory {
 
-    activate() {
-        this._initComponent();
+    activate(componentContext) {
+        this[_bundleContext] = componentContext.getBundleContext();
+        this._getView().then((view) => {
+            this[_initialTimeExtent] = view.timeExtent;
+        });
     }
 
-    createInstance() {
-        return new EsriDijit(this[_timeSliderWidget]);
+    deactivate() {
+        this._hideWindow();
+        this._resetTimeExtent();
     }
 
-    _initComponent() {
+    onToolActivated() {
+        this._showWindow();
+    }
+
+    onToolDeactivated() {
+        this._hideWindow();
+        this._resetTimeExtent();
+    }
+
+    _getView() {
+        const mapWidgetModel = this._mapWidgetModel;
+        return new Promise((resolve, reject) => {
+            if (mapWidgetModel.view) {
+                resolve(mapWidgetModel.view);
+            } else {
+                mapWidgetModel.watch("view", ({value: view}) => {
+                    resolve(view);
+                });
+            }
+        });
+    }
+
+    _getWidget() {
         const timeSliderProperties = this._getTimeSliderProperties();
         const timeSliderWidget = this[_timeSliderWidget] = new TimeSlider(timeSliderProperties);
         const mapWidgetModel = this._mapWidgetModel;
-        const binding = Binding.for(timeSliderWidget, mapWidgetModel)
+        const binding = this[_binding] = Binding.for(timeSliderWidget, mapWidgetModel)
             .syncToLeft("view")
             .enable()
             .syncToLeftNow();
 
         timeSliderWidget.own(binding);
+
+        return new EsriDijit(timeSliderWidget);
+    }
+
+    _showWindow() {
+        const widget = this._getWidget();
+        const serviceProperties = {
+            "widgetRole": "timeSliderWidget"
+        };
+        const interfaces = ["dijit.Widget"];
+        this[_serviceregistration] = this[_bundleContext].registerService(interfaces, widget, serviceProperties);
+    }
+
+    _hideWindow() {
+        this[_binding].unbind();
+        this[_binding] = undefined;
+        this[_timeSliderWidget].destroy();
+        this[_timeSliderWidget] = undefined;
+        const registration = this[_serviceregistration];
+
+        // clear the reference
+        this[_serviceregistration] = undefined;
+
+        if (registration) {
+            // call unregister
+            registration.unregister();
+        }
     }
 
     _getTimeSliderProperties() {
@@ -128,5 +185,11 @@ export default class TimeSliderWidgetFactory {
             }
         }
         return stops;
+    }
+
+    _resetTimeExtent() {
+        this._getView().then((view) => {
+            view.timeExtent = this[_initialTimeExtent];
+        })
     }
 }
