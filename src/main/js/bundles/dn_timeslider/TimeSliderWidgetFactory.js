@@ -102,7 +102,6 @@ export default class TimeSliderWidgetFactory {
     _getTimeSliderProperties() {
         const properties = this._properties;
         const timeSliderProperties = {
-            class: "ct-timeslider",
             fullTimeExtent: this._getFullTimeExtent(),
             mode: properties.mode,
             loop: properties.loop,

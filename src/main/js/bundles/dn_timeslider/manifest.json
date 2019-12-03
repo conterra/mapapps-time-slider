@@ -10,6 +10,14 @@
     "icon": {},
     "license": {},
     "productName": "devnet-mapapps-time-slider",
+    "CSS-Themes-Extension": [
+        {
+            "name": "*",
+            "files": [
+                "./css/styles.css"
+            ]
+        }
+    ],
     "layout-widgets": [
         {
             "widgetRole": "timeSliderWidget",
@@ -24,14 +32,14 @@
                 "minimizeOnClose": true,
                 "resizable": true,
                 "marginBox": {
-                    "w": 100,
-                    "h": 206,
+                    "w": 900,
+                    "h": 130,
                     "b": 60,
                     "l": 20
                 },
                 "minSize": {
                     "w": 900,
-                    "h": 100
+                    "h": 130
                 },
                 "windowClass": "timeslider-window"
             }
@@ -39,7 +47,26 @@
         {
             "widgetRole": "timeSliderWidget",
             "sublayout": [
-                "tablet_landscape",
+                "tablet_landscape"
+            ],
+            "window": {
+                "title": "${windowTitle}",
+                "dockTool": "timeSliderToggleTool",
+                "closable": true,
+                "maximizable": true,
+                "minimizeOnClose": true,
+                "resizable": false,
+                "marginBox": {
+                    "w": "100%",
+                    "h": 136,
+                    "b": 0
+                },
+                "windowClass": "timeslider-window"
+            }
+        },
+        {
+            "widgetRole": "timeSliderWidget",
+            "sublayout": [
                 "tablet_portrait"
             ],
             "window": {
@@ -51,7 +78,7 @@
                 "resizable": false,
                 "marginBox": {
                     "w": "100%",
-                    "h": 206,
+                    "h": 236,
                     "b": 0
                 },
                 "windowClass": "timeslider-window"
@@ -74,7 +101,7 @@
                 "resizable": false,
                 "marginBox": {
                     "w": "100%",
-                    "h": 206,
+                    "h": 236,
                     "b": 0
                 },
                 "windowClass": "timeslider-window"
