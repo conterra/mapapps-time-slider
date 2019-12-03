@@ -31,14 +31,14 @@ To make the functions of this bundle available to the user, the following tool c
             "unit": "weeks"
         },
         "timeExtent": {
-            "start": "2000-09-01T00:00Z",
-            "end": "2000-09-30T00:00Z"
+            "start": "2000-08-07T00:00Z",
+            "end": "2000-10-22T00:00Z"
         }
     },
     "mode": "time-window",
     "values": [
-        "2000-09-01T00:00Z",
-        "2000-09-30T00:00Z"
+        "2000-08-07T00:00Z",
+        "2000-08-13T00:00Z"
     ],
     "loop": true,
     "playRate": 1000,
@@ -114,8 +114,8 @@ If you configure the stops over an interval or a number, you have the additional
 "stops": {
     "count": 10,
     "timeExtent": {
-        "start": "2000-09-01T00:00Z",
-        "end": "2000-09-30T00:00Z"
+        "start": "2000-08-07T00:00Z",
+        "end": "2000-10-22T00:00Z"
     }
 }
 ```
@@ -127,8 +127,8 @@ If you configure the stops over an interval or a number, you have the additional
         "unit": "weeks"
     },
     "timeExtent": {
-        "start": "2000-09-01T00:00Z",
-        "end": "2000-09-30T00:00Z"
+        "start": "2000-08-07T00:00Z",
+        "end": "2000-10-22T00:00Z"
     }
 }
 ```
