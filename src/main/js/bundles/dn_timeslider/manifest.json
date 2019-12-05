@@ -10,6 +10,12 @@
     "icon": {},
     "license": {},
     "productName": "devnet-mapapps-time-slider",
+    "dependencies": {
+        "esri": "^4.13.2",
+        "esri-widgets": "^4.8.0-SNAPSHOT",
+        "map-widget": "^4.8.0-SNAPSHOT",
+        "apprt-binding": "^4.8.0-SNAPSHOT"
+    },
     "CSS-Themes-Extension": [
         {
             "name": "*",
