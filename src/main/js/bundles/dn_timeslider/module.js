@@ -15,4 +15,5 @@
  */
 import ".";
 import "./TimeSliderWidgetFactory";
+import "./TimeSliderWidgetController";
 import "ct/tools/Tool";

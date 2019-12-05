@@ -116,10 +116,31 @@
     ],
     "components": [
         {
-            "name": "Config",
-            "impl": "./TimeSliderWidgetFactory",
+            "name": "TimeSliderWidgetFactory",
             "provides": [
+                "dijit.Widget",
                 "dn_timeslider.TimeSliderWidgetFactory"
+            ],
+            "instanceFactory": true,
+            "properties": {
+                "widgetRole": "timeSliderWidget"
+            },
+            "references": [
+                {
+                    "name": "_mapWidgetModel",
+                    "providing": "map-widget.MapWidgetModel"
+                },
+                {
+                    "name": "_timeSliderWidgetController",
+                    "providing": "dn_timeslider.TimeSliderWidgetController"
+                }
+            ]
+        },
+        {
+            "name": "Config",
+            "impl": "./TimeSliderWidgetController",
+            "provides": [
+                "dn_timeslider.TimeSliderWidgetController"
             ],
             "properties": {
                 "widgetRole": "timeSliderWidget",
@@ -160,7 +181,7 @@
             "references": [
                 {
                     "name": "handlerScope",
-                    "providing": "dn_timeslider.TimeSliderWidgetFactory"
+                    "providing": "dn_timeslider.TimeSliderWidgetController"
                 }
             ]
         }
