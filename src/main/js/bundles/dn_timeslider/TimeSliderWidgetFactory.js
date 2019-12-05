@@ -40,6 +40,9 @@ export default class TimeSliderWidgetFactory {
 
     onToolActivated() {
         this._showWindow();
+        if(this._properties.playOnStartup) {
+            this[_timeSliderWidget].play();
+        }
     }
 
     onToolDeactivated() {

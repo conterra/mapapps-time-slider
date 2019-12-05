@@ -42,6 +42,7 @@ To make the functions of this bundle available to the user, the following tool c
     ],
     "loop": true,
     "playRate": 1000,
+    "playOnStartup": false,
     "timeVisible": false
 }
 ```
@@ -54,6 +55,7 @@ To make the functions of this bundle available to the user, the following tool c
 | values         | Array   |                                                                                                            | ```null```           | Values define the current location of time slider thumbs. The "time-window" mode has two values, the other modes only have one.                                                                                                                                                                                                   |
 | loop           | Boolean | ```true``` &#124; ```false```                                                                              | ```true```           | When true, the time slider will play its animation in a loop.                                                                                                                                                                                                                                                                     |
 | playRate       | Number  |                                                                                                            | ```1000```           | The time (in milliseconds) between animation steps.                                                                                                                                                                                                                                                                               |
+| playOnStartup  | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | When true, the time slider will play its animation on startup.                                                                                                                                                                                                                                                                               |
 | timeVisible    | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | Shows/hides time in the display.                                                                                                                                                                                                                                                                                                  |
 
 #### Configuration of fullTimeExtent
