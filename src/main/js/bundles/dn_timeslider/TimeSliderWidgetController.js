@@ -79,21 +79,21 @@ export default class TimeSliderWidgetFactory {
         let start = moment();
         let end = moment().add(1, 'year');
         if (fullTimeExtent.start) {
-            start = moment(fullTimeExtent.start);
+            start = this._getDate(fullTimeExtent.start);
         }
         if (fullTimeExtent.end) {
-            end = moment(fullTimeExtent.end);
+            end = this._getDate(fullTimeExtent.end);
         }
         return {
-            start: start.toDate(),
-            end: end.toDate()
+            start: start,
+            end: end
         }
     }
 
     _getValues() {
         const properties = this._properties;
         if (properties.values) {
-            return properties.values.map((dateString) => moment(dateString).toDate());
+            return properties.values.map((dateString) => this._getDate(dateString));
         } else {
             return null;
         }
@@ -107,6 +107,25 @@ export default class TimeSliderWidgetFactory {
             if (stopsProperties.dates) {
                 stops = {};
                 stops.dates = stopsProperties.map((dateString) => moment(dateString).toDate());
+            } else if (stopsProperties.moment) {
+                stops = {};
+                const dates = [];
+                let momentObj = moment();
+                stopsProperties.moment.forEach((timeStop) => {
+                    if (!timeStop) {
+                        // do nothing
+                    } else if (typeof timeStop === 'string') {
+                        momentObj = moment(timeStop);
+                    } else if (Array.isArray(timeStop)) {
+                        timeStop.forEach((time) => {
+                            momentObj[time.method].apply(momentObj, time.args);
+                        });
+                    } else {
+                        momentObj[timeStop.method].apply(momentObj, timeStop.args);
+                    }
+                    dates.push(momentObj.toDate());
+                });
+                stops.dates = dates;
             } else {
                 if (stopsProperties.count) {
                     stops = {};
@@ -138,6 +157,10 @@ export default class TimeSliderWidgetFactory {
             }
         }
         return stops;
+    }
+
+    _getDate(config) {
+        return moment(config).toDate();
     }
 
     _getView() {

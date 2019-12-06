@@ -78,9 +78,67 @@ To use the current time you must use undefined:
 ```
 
 #### Configuration of stops
-There are three ways to configure the stops of the time slider:
+There are four ways to configure the stops of the time slider:
 
-1. Predefined dates
+1. Usage of moment.js methods
+```json
+"moment": [
+    // Add a new time stop to the first april of 2019
+    "2019-04-01T00:00Z",
+    // Add a new time stop one month later than the previous time stop
+    {
+        "method": "add",
+        "args": [
+            1,
+            "months"
+        ]
+    },
+    // add a new time stop 7 days later than the previous time stop
+    {
+        "method": "add",
+        "args": [
+            7,
+            "days"
+        ]
+    },
+    // add a new time stop one week and 2 days later than the previous time stop
+    [
+        {
+            "method": "add",
+            "args": [
+                1,
+                "weeks"
+            ]
+        },
+        {
+            "method": "add",
+            "args": [
+                2,
+                "days"
+            ]
+        }
+    ],
+    // add a new time stop 1 week minus 2 days later than the previous time stop
+    [
+        {
+            "method": "add",
+            "args": [
+                1,
+                "weeks"
+            ]
+        },
+        {
+            "method": "subtract",
+            "args": [
+                2,
+                "days"
+            ]
+        }
+    ]
+]
+```
+
+2. Predefined dates
 ```json
 "stops": {
     "dates": [
@@ -93,14 +151,14 @@ There are three ways to configure the stops of the time slider:
 }
 ```
 
-2. Stops by count
+3. Stops by count
 ```json
 "stops": {
     "count": 10
 }
 ```
 
-3. Stops by interval
+4. Stops by interval
 More information about the possible units are available in the [TimeInterval](https://developers.arcgis.com/javascript/latest/api-reference/esri-TimeInterval.html) documentation
 ```json
 "stops": {
