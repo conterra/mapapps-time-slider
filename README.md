@@ -1,6 +1,8 @@
 # Time Slider Bundle
 The Time Slider bundle adds the Esri TimeSlider widget to a map.apps app.
 
+![Screenshot App](https://github.com/conterra/mapapps-time-slider/blob/master/screenshot.JPG)
+
 ## Sample App
 https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider4/index.html
 
