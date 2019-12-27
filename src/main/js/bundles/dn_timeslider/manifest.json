@@ -27,9 +27,6 @@
     "layout-widgets": [
         {
             "widgetRole": "timeSliderWidget",
-            "sublayout": [
-                "desktop"
-            ],
             "window": {
                 "title": "${windowTitle}",
                 "dockTool": "timeSliderToggleTool",
@@ -38,54 +35,10 @@
                 "minimizeOnClose": true,
                 "resizable": true,
                 "marginBox": {
-                    "w": 900,
-                    "h": 130,
-                    "b": 60,
-                    "l": 20
-                },
-                "minSize": {
-                    "w": 900,
-                    "h": 130
-                },
-                "windowClass": "timeslider-window"
-            }
-        },
-        {
-            "widgetRole": "timeSliderWidget",
-            "sublayout": [
-                "tablet_landscape"
-            ],
-            "window": {
-                "title": "${windowTitle}",
-                "dockTool": "timeSliderToggleTool",
-                "closable": true,
-                "maximizable": true,
-                "minimizeOnClose": true,
-                "resizable": false,
-                "marginBox": {
-                    "w": "100%",
-                    "h": 136,
-                    "b": 0
-                },
-                "windowClass": "timeslider-window"
-            }
-        },
-        {
-            "widgetRole": "timeSliderWidget",
-            "sublayout": [
-                "tablet_portrait"
-            ],
-            "window": {
-                "title": "${windowTitle}",
-                "dockTool": "timeSliderToggleTool",
-                "closable": true,
-                "maximizable": true,
-                "minimizeOnClose": true,
-                "resizable": false,
-                "marginBox": {
-                    "w": "100%",
-                    "h": 236,
-                    "b": 0
+                    "w": 435,
+                    "h": 230,
+                    "l": 20,
+                    "t": 125
                 },
                 "windowClass": "timeslider-window"
             }
@@ -97,20 +50,31 @@
                 "mobile_portrait"
             ],
             "window": {
-                "title": "${windowTitle}",
-                "dockTool": "timeSliderToggleTool",
-                "dockable": true,
                 "dockingBar": "${id}-dockingBarBottomLeft",
-                "closable": true,
-                "maximizable": true,
-                "minimizeOnClose": true,
-                "resizable": false,
-                "marginBox": {
-                    "w": "100%",
-                    "h": 236,
-                    "b": 0
+                "fixEdgesInViewport": {
+                    "l": true,
+                    "r": true
                 },
-                "windowClass": "timeslider-window"
+                "marginBox": {
+                    "h": 230,
+                    "b": 42,
+                    "r": 0,
+                    "l": 0
+                }
+            }
+        },
+        {
+            "widgetRole": "timeSliderWidget",
+            "sublayout": [
+                "mobile_landscape"
+            ],
+            "window": {
+                "marginBox": {
+                    "h": 230,
+                    "b": 0,
+                    "r": 0,
+                    "l": 50
+                }
             }
         }
     ],
