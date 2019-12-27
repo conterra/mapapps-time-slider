@@ -13,14 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 .ctAppRoot .timeslider-window .dijitDialogPaneContent {
     padding: 0;
 }
-
-.ctAppRoot .timeslider-window .esri-time-slider .esri-time-slider__slider {
+.ctAppRoot .esri-time-slider .esri-time-slider__slider {
     background-color: transparent;
 }
-
-.ctAppRoot .timeslider-window .esri-time-slider .esri-widget--button {
-    padding: 0;
+.ctAppRoot .esri-time-slider .esri-widget--button{
+    box-sizing: border-box;
 }
+.ctAppRoot .esri-time-slider .esri-widget--button:hover{
+    box-shadow: none;
+}
+
