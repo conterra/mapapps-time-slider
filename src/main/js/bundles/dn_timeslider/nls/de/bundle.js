@@ -15,13 +15,10 @@
  */
 module.exports = {
     bundleName: "Time Slider",
-    bundleDescription: "Time Slider",
+    bundleDescription: "Das Time Slider Bundle erlaubt es dem Anwender den Zeitrahmen der Karte anzupassen.",
     windowTitle: "Time Slider",
     tool: {
         title: "Time Slider",
         tooltip: "Time Slider"
-    },
-    ui: {
-        layer: "Layer:"
     }
 };

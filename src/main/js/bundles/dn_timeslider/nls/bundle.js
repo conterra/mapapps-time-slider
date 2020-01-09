@@ -16,14 +16,11 @@
 module.exports = {
     root: {
         bundleName: "Time Slider",
-        bundleDescription: "Time Slider",
+        bundleDescription: "The Time Slider bundle allows the user to change the time extent of the map.",
         windowTitle: "Time Slider",
         tool: {
             title: "Time Slider",
             tooltip: "Time Slider"
-        },
-        ui: {
-            layer: "Layer:"
         }
     },
     de: true
