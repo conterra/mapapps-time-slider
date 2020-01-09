@@ -1,6 +1,6 @@
 # dn_timeslider
 
-The Time Slider bundle allows the user to change the time extent for FeatureLayers.
+The Time Slider bundle allows the user to change the time extent of the map.
 
 ## Usage
 **Requirement: map.apps 4.8.0**
