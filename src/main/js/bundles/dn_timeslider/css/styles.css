@@ -30,3 +30,188 @@
     box-shadow: none;
 }
 
+/* fix for different timeslider modes */
+/* everlasting */
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-1 {
+    background-color: #12a5f4;
+}
+
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-2 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-0 {
+    background-color: #12a5f4;
+}
+
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.everlasting .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-1 {
+    background-color: #12a5f4;
+}
+
+/* autumn */
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-1 {
+    background-color: #2980b9;
+}
+
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-2 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-0 {
+    background-color: #2980b9;
+}
+
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.autumn .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-1 {
+    background-color: #2980b9;
+}
+
+/* spring */
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-1 {
+    background-color: #16a085;
+}
+
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-2 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-0 {
+    background-color: #16a085;
+}
+
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.spring .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-1 {
+    background-color: #16a085;
+}
+
+/* summer */
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-1 {
+    background-color: #8c0f1a;
+}
+
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-2 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-0 {
+    background-color: #8c0f1a;
+}
+
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.summer .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-1 {
+    background-color: #8c0f1a;
+}
+
+/* winter */
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--instant .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-1 {
+    background-color: #3c3c3c;
+}
+
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--time-window .esri-slider__segment-2 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-0 {
+    background-color: #3c3c3c;
+}
+
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--cumulative-from-start .esri-slider__segment-1 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-0 {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+
+.ctAppRoot.winter .esri-time-slider.esri-time-slider__mode--cumulative-from-end .esri-slider__segment-1 {
+    background-color: #3c3c3c;
+}
