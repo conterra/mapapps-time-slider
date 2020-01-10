@@ -40,6 +40,10 @@
                     "l": 20,
                     "t": 125
                 },
+                "minSize": {
+                    "w": 435,
+                    "h": 230
+                },
                 "windowClass": "timeslider-window"
             }
         },
@@ -51,6 +55,7 @@
             ],
             "window": {
                 "dockingBar": "${id}-dockingBarBottomLeft",
+                "resizable": false,
                 "fixEdgesInViewport": {
                     "l": true,
                     "r": true
@@ -69,6 +74,7 @@
                 "mobile_landscape"
             ],
             "window": {
+                "resizable": false,
                 "marginBox": {
                     "h": 230,
                     "b": 0,
