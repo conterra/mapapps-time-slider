@@ -81,7 +81,7 @@ To use the current time you must use undefined:
 There are four ways to configure the stops of the time slider:
 
 1. Usage of moment.js methods
-```json
+```javascript
 "moment": [
     // Add a new time stop to the first april of 2019
     "2019-04-01T00:00Z",
