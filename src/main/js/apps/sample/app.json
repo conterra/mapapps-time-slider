@@ -25,6 +25,7 @@
             "omnisearch",
             "locator-store",
             "toc",
+            "legend",
             "dn_timeslider"
         ],
         "require": [
@@ -51,7 +52,7 @@
                         "end": "2019-10-06T00:00Z"
                     }
                 },
-                "mode": "cumulative-from-end",
+                "mode": "instant",
                 "values": [
                     "2019-04-01T00:00Z"
                 ],
@@ -209,7 +210,8 @@
                         "cssClass": "ct-main-app-menu",
                         "tools": [
                             "timeSliderToggleTool",
-                            "tocToggleTool"
+                            "tocToggleTool",
+                            "legendToggleTool"
                         ],
                         "registerWidget": {
                             "widgetRole": "drawer_button"
@@ -223,7 +225,8 @@
         "toolrules": {
             "ToolActiveStateManager": {
                 "activateOnStartToolIds": [
-                    "timeSliderToggleTool"
+                    "timeSliderToggleTool",
+                    "legendToggleTool"
                 ]
             }
         }
