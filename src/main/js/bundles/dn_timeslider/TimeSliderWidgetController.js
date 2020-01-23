@@ -33,9 +33,12 @@ export default class TimeSliderWidgetFactory {
     }
 
     onToolActivated() {
-        if (this._properties.playOnStartup) {
-            this[_timeSliderWidget].play();
-        }
+        this._getView().then((view) => {
+            view.timeExtent = this[_timeSliderWidget].timeExtent;
+            if (this._properties.playOnStartup) {
+                this[_timeSliderWidget].play();
+            }
+        });
     }
 
     onToolDeactivated() {
