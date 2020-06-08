@@ -12,7 +12,7 @@ To make the functions of this bundle available to the user, the following tool c
 
 | Tool ID              | Component            | Description              |
 |----------------------|----------------------|--------------------------|
-| timeSliderToggleTool | timeSliderToggleTool | Show or hide the widget. |
+| timeSliderToggleTool | TimeSliderToggleTool | Show or hide the widget. |
 
 ## Configuration Reference
 
