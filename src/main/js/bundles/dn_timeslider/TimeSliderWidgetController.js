@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import TimeSlider from "esri/widgets/TimeSlider";
-import moment from "esri/moment";
+import moment from "moment";
 
 const _timeSliderWidget = Symbol("_timeSliderWidget");
 const _initialTimeExtent = Symbol("_initialTimeExtent");
