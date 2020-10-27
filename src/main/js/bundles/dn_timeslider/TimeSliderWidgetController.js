@@ -81,11 +81,17 @@ export default class TimeSliderWidgetFactory {
         const fullTimeExtent = properties.fullTimeExtent;
         let start = moment();
         let end = moment().add(1, 'year');
-        if (fullTimeExtent.start) {
-            start = this._getDate(fullTimeExtent.start);
-        }
-        if (fullTimeExtent.end) {
-            end = this._getDate(fullTimeExtent.end);
+        if(fullTimeExtent) {
+            if (fullTimeExtent.start) {
+                start = this._getDate(fullTimeExtent.start);
+            } else {
+                start = new Date();
+            }
+            if (fullTimeExtent.end) {
+                end = this._getDate(fullTimeExtent.end);
+            } else {
+                end = new Date();
+            }
         }
         return {
             start: start,
