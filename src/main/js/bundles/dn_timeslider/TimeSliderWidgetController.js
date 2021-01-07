@@ -79,15 +79,27 @@ export default class TimeSliderWidgetFactory {
     _getFullTimeExtent() {
         const properties = this._properties;
         const fullTimeExtent = properties.fullTimeExtent;
-        let start = moment();
-        let end = moment().add(1, 'year');
-        if(fullTimeExtent) {
-            if (fullTimeExtent.start) {
+        let start = moment.utc();
+        let end = moment.utc().add(1, 'year');
+        if (fullTimeExtent) {
+            if (fullTimeExtent.startMoment) {
+                const startMomentObj = moment.utc();
+                fullTimeExtent.startMoment.forEach((m) => {
+                    startMomentObj[m.method].apply(startMomentObj, m.args);
+                });
+                start = startMomentObj.toDate();
+            } else if (fullTimeExtent.start) {
                 start = this._getDate(fullTimeExtent.start);
             } else {
                 start = new Date();
             }
-            if (fullTimeExtent.end) {
+            if (fullTimeExtent.endMoment) {
+                const endMomentObj = moment.utc();
+                fullTimeExtent.endMoment.forEach((m) => {
+                    endMomentObj[m.method].apply(endMomentObj, m.args);
+                });
+                end = endMomentObj.toDate();
+            } else if (fullTimeExtent.end) {
                 end = this._getDate(fullTimeExtent.end);
             } else {
                 end = new Date();
@@ -119,7 +131,7 @@ export default class TimeSliderWidgetFactory {
             } else if (stopsProperties.moment) {
                 stops = {};
                 const dates = [];
-                let momentObj = moment();
+                let momentObj = moment().utc();
                 stopsProperties.moment.forEach((timeStop) => {
                     if (!timeStop) {
                         // do nothing
