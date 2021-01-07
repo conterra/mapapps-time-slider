@@ -68,12 +68,12 @@ To configure this property you need to define a start and an end date. For that 
 }
 ```
 
-To use the current time you must use null:
+To use the current time you must use undefined:
 
 ```json
 "fullTimeExtent": {
     "start": "2000-08-04T00:00Z",
-    "end": null
+    "end": undefined
 }
 ```
 
