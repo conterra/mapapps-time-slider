@@ -99,7 +99,7 @@ To use the current time you can use either of the three following possibilites:
 ```
 
 #### Dynamic calculation of timeExtents
-The start and end component of a viewTimeExtent or fullTimeExtent can also be calculated dynamically. As basis either a moment or the current time are. To these specific calculations can be applied. To use a moment and apply calculations to it is important that the moment is the first element of the array.
+The start and end component of a viewTimeExtent or fullTimeExtent can also be calculated dynamically. As basis either a moment or the current time are used. To these specific calculations can be applied. To use a moment and apply calculations to it is important that the moment is the first element of the array.
 
 ```json
 "fullTimeExtent": {
