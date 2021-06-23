@@ -115,6 +115,7 @@
             "properties": {
                 "widgetRole": "timeSliderWidget",
                 "fullTimeExtent": {},
+                "viewTimeExtent": null,
                 "stops": null,
                 "mode": "time-window",
                 "values": null,
