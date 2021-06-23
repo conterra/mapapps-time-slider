@@ -50,6 +50,7 @@ To make the functions of this bundle available to the user, the following tool c
 | Property       | Type    | Possible Values                                                                                            | Default              | Description                                                                                                                                                                                                                                                                                                                       |
 |----------------|---------|------------------------------------------------------------------------------------------------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | fullTimeExtent | Object  |                                                                                                            |                      | The temporal extent of the entire slider.                                                                                                                                                                                                                                                                                         |
+| viewTimeExtent | Object  |                                                                                                            |                      | The temporal extent of the view.
 | stops          | Object  |                                                                                                            | ```{ count : 10 }``` | Defines specific locations on the time slider where thumbs will snap to when manipulated.                                                                                                                                                                                                                                         |
 | mode           | String  | ```instant``` &#124; ```time-window``` &#124; ```cumulative-from-start``` &#124; ```cumulative-from-end``` | ```time-window```    | This property is used for defining if the temporal data will be displayed cumulatively up to a point in time, a single instant in time, or within a time range. More information is available in the [TimeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html#mode) documentation. |
 | values         | Array   |                                                                                                            | ```null```           | Values define the current location of time slider thumbs. The "time-window" mode has two values, the other modes only have one.                                                                                                                                                                                                   |
@@ -68,12 +69,79 @@ To configure this property you need to define a start and an end date. For that 
 }
 ```
 
-To use the current time you must use undefined:
+#### Configuration of viewTimeExtent
+To configure this property you need to define a start and an end date. For that you need to use [Moment.js-Strings](https://momentjs.com/docs/#/parsing/).
+
+```json
+"viewTimeExtent": {
+    "start": "2000-08-04T00:00Z",
+    "end": "2000-10-22T00:00Z"
+}
+```
+
+To use the current time you can use either of the three following possibilites:
 
 ```json
 "fullTimeExtent": {
     "start": "2000-08-04T00:00Z",
-    "end": undefined
+    "end": null
+}
+
+"fullTimeExtent": {
+    "start": "2000-08-04T00:00Z",
+    "end": "now"
+}
+
+"fullTimeExtent": {
+    "start": "2000-08-04T00:00Z",
+    "end":
+}
+```
+
+#### Dynamic calculation of timeExtents
+The start and end component of a viewTimeExtent or fullTimeExtent can also be calculated dynamically. As basis either a moment or the current time are. To these specific calculations can be applied. To use a moment and apply calculations to it is important that the moment is the first element of the array.
+
+```json
+"fullTimeExtent": {
+    "start": [
+        "2000-08-04T00:00Z",
+        {
+            "method": "subtract",
+            "args": [
+                1,
+                "year"
+            ]
+        },
+        {
+            "method": "add",
+            "args": [
+                6,
+                "months"
+            ]
+        }
+    ],
+    "end":  "2000-10-22T00:00Z"
+}
+
+"viewTimeExtent": {
+    "start": [
+        "2000-08-04T00:00Z",
+        {
+            "method": "subtract",
+            "args": [
+                1,
+                "year"
+            ]
+        },
+        {
+            "method": "add",
+            "args": [
+                6,
+                "months"
+            ]
+        }
+    ],
+    "end":
 }
 ```
 
