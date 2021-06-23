@@ -23,6 +23,10 @@ export default class TimeSliderWidgetFactory {
 
     activate() {
         this._getView().then((view) => {
+            // check for viewTimeExtent property; if undefined don't set new view's timeExtent
+            if (this._properties.viewTimeExtent) {
+                view.timeExtent = this._getViewTimeExtent();
+            }
             this[_initialTimeExtent] = view.timeExtent;
         });
     }
@@ -76,48 +80,95 @@ export default class TimeSliderWidgetFactory {
         return timeSliderProperties;
     }
 
+    /**
+     * Function used to access fullTimeExtent properties and call _getTimeExtent
+     *
+     * @returns A timeExtent as an object with start and end moment
+     */
     _getFullTimeExtent() {
         const properties = this._properties;
         const fullTimeExtent = properties.fullTimeExtent;
-        let start = moment.utc();
-        let end = moment.utc().add(1, 'year');
-        if (fullTimeExtent) {
-            if (fullTimeExtent.startMoment) {
-                const startMomentObj = moment.utc();
-                fullTimeExtent.startMoment.forEach((m) => {
-                    startMomentObj[m.method].apply(startMomentObj, m.args);
-                });
-                start = startMomentObj.toDate();
-            } else if (fullTimeExtent.start) {
-                start = this._getDate(fullTimeExtent.start);
-            } else {
-                start = new Date();
-            }
-            if (fullTimeExtent.endMoment) {
-                const endMomentObj = moment.utc();
-                fullTimeExtent.endMoment.forEach((m) => {
-                    endMomentObj[m.method].apply(endMomentObj, m.args);
-                });
-                end = endMomentObj.toDate();
-            } else if (fullTimeExtent.end) {
-                end = this._getDate(fullTimeExtent.end);
-            } else {
-                end = new Date();
-            }
-        }
+
+        return this._getTimeExtent(fullTimeExtent);
+    }
+
+    /**
+     * Function used to access viewTimeExtent properties and call _getTimeExtent()
+     *
+     * @returns A timeExtent as an object with start and end moment
+     */
+    _getViewTimeExtent() {
+        const properties = this._properties;
+        const viewTimeExtent = properties.viewTimeExtent;
+
+        return this._getTimeExtent(viewTimeExtent);
+    }
+
+    /**
+     * Function used to pass start and end component of timeExtent seperatly to _constructMoment()
+     *
+     * @param {Object} referenceTimeExtent Object representing timeExtent; Contains start and end property
+     * @returns timeExtent Object containing two moments, constructed using _constructMoment()
+     */
+    _getTimeExtent(referenceTimeExtent) {
+
+        const start = this._constructMoment(referenceTimeExtent.start);
+        const end = this._constructMoment(referenceTimeExtent.end);
+
         return {
             start: start,
             end: end
         }
     }
 
-    _getValues() {
-        const properties = this._properties;
-        if (properties.values) {
-            return properties.values.map((dateString) => this._getDate(dateString));
-        } else {
-            return null;
+    /**
+     * Function used to construct a moment from properties defined in manifest.json/app.json
+     * @param {Object} referenceMoment Moment properties extracted from referenceTimeExtent
+     * @returns Moment constructed according to parameters
+     */
+    _constructMoment(referenceMoment){
+        let resultMoment
+        let MomentObj
+
+        if (Array.isArray(referenceMoment)) {
+            // Case: Property is an array and leading element is a string
+            if(typeof referenceMoment[0] === 'string'){
+                // Try parsing leading string in array to moment
+                try {
+                    MomentObj = moment(referenceMoment[0]).utc();
+                } catch { // Catch by using current time as moment
+                    MomentObj = moment.utc()
+                    console.warn("String is not a valid moment, using current time.")
+                }
+                // Remove leading element of array to allow looping over methods
+                referenceMoment.shift();
+                referenceMoment.forEach((m) => {
+                    MomentObj[m.method].apply(MomentObj, m.args);
+                });
+                resultMoment = MomentObj.toDate();
+            // Case: Property is an array but no leading string is found
+            } else {
+                const MomentObj = moment.utc();
+                referenceMoment.forEach((m) => {
+                    MomentObj[m.method].apply(MomentObj, m.args);
+                });
+                resultMoment = MomentObj.toDate();
+            }
+        // Case: Property is either "now", undefined or null
+        } else if (referenceMoment == "now" || referenceMoment == null || referenceMoment == undefined) {
+            resultMoment = moment.utc();
+        // Case: Property is a string but not "now"
+        } else if (typeof referenceMoment === 'string' && referenceMoment != "now") {
+            try {
+                resultMoment = moment(referenceMoment).toDate();
+            }
+            catch {
+                resultMoment = moment.utc();
+                console.warn("String is not a valid moment, using current time.");
+            }
         }
+
+        return resultMoment
     }
 
     _getStops() {
@@ -127,7 +178,14 @@ export default class TimeSliderWidgetFactory {
         if (stopsProperties) {
             if (stopsProperties.dates) {
                 stops = {};
-                stops.dates = stopsProperties.map((dateString) => moment(dateString).toDate());
+                try {
+                    stops.dates = stopsProperties.map((dateString) => moment(dateString).toDate());
+                } catch {
+                    stops = {};
+                    const defaultStopCount = 10;
+                    stops.count = stopsProperties.count || defaultStopCount;
+                    console.warn("No valid stop definition given in dates. Using 10 stops")
+                }
             } else if (stopsProperties.moment) {
                 stops = {};
                 const dates = [];
@@ -136,7 +194,15 @@ export default class TimeSliderWidgetFactory {
                     if (!timeStop) {
                         // do nothing
                     } else if (typeof timeStop === 'string') {
-                        momentObj = moment(timeStop);
+                        try {
+                            momentObj = moment(timeStop);
+                        }
+                        catch {
+                            stops = {};
+                            const defaultStopCount = 10;
+                            stops.count = stopsProperties.count || defaultStopCount;
+                            console.warn("No valid stop definition given in string. Using 10 stops");
+                        }
                     } else if (Array.isArray(timeStop)) {
                         timeStop.forEach((time) => {
                             momentObj[time.method].apply(momentObj, time.args);
@@ -163,10 +229,18 @@ export default class TimeSliderWidgetFactory {
                     let start = null;
                     let end = null;
                     if (stopsProperties.timeExtent.start) {
-                        start = moment(stopsProperties.timeExtent.start);
+                        try {
+                            start = moment(stopsProperties.timeExtent.start);
+                        } catch {
+                            console.warn("Time extent in stopsProperties has no valid start component.");
+                        }
                     }
                     if (stopsProperties.timeExtent.end) {
-                        end = moment(stopsProperties.timeExtent.end);
+                        try {
+                            end = moment(stopsProperties.timeExtent.end);
+                        } catch {
+                            console.warn("Time extent in stopsProperties has no valid end component.");
+                        }
                     }
                     if (start && end) {
                         stops.timeExtent = {
@@ -180,6 +254,15 @@ export default class TimeSliderWidgetFactory {
         return stops;
     }
 
+    _getValues() {
+        const properties = this._properties;
+        if (properties.values) {
+            return properties.values.map((dateString) => this._getDate(dateString));
+        } else {
+            return null;
+        }
+    }
+
     _getDate(config) {
         return moment(config).toDate();
     }
@@ -190,7 +273,7 @@ export default class TimeSliderWidgetFactory {
             if (mapWidgetModel.view) {
                 resolve(mapWidgetModel.view);
             } else {
-                mapWidgetModel.watch("view", ({value: view}) => {
+                mapWidgetModel.watch("view", ({ value: view }) => {
                     resolve(view);
                 });
             }
