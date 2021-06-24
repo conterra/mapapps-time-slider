@@ -22,27 +22,27 @@ To make the functions of this bundle available to the user, the following tool c
 ```json
 "Config": {
     "fullTimeExtent": {
-        "start": "2000-08-04T00:00Z",
-        "end": "2000-10-22T00:00Z"
-    },
+                    "start": "2019-01-01T00:00Z",
+                    "end": "2019-12-31T00:00Z"
+                },
+    "viewTimeExtent": null,
     "stops": {
         "interval": {
             "value": 1,
             "unit": "weeks"
         },
         "timeExtent": {
-            "start": "2000-08-07T00:00Z",
-            "end": "2000-10-22T00:00Z"
+            "start": "2019-03-01T00:00Z",
+            "end": "2019-09-01T00:00Z"
         }
     },
-    "mode": "time-window",
+    "mode": "instant",
     "values": [
-        "2000-08-07T00:00Z",
-        "2000-08-13T00:00Z"
+       "2019-04-01T00:00Z"
     ],
     "loop": true,
     "playRate": 1000,
-    "playOnStartup": false,
+    "playOnStartup": true,
     "timeVisible": false
 }
 ```
@@ -64,8 +64,8 @@ To configure this property you need to define a start and an end date. For that 
 
 ```json
 "fullTimeExtent": {
-    "start": "2000-08-04T00:00Z",
-    "end": "2000-10-22T00:00Z"
+    "start": "2019-01-01T00:00Z",
+    "end": "2019-12-31T00:00Z"
 }
 ```
 
@@ -74,8 +74,8 @@ To configure this property you need to define a start and an end date. For that 
 
 ```json
 "viewTimeExtent": {
-    "start": "2000-08-04T00:00Z",
-    "end": "2000-10-22T00:00Z"
+    "start": "2019-01-01T00:00Z",
+    "end": "2019-12-31T00:00Z"
 }
 ```
 
@@ -83,17 +83,17 @@ To use the current time you can use either of the three following possibilites:
 
 ```json
 "fullTimeExtent": {
-    "start": "2000-08-04T00:00Z",
+    "start": "2019-01-01T00:00Z",
     "end": null
 }
 
 "fullTimeExtent": {
-    "start": "2000-08-04T00:00Z",
+    "start": "2019-01-01T00:00Z",
     "end": "now"
 }
 
 "fullTimeExtent": {
-    "start": "2000-08-04T00:00Z",
+    "start": "2019-01-01T00:00Z",
     "end":
 }
 ```
@@ -104,7 +104,7 @@ The start and end component of a viewTimeExtent or fullTimeExtent can also be ca
 ```json
 "fullTimeExtent": {
     "start": [
-        "2000-08-04T00:00Z",
+        "2019-01-01T00:00Z",
         {
             "method": "subtract",
             "args": [
@@ -120,12 +120,12 @@ The start and end component of a viewTimeExtent or fullTimeExtent can also be ca
             ]
         }
     ],
-    "end":  "2000-10-22T00:00Z"
+    "end": "2019-12-31T00:00Z"
 }
 
 "viewTimeExtent": {
     "start": [
-        "2000-08-04T00:00Z",
+        "2019-01-01T00:00Z",,
         {
             "method": "subtract",
             "args": [
@@ -141,7 +141,7 @@ The start and end component of a viewTimeExtent or fullTimeExtent can also be ca
             ]
         }
     ],
-    "end":
+    "end": "2019-12-31T00:00Z"
 }
 ```
 
@@ -210,11 +210,18 @@ There are four ways to configure the stops of the time slider:
 ```json
 "stops": {
     "dates": [
-        "2000-08-04T00:00Z",
-        "2000-08-05T00:00Z",
-        "2000-08-06T00:00Z",
-        "2000-08-07T00:00Z",
-        "2000-08-08T00:00Z",
+        "2019-01-15T00:00Z",
+        "2019-02-15T00:00Z",
+        "2019-03-15T00:00Z",
+        "2019-04-15T00:00Z",
+        "2019-05-15T00:00Z",
+        "2019-06-15T00:00Z",
+        "2019-07-15T00:00Z",
+        "2019-08-15T00:00Z",
+        "2019-09-15T00:00Z",
+        "2019-10-15T00:00Z",
+        "2019-11-15T00:00Z",
+        "2019-12-15T00:00Z"
     ]
 }
 ```
@@ -242,8 +249,8 @@ If you configure the stops over an interval or a number, you have the additional
 "stops": {
     "count": 10,
     "timeExtent": {
-        "start": "2000-08-07T00:00Z",
-        "end": "2000-10-22T00:00Z"
+        "start": "2019-01-01T00:00Z",
+        "end": "2019-12-31T00:00Z"
     }
 }
 ```
@@ -255,8 +262,8 @@ If you configure the stops over an interval or a number, you have the additional
         "unit": "weeks"
     },
     "timeExtent": {
-        "start": "2000-08-07T00:00Z",
-        "end": "2000-10-22T00:00Z"
+        "start": "2019-01-01T00:00Z",
+        "end": "2019-12-31T00:00Z"
     }
 }
 ```
