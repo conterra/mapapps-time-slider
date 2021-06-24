@@ -104,7 +104,7 @@ export default class TimeSliderWidgetFactory {
     /**
      * Function used to access fullTimeExtent properties and call _getTimeExtent
      *
-     * @returns {TimeExtent} An object with start and end moment
+     * @returns {{start, end}} An object with start and end date
      * @private
      */
     _getFullTimeExtent() {
@@ -117,7 +117,7 @@ export default class TimeSliderWidgetFactory {
     /**
      * Function used to access viewTimeExtent properties and call _getTimeExtent()
      *
-     * @returns {TimeExtent} An object with start and end moment
+     * @returns {{start, end}} An object with start and end date
      * @private
      */
     _getViewTimeExtent() {
@@ -131,7 +131,7 @@ export default class TimeSliderWidgetFactory {
      * Function used to pass start and end component of timeExtent seperatly to _constructMoment()
      *
      * @param {Object} referenceTimeExtent Object representing timeExtent; Contains start and end property
-     * @returns {TimeExtent} Object containing two moments, constructed using _constructMoment()
+     * @returns {{start, end}} Object containing two dates, constructed using _constructMoment()
      * @private
      */
     _getTimeExtent(referenceTimeExtent) {
@@ -151,49 +151,44 @@ export default class TimeSliderWidgetFactory {
      * @returns Moment constructed according to parameters
      * @private
      */
-    _constructMoment(referenceMoment){
-        let resultMoment
-        let MomentObj
+    _constructMoment(referenceMoment) {
+        let resultMoment;
 
         if (Array.isArray(referenceMoment)) {
-            // Case: Property is an array and leading element is a string
-            if(typeof referenceMoment[0] === 'string'){
-                // Try parsing leading string in array to moment
-                try {
-                    MomentObj = moment(referenceMoment[0]).utc();
-                } catch { // Catch by using current time as moment
-                    MomentObj = moment.utc()
-                    console.warn("String is not a valid moment, using current time.")
+            let momentObj = moment.utc();
+            referenceMoment.forEach((m) => {
+                // Case: Property is an array and leading element is a string
+                if (typeof m === 'string') {
+                    // Try parsing leading string in array to moment
+                    try {
+                        momentObj = moment(referenceMoment[0]).utc();
+                    } catch { // Catch by using current time as moment
+                        momentObj = moment.utc();
+                        console.warn("String is not a valid moment, using current time.");
+                    }
                 }
-                // Remove leading element of array to allow looping over methods
-                referenceMoment.shift();
-                referenceMoment.forEach((m) => {
-                    MomentObj[m.method].apply(MomentObj, m.args);
-                });
-                resultMoment = MomentObj.toDate();
-            // Case: Property is an array but no leading string is found
-            } else {
-                const MomentObj = moment.utc();
-                referenceMoment.forEach((m) => {
-                    MomentObj[m.method].apply(MomentObj, m.args);
-                });
-                resultMoment = MomentObj.toDate();
-            }
+                // Case: Property is an array but no leading string is found
+                else {
+                    momentObj[m.method].apply(momentObj, m.args);
+                }
+            });
+            resultMoment = momentObj.toDate();
+        }
         // Case: Property is either "now", undefined or null
-        } else if (referenceMoment === "now" || !referenceMoment) {
+        else if (referenceMoment === "now" || !referenceMoment) {
             resultMoment = moment.utc();
+        }
         // Case: Property is a string but not "now"
-        } else if (typeof referenceMoment === 'string' && referenceMoment !== "now") {
+        else if (typeof referenceMoment === 'string' && referenceMoment !== "now") {
             try {
                 resultMoment = moment(referenceMoment).toDate();
-            }
-            catch {
+            } catch {
                 resultMoment = moment.utc();
                 console.warn("String is not a valid moment, using current time.");
             }
         }
 
-        return resultMoment
+        return resultMoment;
     }
 
     /**
@@ -209,14 +204,18 @@ export default class TimeSliderWidgetFactory {
         if (stopsProperties) {
             if (stopsProperties.dates) {
                 stops = {};
-                try {
-                    stops.dates = stopsProperties.map((dateString) => moment(dateString).toDate());
-                } catch {
-                    stops = {};
-                    const defaultStopCount = 10;
-                    stops.count = stopsProperties.count || defaultStopCount;
-                    console.warn("No valid stop definition given in dates. Using 10 stops")
-                }
+
+                const dates = [];
+                let date;
+                stopsProperties.forEach((dateString) => {
+                    try {
+                        date = moment(dateString).toDate();
+                    } catch {
+                        console.warn("No valid stop definition given for one date")
+                    }
+                    date && dates.push(date);
+                });
+                stops.dates = dates;
             } else if (stopsProperties.moment) {
                 stops = {};
                 const dates = [];
@@ -227,12 +226,8 @@ export default class TimeSliderWidgetFactory {
                     } else if (typeof timeStop === 'string') {
                         try {
                             momentObj = moment(timeStop);
-                        }
-                        catch {
-                            stops = {};
-                            const defaultStopCount = 10;
-                            stops.count = stopsProperties.count || defaultStopCount;
-                            console.warn("No valid stop definition given in string. Using 10 stops");
+                        } catch {
+                            console.warn("No valid stop definition given in string.");
                         }
                     } else if (Array.isArray(timeStop)) {
                         timeStop.forEach((time) => {
@@ -323,7 +318,7 @@ export default class TimeSliderWidgetFactory {
             if (mapWidgetModel.view) {
                 resolve(mapWidgetModel.view);
             } else {
-                mapWidgetModel.watch("view", ({ value: view }) => {
+                mapWidgetModel.watch("view", ({value: view}) => {
                     resolve(view);
                 });
             }
