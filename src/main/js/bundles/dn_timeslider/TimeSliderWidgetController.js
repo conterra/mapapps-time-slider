@@ -36,6 +36,9 @@ export default class TimeSliderWidgetFactory {
         this._destroyWidget();
     }
 
+    /**
+     * Gets called when the tool gets activated
+     */
     onToolActivated() {
         this._getView().then((view) => {
             view.timeExtent = this[_timeSliderWidget].timeExtent;
@@ -45,21 +48,39 @@ export default class TimeSliderWidgetFactory {
         });
     }
 
+    /**
+     * Gets called when the tool gets deactivated
+     */
     onToolDeactivated() {
         this[_timeSliderWidget].stop();
         this._resetTimeExtent();
     }
 
+    /**
+     * Returns the TimeSliderWidget
+     *
+     * @returns {TimeSlider}
+     */
     getWidget() {
         const timeSliderProperties = this.getTimeSliderProperties();
         return this[_timeSliderWidget] = new TimeSlider(timeSliderProperties);
     }
 
+    /**
+     * Destroys the widget
+     *
+     * @private
+     */
     _destroyWidget() {
         this[_timeSliderWidget].destroy();
         this[_timeSliderWidget] = undefined;
     }
 
+    /**
+     * Generated the TimeSlider configuration
+     *
+     * @returns {*} TimeSlider configuration
+     */
     getTimeSliderProperties() {
         const properties = this._properties;
         const timeSliderProperties = {
@@ -83,7 +104,8 @@ export default class TimeSliderWidgetFactory {
     /**
      * Function used to access fullTimeExtent properties and call _getTimeExtent
      *
-     * @returns A timeExtent as an object with start and end moment
+     * @returns {TimeExtent} An object with start and end moment
+     * @private
      */
     _getFullTimeExtent() {
         const properties = this._properties;
@@ -95,7 +117,8 @@ export default class TimeSliderWidgetFactory {
     /**
      * Function used to access viewTimeExtent properties and call _getTimeExtent()
      *
-     * @returns A timeExtent as an object with start and end moment
+     * @returns {TimeExtent} An object with start and end moment
+     * @private
      */
     _getViewTimeExtent() {
         const properties = this._properties;
@@ -108,7 +131,8 @@ export default class TimeSliderWidgetFactory {
      * Function used to pass start and end component of timeExtent seperatly to _constructMoment()
      *
      * @param {Object} referenceTimeExtent Object representing timeExtent; Contains start and end property
-     * @returns timeExtent Object containing two moments, constructed using _constructMoment()
+     * @returns {TimeExtent} Object containing two moments, constructed using _constructMoment()
+     * @private
      */
     _getTimeExtent(referenceTimeExtent) {
 
@@ -125,6 +149,7 @@ export default class TimeSliderWidgetFactory {
      * Function used to construct a moment from properties defined in manifest.json/app.json
      * @param {Object} referenceMoment Moment properties extracted from referenceTimeExtent
      * @returns Moment constructed according to parameters
+     * @private
      */
     _constructMoment(referenceMoment){
         let resultMoment
@@ -155,10 +180,10 @@ export default class TimeSliderWidgetFactory {
                 resultMoment = MomentObj.toDate();
             }
         // Case: Property is either "now", undefined or null
-        } else if (referenceMoment == "now" || referenceMoment == null || referenceMoment == undefined) {
+        } else if (referenceMoment === "now" || !referenceMoment) {
             resultMoment = moment.utc();
         // Case: Property is a string but not "now"
-        } else if (typeof referenceMoment === 'string' && referenceMoment != "now") {
+        } else if (typeof referenceMoment === 'string' && referenceMoment !== "now") {
             try {
                 resultMoment = moment(referenceMoment).toDate();
             }
@@ -171,6 +196,12 @@ export default class TimeSliderWidgetFactory {
         return resultMoment
     }
 
+    /**
+     * Generates stops values for the TimeSlider
+     *
+     * @returns Object that contains the stop configuration
+     * @private
+     */
     _getStops() {
         const properties = this._properties;
         const stopsProperties = properties.stops;
@@ -254,6 +285,12 @@ export default class TimeSliderWidgetFactory {
         return stops;
     }
 
+    /**
+     * Generates the initial values for the TimeSlider
+     *
+     * @returns {Array} Values for the TimeSlider
+     * @private
+     */
     _getValues() {
         const properties = this._properties;
         if (properties.values) {
@@ -263,13 +300,26 @@ export default class TimeSliderWidgetFactory {
         }
     }
 
+    /**
+     * Converts a date string to a Date Object via moment
+     *
+     * @param config Date string
+     * @returns {Date}
+     * @private
+     */
     _getDate(config) {
         return moment(config).toDate();
     }
 
+    /**
+     * Returns the current View of the MapWidgetModel
+     *
+     * @returns {Promise<View>} The current View
+     * @private
+     */
     _getView() {
         const mapWidgetModel = this._mapWidgetModel;
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             if (mapWidgetModel.view) {
                 resolve(mapWidgetModel.view);
             } else {
@@ -280,6 +330,11 @@ export default class TimeSliderWidgetFactory {
         });
     }
 
+    /**
+     * Resets the initial TimeExtent value of the View
+     *
+     * @private
+     */
     _resetTimeExtent() {
         this._getView().then((view) => {
             view.timeExtent = this[_initialTimeExtent];
