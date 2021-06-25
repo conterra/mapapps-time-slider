@@ -22,9 +22,9 @@ To make the functions of this bundle available to the user, the following tool c
 ```json
 "Config": {
     "fullTimeExtent": {
-                    "start": "2019-01-01T00:00Z",
-                    "end": "2019-12-31T00:00Z"
-                },
+        "start": "2019-01-01T00:00Z",
+        "end": "2019-12-31T00:00Z"
+    },
     "viewTimeExtent": null,
     "stops": {
         "interval": {
@@ -50,17 +50,17 @@ To make the functions of this bundle available to the user, the following tool c
 | Property       | Type    | Possible Values                                                                                            | Default              | Description                                                                                                                                                                                                                                                                                                                       |
 |----------------|---------|------------------------------------------------------------------------------------------------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | fullTimeExtent | Object  |                                                                                                            |                      | The temporal extent of the entire slider.                                                                                                                                                                                                                                                                                         |
-| viewTimeExtent | Object  |                                                                                                            |                      | The temporal extent of the view.
+| viewTimeExtent | Object  |                                                                                                            |                      | The temporal extent of the view.                                                                                                                                                                                                                                                                                                  |
 | stops          | Object  |                                                                                                            | ```{ count : 10 }``` | Defines specific locations on the time slider where thumbs will snap to when manipulated.                                                                                                                                                                                                                                         |
 | mode           | String  | ```instant``` &#124; ```time-window``` &#124; ```cumulative-from-start``` &#124; ```cumulative-from-end``` | ```time-window```    | This property is used for defining if the temporal data will be displayed cumulatively up to a point in time, a single instant in time, or within a time range. More information is available in the [TimeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html#mode) documentation. |
 | values         | Array   |                                                                                                            | ```null```           | Values define the current location of time slider thumbs. The "time-window" mode has two values, the other modes only have one.                                                                                                                                                                                                   |
 | loop           | Boolean | ```true``` &#124; ```false```                                                                              | ```true```           | When true, the time slider will play its animation in a loop.                                                                                                                                                                                                                                                                     |
 | playRate       | Number  |                                                                                                            | ```1000```           | The time (in milliseconds) between animation steps.                                                                                                                                                                                                                                                                               |
-| playOnStartup  | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | When true, the time slider will play its animation on startup.                                                                                                                                                                                                                                                                               |
+| playOnStartup  | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | When true, the time slider will play its animation on startup.                                                                                                                                                                                                                                                                    |
 | timeVisible    | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | Shows/hides time in the display.                                                                                                                                                                                                                                                                                                  |
 
 #### Configuration of fullTimeExtent
-To configure this property you need to define a start and an end date. For that you need to use [Moment.js-Strings](https://momentjs.com/docs/#/parsing/).
+To configure this property you need to define a start and end date. To do this you can use [Moment.js-Strings](https://momentjs.com/docs/#/parsing/).
 
 ```json
 "fullTimeExtent": {
@@ -70,7 +70,7 @@ To configure this property you need to define a start and an end date. For that 
 ```
 
 #### Configuration of viewTimeExtent
-To configure this property you need to define a start and an end date. For that you need to use [Moment.js-Strings](https://momentjs.com/docs/#/parsing/).
+To configure this property you need to define a start and end date. To do this you can use [Moment.js-Strings](https://momentjs.com/docs/#/parsing/).
 
 ```json
 "viewTimeExtent": {
@@ -79,7 +79,7 @@ To configure this property you need to define a start and an end date. For that 
 }
 ```
 
-To use the current time you can use either of the three following possibilites:
+To use the current time, you can use one of the following two methods:
 
 ```json
 "fullTimeExtent": {
@@ -91,15 +91,11 @@ To use the current time you can use either of the three following possibilites:
     "start": "2019-01-01T00:00Z",
     "end": "now"
 }
-
-"fullTimeExtent": {
-    "start": "2019-01-01T00:00Z",
-    "end":
-}
 ```
 
 #### Dynamic calculation of timeExtents
-The start and end component of a viewTimeExtent or fullTimeExtent can also be calculated dynamically. As basis either a moment or the current time are used. To these specific calculations can be applied. To use a moment and apply calculations to it is important that the moment is the first element of the array.
+The start and end values of the viewTimeExtent or fullTimeExtent property can also be calculated dynamically.
+Either a Date String or the current time is used as the basis. Specific calculations can be applied to this.
 
 ```json
 "fullTimeExtent": {
@@ -125,7 +121,7 @@ The start and end component of a viewTimeExtent or fullTimeExtent can also be ca
 
 "viewTimeExtent": {
     "start": [
-        "2019-01-01T00:00Z",,
+        "2019-01-01T00:00Z",
         {
             "method": "subtract",
             "args": [
