@@ -123,7 +123,6 @@ export default class TimeSliderWidgetFactory {
     _getViewTimeExtent() {
         const properties = this._properties;
         const viewTimeExtent = properties.viewTimeExtent;
-
         return this._getTimeExtent(viewTimeExtent);
     }
 
@@ -135,9 +134,8 @@ export default class TimeSliderWidgetFactory {
      * @private
      */
     _getTimeExtent(referenceTimeExtent) {
-
-        const start = this._constructMoment(referenceTimeExtent.start);
-        const end = this._constructMoment(referenceTimeExtent.end);
+        const start = this._constructDate(referenceTimeExtent.start);
+        const end = this._constructDate(referenceTimeExtent.end);
 
         return {
             start: start,
@@ -151,43 +149,39 @@ export default class TimeSliderWidgetFactory {
      * @returns Moment constructed according to parameters
      * @private
      */
-    _constructMoment(referenceMoment) {
-        let resultMoment;
-
-        if (Array.isArray(referenceMoment)) {
-            let momentObj = moment.utc();
-            referenceMoment.forEach((m) => {
+    _constructDate(referenceMoment) {
+        let momentObj = moment.utc();
+        // Case: Property is either "now", undefined or null
+        if (referenceMoment === "now" || !referenceMoment) {
+            // do nothing because moment object has already the current date
+        } else if (Array.isArray(referenceMoment)) {
+            referenceMoment.forEach((m, i) => {
                 // Case: Property is an array and leading element is a string
-                if (typeof m === 'string') {
-                    momentObj = moment(referenceMoment[0]).utc();
-
-                    if (momentObj && momentObj._isValid() === false) {
-                        momentObj = moment.utc();
-                        console.warn("No valid stop definition given in this moment, using current time.")
+                if (typeof m === 'string' && i === 0) {
+                    momentObj = moment(m).utc();
+                    if (momentObj && !momentObj.isValid()) {
+                        momentObj = moment().utc();
+                        console.warn("Invalid timeExtent definition. Use current time.")
+                    }
+                } else {
+                    try {
+                        momentObj[m.method].apply(momentObj, m.args);
+                    } catch {
+                        console.warn("Invalid moment definition in timeExtent definition. Use current time.")
                     }
                 }
-                // Case: Property is an array but no leading string is found
-                else {
-                    momentObj[m.method].apply(momentObj, m.args);
-                }
             });
-            resultMoment = momentObj.toDate();
-        }
-        // Case: Property is either "now", undefined or null
-        else if (referenceMoment === "now" || !referenceMoment) {
-            resultMoment = moment.utc();
         }
         // Case: Property is a string but not "now"
         else if (typeof referenceMoment === 'string' && referenceMoment !== "now") {
-            resultMoment = moment(referenceMoment).toDate();
-
-            if (resultMoment && resultMoment == "Invalid Date") {
-                resultMoment = moment.utc().toDate();
-                console.warn("No valid stop definition given in this moment, using current time.")
+            momentObj = moment(referenceMoment).utc();
+            if (momentObj && !momentObj.isValid()) {
+                momentObj = moment.utc();
+                console.warn("Invalid timeExtent definition. Use current time.")
             }
         }
 
-        return resultMoment;
+        return momentObj.toDate();
     }
 
     /**
@@ -199,90 +193,79 @@ export default class TimeSliderWidgetFactory {
     _getStops() {
         const properties = this._properties;
         const stopsProperties = properties.stops;
+        const defaultStopCount = 10;
         let stops = null;
 
         // If stop properties are defined
         if (stopsProperties) {
-
             // Case: Stops are defined using dates
             if (stopsProperties.dates) {
                 stops = {};
                 const dates = [];
-                let date;
-                // Any string that is not a valid date creates an invalid object
+                let momentObj;
                 stopsProperties.dates.forEach((dateString) => {
-                    date = moment(dateString).toDate();
-
+                    momentObj = moment(dateString).utc();
                     // Push valid dates
-                    if (date && date != "Invalid Date") {
-                        dates.push(date);
+                    if (momentObj?.isValid()) {
+                        dates.push(momentObj.toDate());
                     }
                     // Warn for invalid dates and skip date
                     else {
-                        console.warn("No valid stop definition given for a date.")
+                        console.warn("Invalid date stop definition. Skip value.")
                     }
                 });
                 stops.dates = dates;
-
-                // Check if stops are defined using moments and calculations
-            } else if (stopsProperties.moment) {
+            }
+            // Check if stops are defined using moments and calculations
+            else if (stopsProperties.moment) {
                 stops = {};
                 const dates = [];
                 let momentObj = moment().utc();
-
                 stopsProperties.moment.forEach((timeStop) => {
-
                     // Check if leading timeStop element is a string
                     if (typeof timeStop === 'string') {
-                        momentObj = moment(timeStop);
-
-                        if (momentObj && momentObj._isValid) {
+                        momentObj = moment(timeStop).utc();
+                        if (momentObj?.isValid()) {
                             dates.push(momentObj.toDate());
                         } else {
                             momentObj = moment.utc();
-                            console.warn("No valid stop definition given in this moment, using current time.")
+                            console.warn("Invalid stop definition at start of the array. Use current time.")
                         }
-
-                        // Check if timeStop is an array
-                    } else if (Array.isArray(timeStop)) {
+                    }
+                    // stop is an array
+                    else if (Array.isArray(timeStop)) {
                         timeStop.forEach((time) => {
                             try {
                                 momentObj[time.method].apply(momentObj, time.args);
-                                if (momentObj && momentObj != "Invalid Date") {
+                                if (momentObj?.isValid()) {
                                     dates.push(momentObj.toDate());
                                 }
                             } catch {
-                                console.warn("Some invalid stop definitions given in array of moment operations.")
+                                console.warn("Invalid stop definition in moment array. Skip array entry.")
                             }
-
                         });
                     }
-
-                    // timeStop is a singular object
+                    // stop is a single object
                     else {
                         try {
                             momentObj[timeStop.method].apply(momentObj, timeStop.args);
-                            if (momentObj && momentObj != "Invalid Date") {
+                            if (momentObj?.isValid()) {
                                 dates.push(momentObj.toDate());
                             }
                         } catch {
-                            console.warn("No valid stop definition given in a moment operation.")
+                            console.warn("Invalid stop definition in moment array. Skip array entry.")
                         }
                     }
                 });
                 stops.dates = dates;
-
             }
             // Case: Stops are defined by count or interval
             else {
-
                 // Case: Stops defined by count
                 if (stopsProperties.count) {
                     stops = {};
-                    const defaultStopCount = 10;
                     stops.count = stopsProperties.count || defaultStopCount;
                 }
-
                 // Case: Stops defined by interval
                 else if (stopsProperties.interval) {
                     stops = {};
@@ -291,38 +274,29 @@ export default class TimeSliderWidgetFactory {
                         unit: stopsProperties.interval.unit || "years"
                     }
                 }
-
                 // Case: No definition provided. Use 10 stops instead
                 else {
                     stops = {};
-                    const defaultStopCount = 10;
                     stops.count = defaultStopCount;
                 }
-
-
                 // Case: Stops defined by start and end time and interval/count
                 if (stopsProperties.timeExtent && stops) {
                     let start = null;
                     let end = null;
-
                     if (stopsProperties.timeExtent.start) {
                         start = moment(stopsProperties.timeExtent.start);
-
-                        if (start && start.isValid() === false) {
-                            start = moment.utc()
-                            console.warn("No valid stop definition given for start. Using current time.")
+                        if (!start?.isValid()) {
+                            start = moment.utc();
+                            console.warn("No valid configuration for stop timeExtent start. Using current time.");
                         }
                     }
-
                     if (stopsProperties.timeExtent.end) {
                         end = moment(stopsProperties.timeExtent.end);
-
                         if (end && end.isValid() === false) {
-                            end = moment.utc()
-                            console.warn("No valid stop definition given for end. Using current time.")
+                            end = moment.utc();
+                            console.warn("No valid configuration for stop timeExtent end. Using current time.");
                         }
                     }
-
                     if (start && end) {
                         stops.timeExtent = {
                             start: start.toDate(),
@@ -332,7 +306,6 @@ export default class TimeSliderWidgetFactory {
                 }
             }
         }
-
         return stops;
     }
 
@@ -374,7 +347,7 @@ export default class TimeSliderWidgetFactory {
             if (mapWidgetModel.view) {
                 resolve(mapWidgetModel.view);
             } else {
-                mapWidgetModel.watch("view", ({ value: view }) => {
+                mapWidgetModel.watch("view", ({value: view}) => {
                     resolve(view);
                 });
             }
