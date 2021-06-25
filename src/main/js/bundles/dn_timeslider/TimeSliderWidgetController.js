@@ -17,9 +17,11 @@ import TimeSlider from "esri/widgets/TimeSlider";
 import moment from "moment";
 
 const _timeSliderWidget = Symbol("_timeSliderWidget");
-const _initialTimeExtent = Symbol("_initialTimeExtent");
 
 export default class TimeSliderWidgetFactory {
+
+    #timeSliderWidget = undefined;
+    #initialTimeExtent = undefined;
 
     activate() {
         this._getView().then((view) => {
@@ -27,7 +29,7 @@ export default class TimeSliderWidgetFactory {
             if (this._properties.viewTimeExtent) {
                 view.timeExtent = this._getViewTimeExtent();
             }
-            this[_initialTimeExtent] = view.timeExtent;
+            this.#initialTimeExtent = view.timeExtent;
         });
     }
 
@@ -41,9 +43,9 @@ export default class TimeSliderWidgetFactory {
      */
     onToolActivated() {
         this._getView().then((view) => {
-            view.timeExtent = this[_timeSliderWidget].timeExtent;
+            view.timeExtent = this.#timeSliderWidget.timeExtent;
             if (this._properties.playOnStartup) {
-                this[_timeSliderWidget].play();
+                this.#timeSliderWidget.play();
             }
         });
     }
@@ -52,7 +54,7 @@ export default class TimeSliderWidgetFactory {
      * Gets called when the tool gets deactivated
      */
     onToolDeactivated() {
-        this[_timeSliderWidget].stop();
+        this.#timeSliderWidget.stop();
         this._resetTimeExtent();
     }
 
@@ -63,7 +65,7 @@ export default class TimeSliderWidgetFactory {
      */
     getWidget() {
         const timeSliderProperties = this.getTimeSliderProperties();
-        return this[_timeSliderWidget] = new TimeSlider(timeSliderProperties);
+        return this.#timeSliderWidget = new TimeSlider(timeSliderProperties);
     }
 
     /**
@@ -72,8 +74,8 @@ export default class TimeSliderWidgetFactory {
      * @private
      */
     _destroyWidget() {
-        this[_timeSliderWidget].destroy();
-        this[_timeSliderWidget] = undefined;
+        this.#timeSliderWidget.destroy();
+        this.#timeSliderWidget = undefined;
     }
 
     /**
@@ -361,7 +363,7 @@ export default class TimeSliderWidgetFactory {
      */
     _resetTimeExtent() {
         this._getView().then((view) => {
-            view.timeExtent = this[_initialTimeExtent];
+            view.timeExtent = this.#initialTimeExtent;
         })
     }
 }
