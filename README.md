@@ -1,9 +1,6 @@
 # Time Slider Bundle
 The Time Slider bundle allows you to use the Esri time slider to display map content related to times.
 
-## Sample App
-https://demos.conterra.de/mapapps/resources/apps/downloads_timeslider/index.html
-
 ## Installation Guide
 **Requirement: map.apps 3.2.1**
 
