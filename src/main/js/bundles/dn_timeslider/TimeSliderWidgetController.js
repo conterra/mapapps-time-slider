@@ -344,7 +344,8 @@ export default class TimeSliderWidgetFactory {
             if (mapWidgetModel.view) {
                 resolve(mapWidgetModel.view);
             } else {
-                mapWidgetModel.watch("view", ({value: view}) => {
+                const watcher = mapWidgetModel.watch("view", ({value: view}) => {
+                    watcher.remove();
                     resolve(view);
                 });
             }
