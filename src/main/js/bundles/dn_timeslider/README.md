@@ -3,7 +3,7 @@
 The Time Slider bundle allows the user to change the time extent of the map.
 
 ## Usage
-**Requirement: map.apps 4.8.0**
+**Requirement: map.apps 4.12.0**
 
 1. First you need to add the bundle dn_timeslider to your app.
 2. Then you need to configure it.
@@ -91,7 +91,7 @@ To use the current time, you can use one of the following two methods:
 ```
 
 #### Dynamic calculation of timeExtents
-The start and end values of the viewTimeExtent or fullTimeExtent property can also be calculated dynamically.
+The start and end values of the timeExtent, viewTimeExtent or fullTimeExtent property can also be calculated dynamically.
 Either a Date String or the current time is used as the basis. Specific calculations can be applied to this.
 
 ```json
