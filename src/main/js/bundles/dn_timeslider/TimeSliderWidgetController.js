@@ -16,8 +16,6 @@
 import TimeSlider from "esri/widgets/TimeSlider";
 import moment from "moment";
 
-const _timeSliderWidget = Symbol("_timeSliderWidget");
-
 export default class TimeSliderWidgetFactory {
 
     #timeSliderWidget = undefined;
