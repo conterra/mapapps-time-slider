@@ -38,6 +38,10 @@
     "bundles": {
         "dn_timeslider": {
             "Config": {
+                "timeExtent": {
+                    "start": "2019-04-15T00:00Z",
+                    "end": "2019-04-15T00:00Z"
+                },
                 "fullTimeExtent": {
                     "start": "2019-01-01T00:00Z",
                     "end": "2019-12-31T00:00Z"
@@ -54,9 +58,6 @@
                     }
                 },
                 "mode": "instant",
-                "values": [
-                    "2019-04-01T00:00Z"
-                ],
                 "loop": true,
                 "playRate": 1000,
                 "playOnStartup": true,

@@ -114,11 +114,11 @@
             ],
             "properties": {
                 "widgetRole": "timeSliderWidget",
-                "fullTimeExtent": {},
+                "timeExtent": null,
+                "fullTimeExtent": null,
                 "viewTimeExtent": null,
                 "stops": null,
                 "mode": "time-window",
-                "values": null,
                 "loop": true,
                 "playRate": 1000,
                 "playOnStartup": false,

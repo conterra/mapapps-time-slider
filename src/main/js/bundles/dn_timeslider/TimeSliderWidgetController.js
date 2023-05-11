@@ -86,6 +86,7 @@ export default class TimeSliderWidgetFactory {
     getTimeSliderProperties() {
         const properties = this._properties;
         const timeSliderProperties = {
+            timeExtent: this._getInitialTimeExtent(),
             fullTimeExtent: this._getFullTimeExtent(),
             mode: properties.mode,
             loop: properties.loop,
@@ -96,15 +97,24 @@ export default class TimeSliderWidgetFactory {
         if (stops) {
             timeSliderProperties.stops = stops;
         }
-        const values = this._getValues();
-        if (values) {
-            timeSliderProperties.values = values;
-        }
         return timeSliderProperties;
     }
 
     /**
-     * Function used to access fullTimeExtent properties and call _getTimeExtent
+     * Generates the initial values for the TimeSlider
+     *
+     * @returns {Array} Values for the TimeSlider
+     * @private
+     */
+    _getInitialTimeExtent() {
+        const properties = this._properties;
+        const timeExtent = properties.timeExtent;
+
+        return this._getTimeExtent(timeExtent);
+    }
+
+    /**
+     * Function used to access fullTimeExtent properties and call _getTimeExtent()
      *
      * @returns {{start, end}} An object with start and end date
      * @private
@@ -142,7 +152,7 @@ export default class TimeSliderWidgetFactory {
         return {
             start: start,
             end: end
-        }
+        };
     }
 
     /**
@@ -163,13 +173,13 @@ export default class TimeSliderWidgetFactory {
                     momentObj = moment(m).utc();
                     if (momentObj && !momentObj.isValid()) {
                         momentObj = moment().utc();
-                        console.warn("Invalid timeExtent definition. Use current time.")
+                        console.warn("Invalid timeExtent definition. Use current time.");
                     }
                 } else {
                     try {
                         momentObj[m.method].apply(momentObj, m.args);
                     } catch {
-                        console.warn("Invalid moment definition in timeExtent definition. Use current time.")
+                        console.warn("Invalid moment definition in timeExtent definition. Use current time.");
                     }
                 }
             });
@@ -179,7 +189,7 @@ export default class TimeSliderWidgetFactory {
             momentObj = moment(referenceMoment).utc();
             if (momentObj && !momentObj.isValid()) {
                 momentObj = moment.utc();
-                console.warn("Invalid timeExtent definition. Use current time.")
+                console.warn("Invalid timeExtent definition. Use current time.");
             }
         }
 
@@ -213,7 +223,7 @@ export default class TimeSliderWidgetFactory {
                     }
                     // Warn for invalid dates and skip date
                     else {
-                        console.warn("Invalid date stop definition. Skip value.")
+                        console.warn("Invalid date stop definition. Skip value.");
                     }
                 });
                 stops.dates = dates;
@@ -231,7 +241,7 @@ export default class TimeSliderWidgetFactory {
                             dates.push(momentObj.toDate());
                         } else {
                             momentObj = moment.utc();
-                            console.warn("Invalid stop definition at start of the array. Use current time.")
+                            console.warn("Invalid stop definition at start of the array. Use current time.");
                         }
                     }
                     // stop is an array
@@ -243,7 +253,7 @@ export default class TimeSliderWidgetFactory {
                                     dates.push(momentObj.toDate());
                                 }
                             } catch {
-                                console.warn("Invalid stop definition in moment array. Skip array entry.")
+                                console.warn("Invalid stop definition in moment array. Skip array entry.");
                             }
                         });
                     }
@@ -255,7 +265,7 @@ export default class TimeSliderWidgetFactory {
                                 dates.push(momentObj.toDate());
                             }
                         } catch {
-                            console.warn("Invalid stop definition in moment array. Skip array entry.")
+                            console.warn("Invalid stop definition in moment array. Skip array entry.");
                         }
                     }
                 });
@@ -274,7 +284,7 @@ export default class TimeSliderWidgetFactory {
                     stops.interval = {
                         value: stopsProperties.interval.value || 1,
                         unit: stopsProperties.interval.unit || "years"
-                    }
+                    };
                 }
                 // Case: No definition provided. Use 10 stops instead
                 else {
@@ -303,27 +313,12 @@ export default class TimeSliderWidgetFactory {
                         stops.timeExtent = {
                             start: start.toDate(),
                             end: end.toDate()
-                        }
+                        };
                     }
                 }
             }
         }
         return stops;
-    }
-
-    /**
-     * Generates the initial values for the TimeSlider
-     *
-     * @returns {Array} Values for the TimeSlider
-     * @private
-     */
-    _getValues() {
-        const properties = this._properties;
-        if (properties.values) {
-            return properties.values.map((dateString) => this._getDate(dateString));
-        } else {
-            return null;
-        }
     }
 
     /**
@@ -364,6 +359,6 @@ export default class TimeSliderWidgetFactory {
     _resetTimeExtent() {
         this._getView().then((view) => {
             view.timeExtent = this.#initialTimeExtent;
-        })
+        });
     }
 }
