@@ -20,6 +20,11 @@ export default class TimeSliderWidgetFactory {
 
     #timeSliderWidget = undefined;
     #initialTimeExtent = undefined;
+    /**
+     * A function used to specify custom formatting and styling
+     * @type __esri.DateLabelFormatter
+     */
+    #labelFormatFunction = undefined;
 
     activate() {
         this._getView().then((view) => {
@@ -34,6 +39,16 @@ export default class TimeSliderWidgetFactory {
     deactivate() {
         this._resetTimeExtent();
         this._destroyWidget();
+    }
+
+    /**
+     * Sets formatter for min, max and extent labels of the TimeSlider
+     * Injected via OSGI
+     * @param {__esri.DateLabelFormatter} labelFormatFunction A function used to specify custom formatting and styling
+     * @public
+     */
+    setLabelFormatFunction(labelFormatFunction) {
+        this.#labelFormatFunction = labelFormatFunction;
     }
 
     /**
@@ -95,6 +110,12 @@ export default class TimeSliderWidgetFactory {
         if (stops) {
             timeSliderProperties.stops = stops;
         }
+
+        if (this.#labelFormatFunction) {
+            // use formatter in widget
+            timeSliderProperties.labelFormatFunction = this.#labelFormatFunction;
+        }
+
         return timeSliderProperties;
     }
 

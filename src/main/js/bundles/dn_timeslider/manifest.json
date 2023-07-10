@@ -128,6 +128,11 @@
                 {
                     "name": "_mapWidgetModel",
                     "providing": "map-widget.MapWidgetModel"
+                },
+                {
+                    "name": "labelFormatFunction",
+                    "providing": "dn_timeslider.LabelFormatFunction",
+                    "cardinality": "0..1"
                 }
             ]
         },
