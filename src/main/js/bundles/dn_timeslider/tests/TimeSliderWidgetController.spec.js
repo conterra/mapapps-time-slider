@@ -20,7 +20,7 @@ function createComponent() {
     const controller = new TimeSliderWidgetController();
     controller._properties = {
         timeExtent: { start: undefined, end: undefined },
-        fullTimeExtent: { start: undefined, end: undefined },
+        fullTimeExtent: { start: undefined, end: undefined }
     };
     return controller;
 }
