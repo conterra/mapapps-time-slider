@@ -260,3 +260,8 @@ If you configure the stops over an interval or a number, you have the additional
     }
 }
 ```
+
+### Configuration of labels
+
+To change the format and styling of the labels, you can inject a FormatFunction with the Interface `"dn_timeslider.LabelFormatFunction"`. It allows to change the visual representation of the labels inside of the TimeSlider. 
+More information is available in the [TimeSlider::labelFormatFunction](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html#labelFormatFunction) documentation.
