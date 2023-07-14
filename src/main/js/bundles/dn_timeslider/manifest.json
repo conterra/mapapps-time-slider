@@ -1,6 +1,6 @@
 {
     "name": "dn_timeslider",
-    "version": "6.2.0-SNAPSHOT",
+    "version": "6.2.0",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
