@@ -358,7 +358,7 @@ export default class TimeSliderWidgetFactory {
             if (mapWidgetModel.view) {
                 resolve(mapWidgetModel.view);
             } else {
-                const watcher = mapWidgetModel.watch("view", ({value: view}) => {
+                const watcher = mapWidgetModel.watch("view", ({ value: view }) => {
                     watcher.remove();
                     resolve(view);
                 });
@@ -373,7 +373,9 @@ export default class TimeSliderWidgetFactory {
      */
     _resetTimeExtent() {
         this._getView().then((view) => {
-            view.timeExtent = this.#initialTimeExtent;
+            if (this.#initialTimeExtent) {
+                view.timeExtent = this.#initialTimeExtent;
+            }
         });
     }
 }
