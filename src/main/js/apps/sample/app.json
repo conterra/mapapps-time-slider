@@ -26,6 +26,9 @@
             "locator-store",
             "toc",
             "legend",
+            "agssearch",
+            "selection-ui",
+            "result-ui",
             "dn_timeslider"
         ],
         "require": [
@@ -60,8 +63,13 @@
                 "mode": "instant",
                 "loop": true,
                 "playRate": 1000,
-                "playOnStartup": true,
+                "playOnStartup": false,
                 "timeVisible": false
+            }
+        },
+        "agssearch": {
+            "AutoStoreRegistration": {
+                "componentEnabled": true
             }
         },
         "banner": {
@@ -91,15 +99,8 @@
                                 {
                                     "id": "buchdrucker",
                                     "title": "Gefährdung Buchdrucker",
-                                    "type": "AGS_DYNAMIC",
-                                    "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/MapServer",
-                                    "listMode": "hide-children",
-                                    "sublayers": [
-                                        {
-                                            "id": 1,
-                                            "visible": true
-                                        }
-                                    ]
+                                    "type": "AGS_FEATURE",
+                                    "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/FeatureServer/1"
                                 },
                                 {
                                     "id": "kupferstecher",
@@ -213,7 +214,8 @@
                         "tools": [
                             "timeSliderToggleTool",
                             "tocToggleTool",
-                            "legendToggleTool"
+                            "legendToggleTool",
+                            "selection-ui-tool"
                         ],
                         "registerWidget": {
                             "widgetRole": "drawer_button"

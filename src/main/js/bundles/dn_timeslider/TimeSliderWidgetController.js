@@ -19,7 +19,9 @@ import moment from "moment";
 export default class TimeSliderWidgetFactory {
 
     #timeSliderWidget = undefined;
+    #timeExtentWatcher = undefined;
     #initialTimeExtent = undefined;
+
     /**
      * A function used to specify custom formatting and styling
      * @type __esri.DateLabelFormatter
@@ -57,9 +59,13 @@ export default class TimeSliderWidgetFactory {
     onToolActivated() {
         this._getView().then((view) => {
             view.timeExtent = this.#timeSliderWidget.timeExtent;
+            this._changeAllLayerTimeExtents(view.timeExtent);
             if (this._properties.playOnStartup) {
                 this.#timeSliderWidget.play();
             }
+            this.#timeExtentWatcher = this.#timeSliderWidget.watch("timeExtent", (value) => {
+                this._changeAllLayerTimeExtents(value);
+            });
         });
     }
 
@@ -68,6 +74,8 @@ export default class TimeSliderWidgetFactory {
      */
     onToolDeactivated() {
         this.#timeSliderWidget.stop();
+        this.#timeExtentWatcher.remove();
+        this._resetAllLayerTimeExtents();
         this._resetTimeExtent();
     }
 
@@ -333,6 +341,35 @@ export default class TimeSliderWidgetFactory {
             }
         }
         return stops;
+    }
+
+    _changeAllLayerTimeExtents(timeExtent) {
+        const mapWidgetModel = this._mapWidgetModel;
+        const map = mapWidgetModel.map;
+        const layers = map.layers;
+        const flattenLayers = this._getFlattenLayers(layers);
+        flattenLayers.forEach((layer) => {
+            if (layer.useViewTime) {
+                if (layer.timeExtent && !layer._initialTimeExtent) {
+                    layer._initialTimeExtent = layer.timeExtent;
+                }
+                layer.timeExtent = timeExtent;
+            }
+        });
+    }
+
+    _resetAllLayerTimeExtents() {
+        const mapWidgetModel = this._mapWidgetModel;
+        const map = mapWidgetModel.map;
+        const layers = map.layers;
+        const flattenLayers = this._getFlattenLayers(layers);
+        flattenLayers.forEach((layer) => {
+            layer.timeExtent = layer._initialTimeExtent;
+        });
+    }
+
+    _getFlattenLayers(layers) {
+        return layers.flatten(item => item.layers || item.sublayers);
     }
 
     /**
