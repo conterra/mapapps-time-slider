@@ -77,15 +77,10 @@ export default class TimeSliderWidgetFactory {
      * @returns {TimeSlider}
      */
     getWidget() {
-        const timeSliderProperties = this.getTimeSliderProperties();
+        const timeSliderProperties = this._getTimeSliderProperties();
         return this.#timeSliderWidget = new TimeSlider(timeSliderProperties);
     }
 
-    /**
-     * Destroys the widget
-     *
-     * @private
-     */
     _destroyWidget() {
         this.#timeSliderWidget.destroy();
         this.#timeSliderWidget = undefined;
@@ -96,7 +91,7 @@ export default class TimeSliderWidgetFactory {
      *
      * @returns {*} TimeSlider configuration
      */
-    getTimeSliderProperties() {
+    _getTimeSliderProperties() {
         const properties = this._properties;
         const timeSliderProperties = {
             timeExtent: this._getInitialTimeExtent(),
