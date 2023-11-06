@@ -16,4 +16,5 @@
 import ".";
 import "./TimeSliderWidgetFactory";
 import "./TimeSliderWidgetController";
+import "./TimeSliderTocActionDefinitionFactory";
 import "ct/tools/Tool";

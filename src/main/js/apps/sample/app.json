@@ -72,6 +72,19 @@
                 "componentEnabled": true
             }
         },
+        "toc": {
+            "Config": {
+                "actions": [
+                    "show-description",
+                    "zoom-to-extent",
+                    "activate-children",
+                    "deactivate-children",
+                    "change-opacity",
+                    "show-copyright",
+                    "timeslider"
+                ]
+            }
+        },
         "banner": {
             "BannerWidget": {
                 "label": "Developer Network",
@@ -99,8 +112,41 @@
                                 {
                                     "id": "buchdrucker",
                                     "title": "Gefährdung Buchdrucker",
-                                    "type": "AGS_FEATURE",
-                                    "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/FeatureServer/1"
+                                    "type": "AGS_DYNAMIC",
+                                    "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/MapServer",
+                                    "listMode": "hide-children",
+                                    "sublayers": [
+                                        {
+                                            "id": 1,
+                                            "visible": true
+                                        }
+                                    ],
+                                    "timeSlider": {
+                                        "timeExtent": {
+                                            "start": "2019-04-15T00:00Z",
+                                            "end": "2019-04-15T00:00Z"
+                                        },
+                                        "fullTimeExtent": {
+                                            "start": "2019-01-01T00:00Z",
+                                            "end": "2019-12-31T00:00Z"
+                                        },
+                                        "viewTimeExtent": null,
+                                        "stops": {
+                                            "interval": {
+                                                "value": 1,
+                                                "unit": "weeks"
+                                            },
+                                            "timeExtent": {
+                                                "start": "2019-04-01T00:00Z",
+                                                "end": "2019-10-06T00:00Z"
+                                            }
+                                        },
+                                        "mode": "instant",
+                                        "loop": true,
+                                        "playRate": 1000,
+                                        "playOnStartup": true,
+                                        "timeVisible": false
+                                    }
                                 },
                                 {
                                     "id": "kupferstecher",
@@ -229,7 +275,8 @@
         "toolrules": {
             "ToolActiveStateManager": {
                 "activateOnStartToolIds": [
-                    "timeSliderToggleTool",
+                    // "timeSliderToggleTool",
+                    "tocToggleTool",
                     "legendToggleTool"
                 ]
             }

@@ -19,20 +19,14 @@ import moment from "moment";
 export default class TimeSliderWidgetFactory {
 
     #timeSliderWidget = undefined;
-    #timeExtentWatcher = undefined;
     #initialTimeExtent = undefined;
 
-    /**
-     * A function used to specify custom formatting and styling
-     * @type __esri.DateLabelFormatter
-     */
-    #labelFormatFunction = undefined;
-
     activate() {
+        const properties = this._properties;
         this._getView().then((view) => {
             // check for viewTimeExtent property; if undefined don't set new view's timeExtent
             if (this._properties.viewTimeExtent) {
-                view.timeExtent = this._getViewTimeExtent();
+                view.timeExtent = this._getViewTimeExtent(properties);
             }
             this.#initialTimeExtent = view.timeExtent;
         });
@@ -44,28 +38,14 @@ export default class TimeSliderWidgetFactory {
     }
 
     /**
-     * Sets formatter for min, max and extent labels of the TimeSlider
-     * Injected via OSGI
-     * @param {__esri.DateLabelFormatter} labelFormatFunction A function used to specify custom formatting and styling
-     * @public
-     */
-    setLabelFormatFunction(labelFormatFunction) {
-        this.#labelFormatFunction = labelFormatFunction;
-    }
-
-    /**
      * Gets called when the tool gets activated
      */
     onToolActivated() {
         this._getView().then((view) => {
             view.timeExtent = this.#timeSliderWidget.timeExtent;
-            this._changeAllLayerTimeExtents(view.timeExtent);
             if (this._properties.playOnStartup) {
                 this.#timeSliderWidget.play();
             }
-            this.#timeExtentWatcher = this.#timeSliderWidget.watch("timeExtent", (value) => {
-                this._changeAllLayerTimeExtents(value);
-            });
         });
     }
 
@@ -74,8 +54,6 @@ export default class TimeSliderWidgetFactory {
      */
     onToolDeactivated() {
         this.#timeSliderWidget.stop();
-        this.#timeExtentWatcher.remove();
-        this._resetAllLayerTimeExtents();
         this._resetTimeExtent();
     }
 
@@ -84,11 +62,16 @@ export default class TimeSliderWidgetFactory {
      *
      * @returns {TimeSlider}
      */
-    getWidget() {
-        const timeSliderProperties = this._getTimeSliderProperties();
+    getWidget(properties) {
+        const timeSliderProperties = this.getTimeSliderProperties(properties || this._properties);
         return this.#timeSliderWidget = new TimeSlider(timeSliderProperties);
     }
 
+    /**
+     * Destroys the widget
+     *
+     * @private
+     */
     _destroyWidget() {
         this.#timeSliderWidget.destroy();
         this.#timeSliderWidget = undefined;
@@ -99,26 +82,19 @@ export default class TimeSliderWidgetFactory {
      *
      * @returns {*} TimeSlider configuration
      */
-    _getTimeSliderProperties() {
-        const properties = this._properties;
+    getTimeSliderProperties(properties) {
         const timeSliderProperties = {
-            timeExtent: this._getInitialTimeExtent(),
-            fullTimeExtent: this._getFullTimeExtent(),
+            timeExtent: this._getInitialTimeExtent(properties),
+            fullTimeExtent: this._getFullTimeExtent(properties),
             mode: properties.mode,
             loop: properties.loop,
             playRate: properties.playRate,
             timeVisible: properties.timeVisible
         };
-        const stops = this._getStops();
+        const stops = this._getStops(properties);
         if (stops) {
             timeSliderProperties.stops = stops;
         }
-
-        if (this.#labelFormatFunction) {
-            // use formatter in widget
-            timeSliderProperties.labelFormatFunction = this.#labelFormatFunction;
-        }
-
         return timeSliderProperties;
     }
 
@@ -128,8 +104,7 @@ export default class TimeSliderWidgetFactory {
      * @returns {Array} Values for the TimeSlider
      * @private
      */
-    _getInitialTimeExtent() {
-        const properties = this._properties;
+    _getInitialTimeExtent(properties) {
         const timeExtent = properties.timeExtent;
 
         return this._getTimeExtent(timeExtent);
@@ -141,8 +116,7 @@ export default class TimeSliderWidgetFactory {
      * @returns {{start, end}} An object with start and end date
      * @private
      */
-    _getFullTimeExtent() {
-        const properties = this._properties;
+    _getFullTimeExtent(properties) {
         const fullTimeExtent = properties.fullTimeExtent;
 
         return this._getTimeExtent(fullTimeExtent);
@@ -154,8 +128,7 @@ export default class TimeSliderWidgetFactory {
      * @returns {{start, end}} An object with start and end date
      * @private
      */
-    _getViewTimeExtent() {
-        const properties = this._properties;
+    _getViewTimeExtent(properties) {
         const viewTimeExtent = properties.viewTimeExtent;
         return this._getTimeExtent(viewTimeExtent);
     }
@@ -224,8 +197,7 @@ export default class TimeSliderWidgetFactory {
      * @returns Object that contains the stop configuration
      * @private
      */
-    _getStops() {
-        const properties = this._properties;
+    _getStops(properties) {
         const stopsProperties = properties.stops;
         const defaultStopCount = 10;
         let stops = null;
@@ -343,35 +315,6 @@ export default class TimeSliderWidgetFactory {
         return stops;
     }
 
-    _changeAllLayerTimeExtents(timeExtent) {
-        const mapWidgetModel = this._mapWidgetModel;
-        const map = mapWidgetModel.map;
-        const layers = map.layers;
-        const flattenLayers = this._getFlattenLayers(layers);
-        flattenLayers.forEach((layer) => {
-            if (layer.useViewTime) {
-                if (layer.timeExtent && !layer._initialTimeExtent) {
-                    layer._initialTimeExtent = layer.timeExtent;
-                }
-                layer.timeExtent = timeExtent;
-            }
-        });
-    }
-
-    _resetAllLayerTimeExtents() {
-        const mapWidgetModel = this._mapWidgetModel;
-        const map = mapWidgetModel.map;
-        const layers = map.layers;
-        const flattenLayers = this._getFlattenLayers(layers);
-        flattenLayers.forEach((layer) => {
-            layer.timeExtent = layer._initialTimeExtent;
-        });
-    }
-
-    _getFlattenLayers(layers) {
-        return layers.flatten(item => item.layers || item.sublayers);
-    }
-
     /**
      * Converts a date string to a Date Object via moment
      *
@@ -395,7 +338,7 @@ export default class TimeSliderWidgetFactory {
             if (mapWidgetModel.view) {
                 resolve(mapWidgetModel.view);
             } else {
-                const watcher = mapWidgetModel.watch("view", ({ value: view }) => {
+                const watcher = mapWidgetModel.watch("view", ({value: view}) => {
                     watcher.remove();
                     resolve(view);
                 });
@@ -410,9 +353,7 @@ export default class TimeSliderWidgetFactory {
      */
     _resetTimeExtent() {
         this._getView().then((view) => {
-            if (this.#initialTimeExtent) {
-                view.timeExtent = this.#initialTimeExtent;
-            }
+            view.timeExtent = this.#initialTimeExtent;
         });
     }
 }
