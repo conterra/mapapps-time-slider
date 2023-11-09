@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import ct_util from "ct/ui/desktop/util";
+import async from "apprt-core/async";
+
 const ID = "timeslider";
+const DELAY = 1000;
 
 import EsriDijit from "esri-widgets/EsriDijit";
 
 export default class TimeSliderTocActionDefinitionFactory {
 
     #bundleContext = undefined;
+    #timeExtentWatcher = undefined;
     #serviceRegistration = undefined;
 
     activate(componentContext) {
@@ -59,9 +64,7 @@ export default class TimeSliderTocActionDefinitionFactory {
                 }
                 const controller = timeSliderWidgetController;
                 const timeSliderWidget = controller.getWidget(timeSliderProperties);
-                // TODO: clean watch on close
-                timeSliderWidget.watch("timeExtent", (value) => {
-                    // update layer view filter to reflect current timeExtent
+                that.#timeExtentWatcher = timeSliderWidget.watch("timeExtent", (value) => {
                     layer.timeExtent = value;
                 });
                 const widget = new EsriDijit(timeSliderWidget);
@@ -70,6 +73,14 @@ export default class TimeSliderTocActionDefinitionFactory {
                 };
                 const interfaces = ["dijit.Widget"];
                 that.#serviceRegistration = that.#bundleContext.registerService(interfaces, widget, serviceProperties);
+
+                async(() => {
+                    const window = ct_util.findEnclosingWindow(timeSliderWidget);
+                    window?.on("Hide", () => {
+                        that.#timeExtentWatcher.remove();
+                        that.#timeExtentWatcher = undefined;
+                    });
+                }, DELAY);
             }
         };
     }
