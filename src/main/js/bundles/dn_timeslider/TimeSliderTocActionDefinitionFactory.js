@@ -46,16 +46,16 @@ export default class TimeSliderTocActionDefinitionFactory {
 
             isVisibleForItem(tocItem) {
                 const ref = tocItem.ref;
-                return ref.timeExtent;
+                return typeof ref.timeInfo !== "undefined" && ref.timeInfo !== null;
             },
 
             trigger(tocItem) {
                 const layer = tocItem.ref;
-                // TODO: get timeExtent from layer and use it in timeSliderProperties
                 const timeSliderProperties = tocItem.ref.timeSlider;
-                // not ready
-                if(!timeSliderProperties.timeExtent) {
-                    timeSliderProperties.timeExtent = layer.timeExtent;
+
+                if (layer.timeExtent) {
+                    timeSliderProperties.timeExtent.start = String(layer.timeExtent.start);
+                    timeSliderProperties.timeExtent.end = String(layer.timeExtent.end);
                 }
                 const controller = timeSliderWidgetController;
                 const timeSliderWidget = controller.getWidget(timeSliderProperties);
