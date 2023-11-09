@@ -89,7 +89,7 @@
                 "title": "${windowTitle}",
                 "closable": true,
                 "maximizable": true,
-                "minimizeOnClose": true,
+                "minimizeOnClose": false,
                 "resizable": true,
                 "marginBox": {
                     "w": 435,
