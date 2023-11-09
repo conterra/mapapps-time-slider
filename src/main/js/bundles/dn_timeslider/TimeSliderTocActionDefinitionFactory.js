@@ -47,7 +47,7 @@ export default class TimeSliderTocActionDefinitionFactory {
             id: "timeslider",
             type: "button",
             label: i18n.tocActionLabel,
-            icon: "icon-editor-table",
+            icon: "icon-time-forward",
 
             isVisibleForItem(tocItem) {
                 const ref = tocItem.ref;

@@ -20,5 +20,6 @@ module.exports = {
     tool: {
         title: "Time Slider",
         tooltip: "Time Slider"
-    }
+    },
+    tocActionLabel: "Time Slider für diesen Layer"
 };
