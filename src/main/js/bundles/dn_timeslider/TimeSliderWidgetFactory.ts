@@ -13,36 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { InjectedReference } from "apprt-core/InjectedReference";
 import EsriDijit from "esri-widgets/EsriDijit";
-import Binding from "apprt-binding/Binding";
+import Binding, { Binding as BindingType } from 'apprt-binding/Binding';
 
-const _binding = Symbol("_binding");
+import { MapWidgetModel } from "map-widget/api";
+import type TimeSliderWidgetController from "./TimeSliderWidgetController";
 
 export default class TimeSliderWidgetFactory {
 
-    deactivate() {
-        this._deactivateBinding();
+    private binding: BindingType;
+    private _mapWidgetModel: InjectedReference<MapWidgetModel>;
+    private _timeSliderWidgetController: TimeSliderWidgetController;
+
+    public deactivate(): void {
+        this.deactivateBinding();
     }
 
-    createInstance() {
-        return this._getWidget();
+    public createInstance(): any {
+        return this.getWidget();
     }
 
-    _getWidget() {
+    private getWidget(): any {
         const timeSliderWidget = this._timeSliderWidgetController.getWidget();
         const mapWidgetModel = this._mapWidgetModel;
-        const binding = this[_binding] = Binding.for(timeSliderWidget, mapWidgetModel)
+        this.binding = Binding.for(timeSliderWidget, mapWidgetModel)
             .syncToLeft("view")
             .enable()
             .syncToLeftNow();
 
-        timeSliderWidget.own(binding);
 
-        return new EsriDijit(timeSliderWidget);
+            //new new without void
+        return new (EsriDijit as any)(timeSliderWidget);
     }
 
-    _deactivateBinding() {
-        this[_binding].unbind();
-        this[_binding] = undefined;
+    private deactivateBinding(): void {
+        this.binding.unbind();
+        this.binding = undefined;
     }
 }

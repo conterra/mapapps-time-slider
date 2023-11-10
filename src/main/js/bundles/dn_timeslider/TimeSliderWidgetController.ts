@@ -15,77 +15,59 @@
  */
 import TimeSlider from "esri/widgets/TimeSlider";
 import moment from "moment";
+import { TimesliderProperties } from "../../types/TimesliderProperties";
 
-export default class TimeSliderWidgetFactory {
+export default class TimeSliderWidgetController {
 
-    #timeSliderWidget = undefined;
-    #initialTimeExtent = undefined;
+    private _properties: any;
+    private timeSliderWidget: any = undefined;
+    private initialTimeExtent:any = undefined;
 
-    activate() {
+    public activate(): void {
         const properties = this._properties;
-        this._getView().then((view) => {
+        this._getView().then((view: __esri.View) => {
             // check for viewTimeExtent property; if undefined don't set new view's timeExtent
             if (this._properties.viewTimeExtent) {
                 view.timeExtent = this._getViewTimeExtent(properties);
             }
-            this.#initialTimeExtent = view.timeExtent;
+            this.initialTimeExtent = view.timeExtent;
         });
     }
 
-    deactivate() {
+    public deactivate(): void {
         this._resetTimeExtent();
-        this._destroyWidget();
+        this.destroyWidget();
     }
 
-    /**
-     * Gets called when the tool gets activated
-     */
-    onToolActivated() {
-        this._getView().then((view) => {
-            view.timeExtent = this.#timeSliderWidget.timeExtent;
+    public onToolActivated(): void {
+        this._getView().then((view: __esri.View) => {
+            view.timeExtent = this.timeSliderWidget.timeExtent;
             if (this._properties.playOnStartup) {
-                this.#timeSliderWidget.play();
+                this.timeSliderWidget.play();
             }
         });
     }
 
-    /**
-     * Gets called when the tool gets deactivated
-     */
-    onToolDeactivated() {
-        this.#timeSliderWidget.stop();
+    public onToolDeactivated(): void {
+        this.timeSliderWidget.stop();
         this._resetTimeExtent();
     }
 
-    /**
-     * Returns the TimeSliderWidget
-     *
-     * @returns {TimeSlider}
-     */
-    getWidget(properties) {
+    //new: optional param
+    public getWidget(properties?) {
         const timeSliderProperties = this.getTimeSliderProperties(properties || this._properties);
-        return this.#timeSliderWidget = new TimeSlider(timeSliderProperties);
+        return this.timeSliderWidget = new TimeSlider(timeSliderProperties);
     }
 
-    /**
-     * Destroys the widget
-     *
-     * @private
-     */
-    _destroyWidget() {
-        this.#timeSliderWidget.destroy();
-        this.#timeSliderWidget = undefined;
+    private destroyWidget(): void {
+        this.timeSliderWidget.destroy();
+        this.timeSliderWidget = undefined;
     }
 
-    /**
-     * Generated the TimeSlider configuration
-     *
-     * @returns {*} TimeSlider configuration
-     */
-    getTimeSliderProperties(properties) {
-        const timeSliderProperties = {
-            timeExtent: this._getInitialTimeExtent(properties),
-            fullTimeExtent: this._getFullTimeExtent(properties),
+    public getTimeSliderProperties(properties): TimesliderProperties {
+        const timeSliderProperties: TimesliderProperties = {
+            timeExtent: this.getInitialTimeExtent(properties),
+            fullTimeExtent: this.getFullTimeExtent(properties),
             mode: properties.mode,
             loop: properties.loop,
             playRate: properties.playRate,
@@ -98,25 +80,13 @@ export default class TimeSliderWidgetFactory {
         return timeSliderProperties;
     }
 
-    /**
-     * Generates the initial values for the TimeSlider
-     *
-     * @returns {Array} Values for the TimeSlider
-     * @private
-     */
-    _getInitialTimeExtent(properties) {
+    private getInitialTimeExtent(properties) {
         const timeExtent = properties.timeExtent;
 
         return this._getTimeExtent(timeExtent);
     }
 
-    /**
-     * Function used to access fullTimeExtent properties and call _getTimeExtent()
-     *
-     * @returns {{start, end}} An object with start and end date
-     * @private
-     */
-    _getFullTimeExtent(properties) {
+    private getFullTimeExtent(properties) {
         const fullTimeExtent = properties.fullTimeExtent;
 
         return this._getTimeExtent(fullTimeExtent);
@@ -353,7 +323,7 @@ export default class TimeSliderWidgetFactory {
      */
     _resetTimeExtent() {
         this._getView().then((view) => {
-            view.timeExtent = this.#initialTimeExtent;
+            view.timeExtent = this.initialTimeExtent;
         });
     }
 }
