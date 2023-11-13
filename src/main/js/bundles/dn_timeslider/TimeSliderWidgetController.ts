@@ -32,9 +32,8 @@ export default class TimeSliderWidgetController {
     public activate(): void {
         const properties = this._properties;
         this.getView().then((view: __esri.View) => {
-            // check for viewTimeExtent property; if undefined don't set new view's timeExtent
             if (this._properties.viewTimeExtent) {
-                view.timeExtent = this.getViewTimeExtentFromConfig(properties);
+                view.timeExtent = this.getTimeExtentFromConfig(properties, "viewTimeExtent");
             }
             this.initialTimeExtent = view.timeExtent;
         });
@@ -72,9 +71,9 @@ export default class TimeSliderWidgetController {
 
     public getTimeSliderProperties(properties: InjectedReference<Record<string, any>>): TimesliderProperties {
         const timeSliderProperties: TimesliderProperties = {
-            timeExtent: this.getInitialTimeExtentFromConfig(properties),
-            fullTimeExtent: this.getFullTimeExtentFromConfig(properties),
-            // viewTimeExtent: this.getViewTimeExtentFromConfig(properties),
+            timeExtent: this.getTimeExtentFromConfig(properties, "timeExtent"),
+            fullTimeExtent: this.getTimeExtentFromConfig(properties, "fullTimeExtent"),
+            viewTimeExtent: this.getTimeExtentFromConfig(properties, "viewTimeExtent"),
             stops: properties.stops,
             mode: properties.mode,
             loop: properties.loop,
@@ -89,19 +88,14 @@ export default class TimeSliderWidgetController {
         return timeSliderProperties;
     }
 
-    private getInitialTimeExtentFromConfig(properties: InjectedReference<Record<string, any>>): __esri.TimeExtent {
-        const timeExtent = properties.timeExtent;
-        return this.getTimeExtent(timeExtent);
-    }
-
-    private getFullTimeExtentFromConfig(properties: InjectedReference<Record<string, any>>): __esri.TimeExtent {
-        const fullTimeExtent = properties.fullTimeExtent;
-        return this.getTimeExtent(fullTimeExtent);
-    }
-
-    private getViewTimeExtentFromConfig(properties: InjectedReference<Record<string, any>>) {
-        const viewTimeExtent = properties.viewTimeExtent;
-        return this.getTimeExtent(viewTimeExtent);
+    private getTimeExtentFromConfig(properties: InjectedReference<Record<string, any>>,
+        attribute: string): __esri.TimeExtent {
+        const timeExtent = properties[attribute];
+        if (timeExtent) {
+            return this.getTimeExtent(timeExtent);
+        } else {
+            return undefined;
+        }
     }
 
     private getTimeExtent(referenceTimeExtent: __esri.TimeExtent): __esri.TimeExtent {
