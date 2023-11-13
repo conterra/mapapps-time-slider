@@ -13,6 +13,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
+
 import { InjectedReference } from "apprt-core/InjectedReference";
 import EsriDijit from "esri-widgets/EsriDijit";
 import Binding, { Bindable, Binding as BindingType } from 'apprt-binding/Binding';
