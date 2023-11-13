@@ -15,7 +15,7 @@
 ///
 import { InjectedReference } from "apprt-core/InjectedReference";
 import EsriDijit from "esri-widgets/EsriDijit";
-import Binding, { Binding as BindingType } from 'apprt-binding/Binding';
+import Binding, { Bindable, Binding as BindingType } from 'apprt-binding/Binding';
 
 import { MapWidgetModel } from "map-widget/api";
 import type TimeSliderWidgetController from "./TimeSliderWidgetController";
@@ -37,7 +37,8 @@ export default class TimeSliderWidgetFactory {
     private getWidget(): any {
         const timeSliderWidget = this._timeSliderWidgetController.getWidget();
         const mapWidgetModel = this._mapWidgetModel;
-        this.binding = Binding.for(timeSliderWidget, mapWidgetModel)
+        // new Bindable
+        this.binding = Binding.for(timeSliderWidget as Bindable, mapWidgetModel)
             .syncToLeft("view")
             .enable()
             .syncToLeftNow();
