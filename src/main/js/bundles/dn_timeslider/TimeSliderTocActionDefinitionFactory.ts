@@ -71,6 +71,8 @@ export default class TimeSliderTocActionDefinitionFactory {
                 const controller = timeSliderWidgetController;
                 let timeSliderProperties = tocItem.ref.timeSlider;
 
+                layer.visible = true;
+
                 if (layer.timeExtent) {
                     if (!timeSliderProperties) {
                         timeSliderProperties = {};
