@@ -36,7 +36,7 @@ export default class TimeSliderTocActionDefinitionFactory {
     }
 
     createDefinitionById(id) {
-        if(id !== ID){
+        if (id !== ID) {
             return;
         }
         const i18n = this._i18n.get();
@@ -56,17 +56,26 @@ export default class TimeSliderTocActionDefinitionFactory {
 
             trigger(tocItem) {
                 const layer = tocItem.ref;
-                const timeSliderProperties = tocItem.ref.timeSlider;
+                const controller = timeSliderWidgetController;
+                let timeSliderProperties = tocItem.ref.timeSlider;
 
                 if (layer.timeExtent) {
-                    timeSliderProperties.timeExtent.start = String(layer.timeExtent.start);
-                    timeSliderProperties.timeExtent.end = String(layer.timeExtent.end);
+                    if (!timeSliderProperties) {
+                        timeSliderProperties = {};
+                        timeSliderProperties.timeExtent = {};
+                        timeSliderProperties.fullTimeExtent = {};
+                    }
+                    timeSliderProperties.timeExtent.start = layer.timeExtent.start;
+                    timeSliderProperties.timeExtent.end = layer.timeExtent.end;
+                    timeSliderProperties.fullTimeExtent = layer.timeInfo.fullTimeExtent;
+                    timeSliderProperties.stops = layer.stops;
                 }
-                const controller = timeSliderWidgetController;
+
                 const timeSliderWidget = controller.getWidget(timeSliderProperties);
                 that.#timeExtentWatcher = timeSliderWidget.watch("timeExtent", (value) => {
                     layer.timeExtent = value;
                 });
+                this.supressLayerDefaults(layer, timeSliderProperties, timeSliderWidget);
                 const widget = new EsriDijit(timeSliderWidget);
                 const serviceProperties = {
                     "widgetRole": "layerTimeSliderWidget"
@@ -81,6 +90,16 @@ export default class TimeSliderTocActionDefinitionFactory {
                         that.#timeExtentWatcher = undefined;
                     });
                 }, DELAY);
+            },
+
+            supressLayerDefaults(layer, props, widget) {
+                if (props) {
+                    layer.timeInfo.fullTimeExtent = props.fullTimeExtent;
+                    layer.stops = props.stops;
+                } else if (widget.fullTimeExtent) {
+                    layer.timeInfo.fullTimeExtent = widget.fullTimeExtent;
+                    layer.stops = widget.stops;
+                }
             }
         };
     }
