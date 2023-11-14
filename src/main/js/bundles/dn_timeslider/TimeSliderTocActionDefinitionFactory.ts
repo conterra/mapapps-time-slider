@@ -69,18 +69,12 @@ export default class TimeSliderTocActionDefinitionFactory {
             trigger(tocItem: TocItem) {
                 const layer = tocItem.ref;
                 const controller = timeSliderWidgetController;
-                let timeSliderProperties = tocItem.ref.timeSlider;
+                const timeSliderProperties = tocItem.ref.timeSlider;
 
                 layer.visible = true;
 
                 if (layer.timeExtent) {
-                    if (!timeSliderProperties) {
-                        timeSliderProperties = {};
-                        timeSliderProperties.timeExtent = {};
-                        timeSliderProperties.fullTimeExtent = {};
-                    }
-                    timeSliderProperties.timeExtent.start = layer.timeExtent.start;
-                    timeSliderProperties.timeExtent.end = layer.timeExtent.end;
+                    timeSliderProperties.timeExtent = layer.timeExtent;
                     timeSliderProperties.fullTimeExtent = layer.timeInfo.fullTimeExtent;
                     timeSliderProperties.stops = layer.stops;
                 }
