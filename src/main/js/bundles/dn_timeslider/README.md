@@ -31,6 +31,10 @@ The Time Slider bundle allows the user to change the time extent of the map or s
 #### Sample configuration for map Time Slider
 ```json
 "Config": {
+    "timeExtent": {
+        "start": "2019-04-15T00:00Z",
+        "end": "2019-04-15T00:00Z"
+    },
     "fullTimeExtent": {
         "start": "2019-01-01T00:00Z",
         "end": "2019-12-31T00:00Z"
@@ -66,6 +70,10 @@ The Time Slider bundle allows the user to change the time extent of the map or s
                     "type": "AGS_FEATURE",
                     "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/FeatureServer/1",
                     "timeSlider": {
+                        "timeExtent": {
+                            "start": "2019-04-15T00:00Z",
+                            "end": "2019-04-15T00:00Z"
+                        },
                         "fullTimeExtent": {
                             "start": "2019-01-01T00:00Z",
                             "end": "2019-12-31T00:00Z"
