@@ -59,7 +59,7 @@ export default class TimeSliderTocActionDefinitionFactory {
 
             isVisibleForItem(tocItem: any) {
                 const ref = tocItem.ref;
-                return typeof ref.timeInfo !== "undefined" && ref.timeInfo !== null;
+                return typeof ref.timeInfo !== "undefined" && ref.timeInfo !== null && !!ref.timeSlider;
             },
 
             trigger(tocItem: any) {
