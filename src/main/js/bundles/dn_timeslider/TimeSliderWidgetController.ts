@@ -58,7 +58,6 @@ export default class TimeSliderWidgetController {
         this.resetTimeExtent();
     }
 
-    //new: optional param
     public getWidget(properties?: InjectedReference<Record<string, any>>): TimeSlider {
         const timeSliderProperties = this.getTimeSliderProperties(properties || this._properties);
         return this.timeSliderWidget = new TimeSlider(timeSliderProperties);

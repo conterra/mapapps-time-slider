@@ -19,12 +19,8 @@ import ct_util from "ct/ui/desktop/util";
 import async from "apprt-core/async";
 import EsriDijit from "esri-widgets/EsriDijit";
 
-import type BundleContext from "apprt/BundleContext";
-import type Watcher from 'core/observer/watcher';
 import { MessagesReference } from "./nls/bundle";
-import type ComponentContext from "system/component/ComponentContext";
 import type TimeSliderWidgetController from "./TimeSliderWidgetController";
-import { TocItem } from "toc/api/TocItem";
 import { ExtendedLayer } from "../../types/ExtendedLayer";
 
 export default class TimeSliderTocActionDefinitionFactory {
@@ -32,13 +28,13 @@ export default class TimeSliderTocActionDefinitionFactory {
     public supportedIds: Array<string>;
 
     private Id = "timeslider";
-    private bundleContext: InjectedReference<BundleContext> = undefined;
-    private timeExtentWatcher: InjectedReference<Watcher> = undefined;
+    private bundleContext: InjectedReference<any> = undefined;
+    private timeExtentWatcher: InjectedReference<any> = undefined;
     private serviceRegistration: InjectedReference<any> = undefined;
     private _i18n: InjectedReference<MessagesReference>;
     private _timeSliderWidgetController: TimeSliderWidgetController;
 
-    public activate(componentContext: InjectedReference<ComponentContext>): void {
+    public activate(componentContext: InjectedReference<any>): void {
         this.bundleContext = componentContext.getBundleContext();
     }
 
@@ -61,12 +57,12 @@ export default class TimeSliderTocActionDefinitionFactory {
             label: i18n.tocActionLabel,
             icon: "icon-time-forward",
 
-            isVisibleForItem(tocItem: TocItem) {
+            isVisibleForItem(tocItem: any) {
                 const ref = tocItem.ref;
                 return typeof ref.timeInfo !== "undefined" && ref.timeInfo !== null;
             },
 
-            trigger(tocItem: TocItem) {
+            trigger(tocItem: any) {
                 const layer = tocItem.ref;
                 const controller = timeSliderWidgetController;
                 const timeSliderProperties = tocItem.ref.timeSlider;
@@ -100,7 +96,7 @@ export default class TimeSliderTocActionDefinitionFactory {
                 }, that.delay);
             },
 
-            supressLayerDefaults(layer: ExtendedLayer, props: InjectedReference<Record<string, any>>, widget) {
+            supressLayerDefaults(layer: ExtendedLayer, props: InjectedReference<Record<string, any>>, widget: any) {
                 if (props) {
                     layer.timeInfo.fullTimeExtent = props.fullTimeExtent;
                     layer.stops = props.stops;

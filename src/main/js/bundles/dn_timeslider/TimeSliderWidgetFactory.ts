@@ -38,13 +38,12 @@ export default class TimeSliderWidgetFactory {
     private getWidget(): any {
         const timeSliderWidget = this._timeSliderWidgetController.getWidget();
         const mapWidgetModel = this._mapWidgetModel;
-        // new Bindable
+
         this.binding = Binding.for(timeSliderWidget as Bindable, mapWidgetModel)
             .syncToLeft("view")
             .enable()
             .syncToLeftNow();
 
-        //new new without void
         return new (EsriDijit as any)(timeSliderWidget);
     }
 
