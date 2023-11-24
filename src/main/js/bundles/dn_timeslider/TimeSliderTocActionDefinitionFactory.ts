@@ -89,6 +89,7 @@ export default class TimeSliderTocActionDefinitionFactory {
 
                 async(() => {
                     const window = ct_util.findEnclosingWindow(timeSliderWidget);
+                    window.set("title", `${window.title} - ${layer.title}`);
                     window?.on("Hide", () => {
                         that.timeExtentWatcher.remove();
                         that.timeExtentWatcher = undefined;
