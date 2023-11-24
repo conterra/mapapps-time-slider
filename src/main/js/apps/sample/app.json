@@ -130,7 +130,6 @@
                                             "start": "2019-01-01T00:00Z",
                                             "end": "2019-12-31T00:00Z"
                                         },
-                                        "viewTimeExtent": null,
                                         "stops": {
                                             "interval": {
                                                 "value": 1,
