@@ -82,6 +82,62 @@
                     "l": 50
                 }
             }
+        },
+        {
+            "widgetRole": "layerTimeSliderWidget",
+            "window": {
+                "title": "${windowTitle}",
+                "closable": true,
+                "maximizable": true,
+                "minimizeOnClose": false,
+                "resizable": true,
+                "marginBox": {
+                    "w": 435,
+                    "h": 230,
+                    "l": 20,
+                    "t": 125
+                },
+                "minSize": {
+                    "w": 435,
+                    "h": 230
+                },
+                "windowClass": "timeslider-window"
+            }
+        },
+        {
+            "widgetRole": "layerTimeSliderWidget",
+            "sublayout": [
+                "mobile_landscape",
+                "mobile_portrait"
+            ],
+            "window": {
+                "resizable": false,
+                "fixEdgesInViewport": {
+                    "l": true,
+                    "r": true
+                },
+                "marginBox": {
+                    "h": 230,
+                    "b": 42,
+                    "r": 0,
+                    "l": 0
+                }
+            }
+        },
+        {
+            "widgetRole": "layerTimeSliderWidget",
+            "sublayout": [
+                "mobile_landscape"
+            ],
+            "window": {
+                "resizable": false,
+                "marginBox": {
+                    "h": 230,
+                    "b": 0,
+                    "r": 0,
+                    "l": 50
+                }
+            }
         }
     ],
     "components": [
@@ -128,7 +184,7 @@
                 {
                     "name": "_mapWidgetModel",
                     "providing": "map-widget.MapWidgetModel"
-                },
+},
                 {
                     "name": "labelFormatFunction",
                     "providing": "dn_timeslider.LabelFormatFunction",
@@ -157,6 +213,16 @@
             "references": [
                 {
                     "name": "handlerScope",
+                    "providing": "dn_timeslider.TimeSliderWidgetController"
+                }
+            ]
+        },
+        {
+            "name": "TimeSliderTocActionDefinitionFactory",
+            "provides": "toc.ActionDefinitionFactory",
+            "references": [
+                {
+                    "name": "_timeSliderWidgetController",
                     "providing": "dn_timeslider.TimeSliderWidgetController"
                 }
             ]

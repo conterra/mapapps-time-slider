@@ -1,26 +1,40 @@
 # dn_timeslider
 
-The Time Slider bundle allows the user to change the time extent of the map.
+The Time Slider bundle allows the user to change the time extent of the map or specific layers.
 
 ## Usage
 **Requirement: map.apps 4.12.0**
 
-1. First you need to add the bundle dn_timeslider to your app.
-2. Then you need to configure it.
-
-To make the functions of this bundle available to the user, the following tool can be added to a toolset:
-
-| Tool ID              | Component            | Description              |
-| -------------------- | -------------------- | ------------------------ |
-| timeSliderToggleTool | TimeSliderToggleTool | Show or hide the widget. |
+<ol>
+    <li>First you need to add the bundle dn_timeslider to your app.</li>
+    <li>Then you need to configure it. This can be accomplished in two separate yet complementary ways:
+        <ul>
+            <li>Map:</li>
+                <table>
+                    <tr>
+                        <th>Tool ID</th><th>Component</th><th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>timeSliderToggleTool</td><td>TimeSliderToggleTool</td><td>Show or hide the widget.</td>
+                    </tr>
+                </table>
+            <li>Layer:</li>
+            <p>See sample configuration for layer Time Slider</p>
+        </ul>
+    </li>
+</ol>
 
 ## Configuration Reference
 
 ### Config
 
-#### Sample configuration
+#### Sample configuration for map Time Slider
 ```json
 "Config": {
+    "timeExtent": {
+        "start": "2019-04-15T00:00Z",
+        "end": "2019-04-15T00:00Z"
+    },
     "fullTimeExtent": {
         "start": "2019-01-01T00:00Z",
         "end": "2019-12-31T00:00Z"
@@ -44,6 +58,50 @@ To make the functions of this bundle available to the user, the following tool c
 }
 ```
 
+#### Sample configuration for layer Time Slider
+```json
+"map-init": {
+    "Config": {
+        "map": {
+            "layers": [
+                {
+                    "id": "buchdrucker",
+                    "title": "Gefährdung Buchdrucker",
+                    "type": "AGS_FEATURE",
+                    "url": "https://www.fovgis.bayern.de/arcgis/rest/services/baywis_wsm/borki_gef/FeatureServer/1",
+                    "timeSlider": {
+                        "timeExtent": {
+                            "start": "2019-04-15T00:00Z",
+                            "end": "2019-04-15T00:00Z"
+                        },
+                        "fullTimeExtent": {
+                            "start": "2019-01-01T00:00Z",
+                            "end": "2019-12-31T00:00Z"
+                        },
+                        "viewTimeExtent": null,
+                        "stops": {
+                            "interval": {
+                                "value": 1,
+                                "unit": "weeks"
+                            },
+                            "timeExtent": {
+                                "start": "2019-03-01T00:00Z",
+                                "end": "2019-09-01T00:00Z"
+                            }
+                        },
+                        "mode": "instant",
+                        "loop": true,
+                        "playRate": 1000,
+                        "playOnStartup": true,
+                        "timeVisible": false
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
 | Property       | Type    | Possible Values                                                                                            | Default              | Description                                                                                                                                                                                                                                                                                                                       |
 | -------------- | ------- | ---------------------------------------------------------------------------------------------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | timeExtent     | Object  |                                                                                                            |                      | The initial temporal extent of the slider. More information is available in the [TimeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider-TimeSliderViewModel.html#timeExtent) documentation.                                                                                       |
@@ -55,6 +113,8 @@ To make the functions of this bundle available to the user, the following tool c
 | playRate       | Number  |                                                                                                            | ```1000```           | The time (in milliseconds) between animation steps.                                                                                                                                                                                                                                                                               |
 | playOnStartup  | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | When true, the time slider will play its animation on startup.                                                                                                                                                                                                                                                                    |
 | timeVisible    | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | Shows/hides time in the display.                                                                                                                                                                                                                                                                                                  |
+
+
 
 #### Configuration of fullTimeExtent
 To configure this property you need to define a start and end date. To do this you can use [Moment.js-Strings](https://momentjs.com/docs/#/parsing/).
@@ -263,5 +323,5 @@ If you configure the stops over an interval or a number, you have the additional
 
 ### Configuration of labels
 
-To change the format and styling of the labels, you can inject a FormatFunction with the Interface `"dn_timeslider.LabelFormatFunction"`. It allows to change the visual representation of the labels inside of the TimeSlider. 
+To change the format and styling of the labels, you can inject a FormatFunction with the Interface `"dn_timeslider.LabelFormatFunction"`. It allows to change the visual representation of the labels inside of the TimeSlider.
 More information is available in the [TimeSlider::labelFormatFunction](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html#labelFormatFunction) documentation.
