@@ -26,7 +26,8 @@ export default class TimeSliderWidgetController {
 
     private _properties: InjectedReference<Record<string, any>>;
     private timeSliderWidget: any = undefined;
-    private initialTimeExtent:any = undefined;
+    private initialTimeExtent: any = undefined;
+    private labelFormatFunction: any = undefined;
     private _mapWidgetModel: InjectedReference<MapWidgetModel>;
 
     public activate(): void {
@@ -37,6 +38,10 @@ export default class TimeSliderWidgetController {
             }
             this.initialTimeExtent = view.timeExtent;
         });
+    }
+
+    public setLabelFormatFunction(labelFormatFunction: __esri.DateLabelFormatter): void {
+        this.labelFormatFunction = labelFormatFunction;
     }
 
     public deactivate(): void {
@@ -73,6 +78,7 @@ export default class TimeSliderWidgetController {
             timeExtent: this.getTimeExtentFromConfig(properties, "timeExtent"),
             fullTimeExtent: this.getTimeExtentFromConfig(properties, "fullTimeExtent"),
             viewTimeExtent: this.getTimeExtentFromConfig(properties, "viewTimeExtent"),
+            labelFormatFunction: properties?.labelFormatFunction,
             stops: properties.stops,
             mode: properties.mode,
             loop: properties.loop,
@@ -84,6 +90,11 @@ export default class TimeSliderWidgetController {
         if (stops) {
             timeSliderProperties.stops = stops;
         }
+
+        if (this.labelFormatFunction) {
+            timeSliderProperties.labelFormatFunction = this.labelFormatFunction;
+        }
+
         return timeSliderProperties;
     }
 
