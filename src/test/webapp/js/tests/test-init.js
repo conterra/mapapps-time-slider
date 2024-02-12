@@ -19,8 +19,7 @@ testConfig({
         packages: [
             // register all self hosted packages
             "*"
-        ]
-    }
+        ]}
         //uncomment, if project runs in remote mode
         // ,{
         //     root: "@@mapapps.remote.base@@/resources/jsregistry/root",
