@@ -79,7 +79,7 @@ export default class TimeSliderTocActionDefinitionFactory {
                 that.timeExtentWatcher = timeSliderWidget.watch("timeExtent", (value) => {
                     layer.timeExtent = value;
                 });
-                this.supressLayerDefaults(layer, timeSliderProperties, timeSliderWidget);
+                this.supressLayerDefaults(layer, timeSliderProperties, timeSliderWidget, controller);
                 const widget = new (EsriDijit as any)(timeSliderWidget);
                 const serviceProperties = {
                     "widgetRole": "layerTimeSliderWidget"
@@ -97,10 +97,12 @@ export default class TimeSliderTocActionDefinitionFactory {
                 }, that.delay);
             },
 
-            supressLayerDefaults(layer: ExtendedLayer, props: InjectedReference<Record<string, any>>, widget: any) {
+            supressLayerDefaults(layer: ExtendedLayer, props: InjectedReference<Record<string, any>>,
+                widget: any, controller: TimeSliderWidgetController) {
+                const timeSliderProperties = controller.getTimeSliderProperties(props);
                 if (props) {
-                    layer.timeInfo.fullTimeExtent = props.fullTimeExtent;
-                    layer.stops = props.stops;
+                    layer.timeInfo.fullTimeExtent = timeSliderProperties.fullTimeExtent;
+                    layer.stops = timeSliderProperties.stops;
                 } else if (widget.fullTimeExtent) {
                     layer.timeInfo.fullTimeExtent = widget.fullTimeExtent;
                     layer.stops = widget.stops;
