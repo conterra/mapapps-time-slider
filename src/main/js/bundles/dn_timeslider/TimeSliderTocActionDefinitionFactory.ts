@@ -63,23 +63,24 @@ export default class TimeSliderTocActionDefinitionFactory {
             },
 
             trigger(tocItem: any) {
-                const layer = tocItem.ref;
+                const layer = tocItem.ref as ExtendedLayer;
                 const controller = timeSliderWidgetController;
                 const timeSliderProperties = tocItem.ref.timeSlider;
 
                 layer.visible = true;
 
-                if (layer.timeExtent) {
-                    timeSliderProperties.timeExtent = layer.timeExtent;
-                    timeSliderProperties.fullTimeExtent = layer.timeInfo.fullTimeExtent;
-                    timeSliderProperties.stops = layer.stops;
+                if (layer.timeExtent && !layer._initialTimeExtent) {
+                    layer._initialTimeExtent = layer.timeExtent;
+                }
+                if (layer._lastTimeExtent) {
+                    layer.timeExtent = layer._lastTimeExtent;
+                    timeSliderProperties.timeExtent = layer._lastTimeExtent;
                 }
 
                 const timeSliderWidget = controller.getWidget(timeSliderProperties);
                 that.timeExtentWatcher = timeSliderWidget.watch("timeExtent", (value) => {
                     layer.timeExtent = value;
                 });
-                this.supressLayerDefaults(layer, timeSliderProperties, timeSliderWidget, controller);
                 const widget = new (EsriDijit as any)(timeSliderWidget);
                 const serviceProperties = {
                     "widgetRole": "layerTimeSliderWidget"
@@ -93,20 +94,10 @@ export default class TimeSliderTocActionDefinitionFactory {
                     window?.on("Hide", () => {
                         that.timeExtentWatcher.remove();
                         that.timeExtentWatcher = undefined;
+                        layer._lastTimeExtent = layer.timeExtent;
+                        layer.timeExtent = layer._initialTimeExtent;
                     });
                 }, that.delay);
-            },
-
-            supressLayerDefaults(layer: ExtendedLayer, props: InjectedReference<Record<string, any>>,
-                widget: any, controller: TimeSliderWidgetController) {
-                const timeSliderProperties = controller.getTimeSliderProperties(props);
-                if (props) {
-                    layer.timeInfo.fullTimeExtent = timeSliderProperties.fullTimeExtent;
-                    layer.stops = timeSliderProperties.stops;
-                } else if (widget.fullTimeExtent) {
-                    layer.timeInfo.fullTimeExtent = widget.fullTimeExtent;
-                    layer.stops = widget.stops;
-                }
             }
         };
     }

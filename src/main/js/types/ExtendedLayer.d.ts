@@ -14,7 +14,8 @@
 /// limitations under the License.
 ///
 
-export interface ExtendedLayer extends __esri.Layer {
+export interface ExtendedLayer extends __esri.FeatureLayer, __esri.MapImageLayer {
     timeInfo: __esri.TimeInfo,
-    stops: __esri.StopsByDates | __esri.StopsByCount | __esri.StopsByInterval
+    _initialTimeExtent: __esri.TimeExtent,
+    _lastTimeExtent: __esri.TimeExtent
 }
