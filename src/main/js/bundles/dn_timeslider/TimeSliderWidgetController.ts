@@ -28,6 +28,7 @@ export default class TimeSliderWidgetController {
     private timeSliderWidget: any = undefined;
     private initialTimeExtent: any = undefined;
     private labelFormatFunction: any = undefined;
+    private timeExtentWatcher: any = undefined;
     private _mapWidgetModel: InjectedReference<MapWidgetModel>;
 
     public activate(): void {
@@ -52,14 +53,20 @@ export default class TimeSliderWidgetController {
     public onToolActivated(): void {
         this.getView().then((view: __esri.View) => {
             view.timeExtent = this.timeSliderWidget.timeExtent;
+            this.changeAllLayerTimeExtents(view.timeExtent);
             if (this._properties.playOnStartup) {
                 this.timeSliderWidget.play();
             }
+            this.timeExtentWatcher = this.timeSliderWidget.watch("timeExtent", (value: __esri.TimeExtent) => {
+                this.changeAllLayerTimeExtents(value);
+            });
         });
     }
 
     public onToolDeactivated(): void {
         this.timeSliderWidget.stop();
+        this.timeExtentWatcher.remove();
+        this.resetAllLayerTimeExtents();
         this.resetTimeExtent();
     }
 
@@ -266,6 +273,35 @@ export default class TimeSliderWidgetController {
         }
 
         return stops;
+    }
+
+     private changeAllLayerTimeExtents(timeExtent: __esri.TimeExtent) {
+        const mapWidgetModel = this._mapWidgetModel;
+        const map = mapWidgetModel.map;
+        const layers = map.layers;
+        const flattenLayers = this.getFlattenLayers(layers);
+        flattenLayers.forEach((layer) => {
+            if (layer.useViewTime) {
+                if (layer.timeExtent && !layer._initialTimeExtent) {
+                    layer._initialTimeExtent = layer.timeExtent;
+                }
+                layer.timeExtent = timeExtent;
+            }
+        });
+    }
+
+    private resetAllLayerTimeExtents() {
+        const mapWidgetModel = this._mapWidgetModel;
+        const map = mapWidgetModel.map;
+        const layers = map.layers;
+        const flattenLayers = this.getFlattenLayers(layers);
+        flattenLayers.forEach((layer) => {
+            layer.timeExtent = layer._initialTimeExtent;
+        });
+    }
+
+    private getFlattenLayers(layers: __esri.Collection<__esri.Layer>) {
+        return layers.flatten(item => item.layers || item.sublayers);
     }
 
     private getView(): Promise<__esri.View> {
