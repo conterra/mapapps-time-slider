@@ -275,7 +275,7 @@ export default class TimeSliderWidgetController {
         return stops;
     }
 
-     private changeAllLayerTimeExtents(timeExtent: __esri.TimeExtent) {
+    private changeAllLayerTimeExtents(timeExtent: __esri.TimeExtent) {
         const mapWidgetModel = this._mapWidgetModel;
         const map = mapWidgetModel.map;
         const layers = map.layers;
