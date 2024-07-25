@@ -61,6 +61,7 @@ export default class TimeSliderWidgetController {
                 this.timeSliderWidget.play();
             }
             this.timeExtentWatcher = this.timeSliderWidget.watch("timeExtent", (value: __esri.TimeExtent) => {
+                view.timeExtent = value;
                 this.changeAllLayerTimeExtents(value);
             });
         });
