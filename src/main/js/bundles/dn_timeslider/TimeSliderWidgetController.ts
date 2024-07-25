@@ -52,6 +52,9 @@ export default class TimeSliderWidgetController {
 
     public onToolActivated(): void {
         this.getView().then((view: __esri.View) => {
+            // Whenever the TimeSlider is opened, we want to (re)set it to the configured time extent.
+            this.timeSliderWidget.timeExtent = this.getTimeExtentFromConfig(this._properties, "timeExtent");
+
             view.timeExtent = this.timeSliderWidget.timeExtent;
             this.changeAllLayerTimeExtents(view.timeExtent);
             if (this._properties.playOnStartup) {
