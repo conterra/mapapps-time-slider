@@ -51,12 +51,18 @@ export default class TimeSliderWidgetController {
     }
 
     public onToolActivated(): void {
+        const properties = this._properties;
+
         this.getView().then((view: __esri.View) => {
-            view.timeExtent = this.timeSliderWidget.timeExtent;
-            this.changeAllLayerTimeExtents(view.timeExtent);
+            const propsTimeExtent = this.getTimeExtentFromConfig(properties, "timeExtent");
+            view.timeExtent =  propsTimeExtent;
+            this.changeAllLayerTimeExtents(propsTimeExtent);
+
             if (this._properties.playOnStartup) {
                 this.timeSliderWidget.play();
             }
+
+            // apply timestate to stores
             this.timeExtentWatcher = this.timeSliderWidget.watch("timeExtent", (value: __esri.TimeExtent) => {
                 this.changeAllLayerTimeExtents(value);
             });
