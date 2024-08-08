@@ -13,8 +13,7 @@
     "dependencies": {
         "esri": "^4.20.0",
         "esri-widgets": "^4.12.0",
-        "map-widget": "^4.12.0",
-        "apprt-binding": "^4.12.0"
+        "map-widget": "^4.12.0"
     },
     "CSS-Themes-Extension": [
         {
