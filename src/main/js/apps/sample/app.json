@@ -155,7 +155,32 @@
                                             "id": 2,
                                             "visible": true
                                         }
-                                    ]
+                                    ],
+                                    "timeSlider": {
+                                        "timeExtent": {
+                                            "start": "2019-04-15T00:00Z",
+                                            "end": "2019-04-15T00:00Z"
+                                        },
+                                        "fullTimeExtent": {
+                                            "start": "2019-01-01T00:00Z",
+                                            "end": "2019-12-31T00:00Z"
+                                        },
+                                        "stops": {
+                                            "interval": {
+                                                "value": 1,
+                                                "unit": "weeks"
+                                            },
+                                            "timeExtent": {
+                                                "start": "2019-04-01T00:00Z",
+                                                "end": "2019-10-06T00:00Z"
+                                            }
+                                        },
+                                        "mode": "instant",
+                                        "loop": true,
+                                        "playRate": 1000,
+                                        "playOnStartup": true,
+                                        "timeVisible": false
+                                    }
                                 }
                             ]
                         }

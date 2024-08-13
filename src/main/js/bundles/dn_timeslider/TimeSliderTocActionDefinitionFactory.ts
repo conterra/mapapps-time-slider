@@ -63,6 +63,10 @@ export default class TimeSliderTocActionDefinitionFactory {
             },
 
             trigger(tocItem: any) {
+                if (that.serviceRegistration) {
+                    that.serviceRegistration.unregister();
+                    that.serviceRegistration = null;
+                }
                 const layer = tocItem.ref as ExtendedLayer;
                 const controller = timeSliderWidgetController;
                 const timeSliderProperties = tocItem.ref.timeSlider;
