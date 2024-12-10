@@ -325,3 +325,68 @@ If you configure the stops over an interval or a number, you have the additional
 
 To change the format and styling of the labels, you can inject a FormatFunction with the Interface `"dn_timeslider.LabelFormatFunction"`. It allows to change the visual representation of the labels inside of the TimeSlider.
 More information is available in the [TimeSlider::labelFormatFunction](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html#labelFormatFunction) documentation.
+
+**Example:**
+
+Register a new map.apps component, that provides `dn_timeslider.LabelFormatFunction`. 
+
+```json
+    {
+        "name": "LabelFormatFunctionFactory",
+        "instanceFactory": true,
+        "propertiesConstructor": true,
+        "properties": {
+            "labelFormat": "YYYY"
+        },
+        "provides": "dn_timeslider.LabelFormatFunction"
+    }
+```
+
+Return an object of type `__esri.DateLabelFormatter` in die `createInstance` method.
+
+```typescript
+import moment from "moment";
+
+type LabelFormatFunctionFactoryConfig = Partial<{
+    labelFormat: string
+}>
+
+export class LabelFormatFunctionFactory {
+
+    #labelFormat: string;
+
+    /**
+     * Initializes a new instance of the LabelFormatFunctionFactory class
+     * @param properties
+     */
+    constructor(properties: LabelFormatFunctionFactoryConfig) {
+        this.#labelFormat = properties.labelFormat ?? "YYYY";
+    }
+
+    /**
+     * Creates a new instance of a DateLabelFormatter function
+     * @returns
+     */
+    createInstance(): __esri.DateLabelFormatter {
+        const labelFormat = this.#labelFormat;
+
+        return (value, _type, element) => {
+            if (value === undefined || value === null || !element) {
+                // no value provided
+                return '';
+            }
+
+            if (Array.isArray(value)) {
+                // extent
+                element.innerText = `${moment(value[0]).format(labelFormat)} - ${moment(value[1]).format(labelFormat)}`;
+            }
+            else {
+                // min / max
+                element.innerText = moment(value).format(labelFormat);
+            }
+        };
+    }
+}
+```
+
+Finally add the bundle with this component to your app.
