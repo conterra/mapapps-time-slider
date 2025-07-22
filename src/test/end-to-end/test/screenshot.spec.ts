@@ -25,12 +25,6 @@ test('Create Screenshot for GitHub Page', async ({ page }) => {
 
     const canvas = new MapCanvas(page);
     await canvas.loaded();
-await page.goto('http://localhost:9090/?lang=de');
-await page.getByRole('button', { name: 'Werkzeuge' }).click();
-await page.getByText('Time Slider', { exact: true }).click();
-await page.getByText('Time Slider', { exact: true }).click();
-await page.getByRole('button', { name: 'Menü schließen' }).click();
-await page.getByRole('button', { name: 'Menü schließen' }).click();
 
     await expectToMatchScreenshot(page, "screenshot.png", {
         timeout: 10000
