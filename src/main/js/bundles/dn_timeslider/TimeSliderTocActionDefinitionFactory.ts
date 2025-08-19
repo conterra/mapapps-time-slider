@@ -72,6 +72,7 @@ export default class TimeSliderTocActionDefinitionFactory {
                 const timeSliderProperties = tocItem.ref.timeSlider;
 
                 layer.visible = true;
+                layer.useViewTime = false;
 
                 if (layer.timeExtent && !layer._initialTimeExtent) {
                     layer._initialTimeExtent = layer.timeExtent;
@@ -100,6 +101,7 @@ export default class TimeSliderTocActionDefinitionFactory {
                         that.timeExtentWatcher = undefined;
                         layer._lastTimeExtent = layer.timeExtent;
                         layer.timeExtent = layer._initialTimeExtent;
+                        layer.useViewTime = true;
                     });
                 }, that.delay);
             }

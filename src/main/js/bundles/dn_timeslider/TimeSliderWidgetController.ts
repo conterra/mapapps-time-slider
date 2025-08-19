@@ -51,7 +51,10 @@ export default class TimeSliderWidgetController {
     }
 
     public onToolActivated(): void {
-        this.getView().then((view: __esri.View) => {
+        this.getView().then(async (view: __esri.View) => {
+            if (!this.timeSliderWidget) {
+                await this.waitForTimeSliderWidget();
+            }
             // Whenever the TimeSlider is opened, we want to (re)set it to the configured time extent.
             this.timeSliderWidget.timeExtent = this.getTimeExtentFromConfig(this._properties, "timeExtent");
 
@@ -76,7 +79,11 @@ export default class TimeSliderWidgetController {
 
     public getWidget(properties?: InjectedReference<Record<string, any>>): TimeSlider {
         const timeSliderProperties = this.getTimeSliderProperties(properties || this._properties);
-        return this.timeSliderWidget = new TimeSlider(timeSliderProperties);
+        const timeSliderWidget = new TimeSlider(timeSliderProperties);
+        if (!this.timeSliderWidget) {
+            this.timeSliderWidget = timeSliderWidget;
+        }
+        return timeSliderWidget;
     }
 
     private destroyWidget(): void {
@@ -169,7 +176,7 @@ export default class TimeSliderWidgetController {
     }
 
     private getStops(properties: InjectedReference<Record<string, any>>): __esri.StopsByDates |
-    __esri.StopsByCount | __esri.StopsByInterval | undefined {
+        __esri.StopsByCount | __esri.StopsByInterval | undefined {
         const stopsProperties = properties.stops;
         const defaultStopCount = 10;
         let stops = null;
@@ -178,7 +185,7 @@ export default class TimeSliderWidgetController {
             return;
         }
 
-        if (stopsProperties && !Object.keys(stopsProperties).length){
+        if (stopsProperties && !Object.keys(stopsProperties).length) {
             stops = {};
             stops.count = defaultStopCount;
         }
@@ -314,7 +321,7 @@ export default class TimeSliderWidgetController {
             if (mapWidgetModel.view) {
                 resolve(mapWidgetModel.view);
             } else {
-                const watcher = mapWidgetModel.watch("view", ({value: view}) => {
+                const watcher = mapWidgetModel.watch("view", ({ value: view }) => {
                     watcher.remove();
                     resolve(view);
                 });
@@ -325,6 +332,21 @@ export default class TimeSliderWidgetController {
     private resetTimeExtent(): void {
         this.getView().then((view: __esri.View) => {
             view.timeExtent = this.initialTimeExtent;
+        });
+    }
+
+    private waitForTimeSliderWidget(): Promise<void> {
+        return new Promise((resolve) => {
+            if (this.timeSliderWidget) {
+                resolve();
+            } else {
+                const interval = setInterval(() => {
+                    if (this.timeSliderWidget) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 1000);
+            }
         });
     }
 }
