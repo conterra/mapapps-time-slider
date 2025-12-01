@@ -1,7 +1,10 @@
+[![devnet-bundle-snapshot](https://github.com/conterra/mapapps-time-slider/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-time-slider/actions/workflows/devnet-bundle-snapshot.yml)
+![Static Badge](https://img.shields.io/badge/requires_map.apps-4.20.0-e5e5e5?labelColor=%233E464F&logoColor=%23e5e5e5)
+![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.20.0-%20?labelColor=%233E464F&color=%232FC050)
 # Time Slider Bundle
 The Time Slider bundle adds the Esri TimeSlider widget to a map.apps app.
 
-![Screenshot App](https://github.com/conterra/mapapps-time-slider/blob/main/screenshot.JPG)
+![Screenshot App](https://github.com/conterra/mapapps-time-slider/blob/main/screenshot.png)
 
 ## Sample App
 https://demos.conterra.de/mapapps/resources/apps/public_demo_timeslider/index.html
