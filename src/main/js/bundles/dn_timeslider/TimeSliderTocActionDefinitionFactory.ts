@@ -17,7 +17,7 @@
 import type { InjectedReference } from "apprt-core/InjectedReference";
 import ct_util from "ct/ui/desktop/util";
 import async from "apprt-core/async";
-import { createDijit, EsriDijit } from "esri-widgets/EsriDijit";
+import { createDijit } from "esri-widgets/EsriDijit";
 
 import { MessagesReference } from "./nls/bundle";
 import type TimeSliderWidgetController from "./TimeSliderWidgetController";
