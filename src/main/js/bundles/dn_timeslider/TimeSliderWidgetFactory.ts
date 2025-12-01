@@ -15,9 +15,10 @@
 ///
 
 import { InjectedReference } from "apprt-core/InjectedReference";
-import EsriDijit from "@arcgis/core/widgets/TimeSlider";
+import { createDijit, EsriDijit } from "esri-widgets/EsriDijit";
 
 import type TimeSliderWidgetController from "./TimeSliderWidgetController";
+import type TimeSlider from "@arcgis/core/widgets/TimeSlider";
 
 export default class TimeSliderWidgetFactory {
 
@@ -27,8 +28,8 @@ export default class TimeSliderWidgetFactory {
         return this.getWidget();
     }
 
-    private getWidget(): any {
+    private getWidget(): EsriDijit<TimeSlider> {
         const timeSliderWidget = this._timeSliderWidgetController.getWidget();
-        return new (EsriDijit as any)(timeSliderWidget);
+        return createDijit(timeSliderWidget);
     }
 }

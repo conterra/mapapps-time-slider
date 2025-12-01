@@ -8,14 +8,13 @@
         "sample"
     ],
     "icon": {},
-    "license": {},
     "productName": "devnet-mapapps-time-slider",
     "dependencies": {
-        "esri": "^4.20.0",
-        "esri-widgets": "^4.12.0",
-        "map-widget": "^4.12.0"
+        "@arcgis/core": "^4.33.0",
+        "esri-widgets": "^4.20.0",
+        "map-widget": "^4.20.0"
     },
-    "CSS-Themes-Extension": [
+    "cssThemesExtension": [
         {
             "name": "*",
             "files": [
