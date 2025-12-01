@@ -15,12 +15,12 @@
 ///
 
 import { InjectedReference } from "apprt-core/InjectedReference";
-import TimeSlider from "esri/widgets/TimeSlider";
+import TimeSlider from "@arcgis/core/widgets/TimeSlider";
+import TimeExtent from "@arcgis/core/TimeExtent";
 import moment from "moment";
 
 import { MapWidgetModel } from "map-widget/api";
 import { TimesliderProperties } from "../../types/TimesliderProperties";
-import TimeExtent from "esri/TimeExtent";
 
 export default class TimeSliderWidgetController {
 

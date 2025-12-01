@@ -15,7 +15,7 @@
 ///
 
 import { InjectedReference } from "apprt-core/InjectedReference";
-import EsriDijit from "esri-widgets/EsriDijit";
+import EsriDijit from "@arcgis/core/widgets/TimeSlider";
 
 import type TimeSliderWidgetController from "./TimeSliderWidgetController";
 
