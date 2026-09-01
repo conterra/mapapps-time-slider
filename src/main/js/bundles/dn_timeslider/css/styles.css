@@ -15,7 +15,64 @@
  */
 .ctAppRoot .timeslider-window .dijitDialogPaneContent {
     padding: 0;
+    overflow: hidden;
 }
+
+.ctAppRoot .timeslider-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ctAppRoot .timeslider-container__datepickers {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px 0;
+    box-sizing: border-box;
+}
+
+.ctAppRoot .timeslider-container__datepicker {
+    flex: 1 1 130px;
+    min-width: 0;
+}
+
+.ctAppRoot .timeslider-container__datepicker .v-menu__activator .v-text-field {
+    display: flex;
+}
+
+.ctAppRoot .timeslider-container__datepicker .v-text-field input {
+    /* Smaller than Vuetify's default so the full "dd.mm.yyyy hh:mm" value still
+       fits legibly in the narrower activator instead of being clipped/scrolled. */
+    font-size: 12px;
+}
+
+.ctAppRoot .timeslider-container__datepicker .v-icon {
+    font-size: 16px;
+}
+
+.ctAppRoot .timeslider-container__datepicker .v-input__prepend-outer {
+    margin-right: 4px;
+}
+
+.ctAppRoot .timeslider-container__time-combobox {
+    /* Inside the v-card popup (a definite-width block, unlike the activator's
+       shrink-to-fit wrapper), so this percentage actually resolves correctly. */
+    width: 40%;
+    margin: 0 auto;
+}
+
+.ctAppRoot .timeslider-container__host {
+    /* Fills all remaining space after the (optional) datepicker row above it, so
+       with showDatepickers off this is identical to the original unwrapped widget. */
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
 
 .ctAppRoot .esri-time-slider .esri-time-slider__slider {
     background-color: transparent;

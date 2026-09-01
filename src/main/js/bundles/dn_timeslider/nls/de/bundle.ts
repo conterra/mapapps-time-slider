@@ -24,5 +24,7 @@ export default {
         title: "Time Slider",
         tooltip: "Time Slider"
     },
-    tocActionLabel: "Time Slider für diesen Layer"
+    tocActionLabel: "Time Slider für diesen Layer",
+    startDateLabel: "Startdatum",
+    endDateLabel: "Enddatum"
 } satisfies Messages;

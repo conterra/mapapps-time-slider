@@ -18,18 +18,30 @@ import { InjectedReference } from "apprt-core/InjectedReference";
 import { createDijit, EsriDijit } from "esri-widgets/EsriDijit";
 
 import type TimeSliderWidgetController from "./TimeSliderWidgetController";
-import type TimeSlider from "@arcgis/core/widgets/TimeSlider";
+import type { MessagesReference } from "./nls/bundle";
+import TimeSliderWidgetContainer from "./TimeSliderWidgetContainer";
 
 export default class TimeSliderWidgetFactory {
 
     private _timeSliderWidgetController: InjectedReference<TimeSliderWidgetController>;
+    private _i18n: InjectedReference<MessagesReference>;
 
     public createInstance(): any {
         return this.getWidget();
     }
 
-    private getWidget(): EsriDijit<TimeSlider> {
-        const timeSliderWidget = this._timeSliderWidgetController.getWidget();
-        return createDijit(timeSliderWidget);
+    private getWidget(): EsriDijit<TimeSliderWidgetContainer> {
+        const controller = this._timeSliderWidgetController!;
+        const i18n = this._i18n?.get();
+        const timeSliderWidget = controller.getWidget();
+
+        const timeSliderContainer = new TimeSliderWidgetContainer({
+            timeSlider: timeSliderWidget,
+            showDatepickers: controller.isShowDatepickersEnabled(),
+            startDateLabel: i18n?.startDateLabel,
+            endDateLabel: i18n?.endDateLabel
+        });
+
+        return createDijit(timeSliderContainer);
     }
 }

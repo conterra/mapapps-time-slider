@@ -45,6 +45,10 @@ export default class TimeSliderWidgetController {
         this.labelFormatFunction = labelFormatFunction;
     }
 
+    public isShowDatepickersEnabled(): boolean {
+        return !!this._properties?.showDatepickers;
+    }
+
     public deactivate(): void {
         this.resetTimeExtent();
         this.destroyWidget();

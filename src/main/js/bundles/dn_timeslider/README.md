@@ -54,7 +54,8 @@ The Time Slider bundle allows the user to change the time extent of the map or s
     "loop": true,
     "playRate": 1000,
     "playOnStartup": true,
-    "timeVisible": false
+    "timeVisible": false,
+    "showDatepickers": true
 }
 ```
 
@@ -93,7 +94,8 @@ The Time Slider bundle allows the user to change the time extent of the map or s
                         "loop": true,
                         "playRate": 1000,
                         "playOnStartup": true,
-                        "timeVisible": false
+                        "timeVisible": false,
+                        "showDatepickers": true
                     }
                 }
             ]
@@ -113,6 +115,7 @@ The Time Slider bundle allows the user to change the time extent of the map or s
 | playRate       | Number  |                                                                                                            | ```1000```           | The time (in milliseconds) between animation steps.                                                                                                                                                                                                                                                                               |
 | playOnStartup  | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | When true, the time slider will play its animation on startup.                                                                                                                                                                                                                                                                    |
 | timeVisible    | Boolean | ```true``` &#124; ```false```                                                                              | ```false```          | Shows/hides time in the display.                                                                                                                                                                                                                                                                                                  |
+| showDatepickers | Boolean | ```true``` &#124; ```false```                                                                             | ```false```          | When true, shows a start and end datepicker (Vuetify ```v-date-picker```, displayed as ```dd.mm.yyyy```) above the slider, that allow direct editing of the ```timeExtent```. The selectable range is restricted to the ```fullTimeExtent```. Requires the ```apprt-vue``` and ```apprt-vuetify``` bundles to be present in ```allowedBundles```.                                                                                                                                                 |
 
 
 

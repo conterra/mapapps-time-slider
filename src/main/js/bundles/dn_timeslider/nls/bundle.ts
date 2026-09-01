@@ -23,7 +23,9 @@ const i18n = {
             title: "Time Slider",
             tooltip: "Time Slider"
         },
-        tocActionLabel: "Time Slider for this Layer"
+        tocActionLabel: "Time Slider for this Layer",
+        startDateLabel: "Start date",
+        endDateLabel: "End date"
     },
     de: true
 };
