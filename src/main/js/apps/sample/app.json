@@ -86,7 +86,8 @@
                     "gray": "icon-thumbnail",
                     "streets": "icon-thumbnail",
                     "satellite": "icon-thumbnail",
-                    "hybrid": "icon-thumbnail"
+                    "hybrid": "icon-thumbnail",
+                    "dark": "icon-thumbnail"
                 }
             }
         },
@@ -97,8 +98,7 @@
                         "id": "gray",
                         "basemap": "gray-vector",
                         "title": "${map.basemaps.gray}",
-                        "thumbnailUrl": "resource('${app}:/assets/gray.png')",
-                        "selected": true
+                        "thumbnailUrl": "resource('${app}:/assets/gray.png')"
                     },
                     {
                         "id": "streets",
@@ -117,6 +117,13 @@
                         "basemap": "hybrid",
                         "title": "${map.basemaps.hybrid}",
                         "thumbnailUrl": "resource('${app}:/assets/hybrid.png')"
+                    },
+                    {
+                        "id": "dark",
+                        "basemap": "dark-gray-vector",
+                        "title": "${map.basemaps.dark}",
+                        "thumbnailUrl": "resource('${app}:/assets/dark.jpg')",
+                        "selected": true
                     }
                 ],
                 "map": {
