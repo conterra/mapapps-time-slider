@@ -86,6 +86,10 @@ export default class TimeSliderTocActionDefinitionFactory {
                 that.timeExtentWatcher = timeSliderWidget.watch("timeExtent", (value) => {
                     layer.timeExtent = value;
                 });
+
+                if (timeSliderWidget.timeExtent) {
+                    layer.timeExtent = timeSliderWidget.timeExtent;
+                }
                 const widget = createDijit(timeSliderWidget);
                 const serviceProperties = {
                     "widgetRole": "layerTimeSliderWidget"
