@@ -26,37 +26,38 @@
     box-sizing: border-box;
 }
 
-.ctAppRoot .timeslider-container__datepickers {
-    display: flex;
+.ctAppRoot {
+    /* Material "event" glyph, reused as a mask so it can be recolored per element via
+       background-color instead of shipping one data-uri per color. */
+    --dn-timeslider-calendar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z'/%3E%3C/svg%3E");
+}
+
+/* Esri's TimeSlider stacks each date (and, in the wide layout, time) label in a column;
+   switch to a row so the injected calendar icon sits beside the label instead of above/
+   below it. */
+.ctAppRoot .esri-time-slider__time-extent-start-group,
+.ctAppRoot .esri-time-slider__time-extent-end-group {
+    flex-flow: row;
+    align-items: center;
+}
+
+.ctAppRoot .timeslider-container__extent-icon {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
     flex: 0 0 auto;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 8px 12px 0;
-    box-sizing: border-box;
+    cursor: pointer;
+    background-color: var(--calcite-color-brand);
+    -webkit-mask: var(--dn-timeslider-calendar-icon) no-repeat center / contain;
+    mask: var(--dn-timeslider-calendar-icon) no-repeat center / contain;
 }
 
-.ctAppRoot .timeslider-container__datepicker {
-    flex: 1 1 130px;
-    min-width: 0;
+.ctAppRoot .esri-time-slider__time-extent-start-group .timeslider-container__extent-icon {
+    margin-right: 6px;
 }
 
-.ctAppRoot .timeslider-container__datepicker .v-menu__activator .v-text-field {
-    display: flex;
-}
-
-.ctAppRoot .timeslider-container__datepicker .v-text-field input {
-    /* Smaller than Vuetify's default so the full "dd.mm.yyyy hh:mm" value still
-       fits legibly in the narrower activator instead of being clipped/scrolled. */
-    font-size: 12px;
-}
-
-.ctAppRoot .timeslider-container__datepicker .v-icon {
-    font-size: 16px;
-}
-
-.ctAppRoot .timeslider-container__datepicker .v-input__prepend-outer {
-    margin-right: 4px;
+.ctAppRoot .esri-time-slider__time-extent-end-group .timeslider-container__extent-icon {
+    margin-left: 6px;
 }
 
 .ctAppRoot .timeslider-container__time-combobox {
@@ -67,10 +68,9 @@
 }
 
 .ctAppRoot .timeslider-container__host {
-    /* Fills all remaining space after the (optional) datepicker row above it, so
-       with showDatepickers off this is identical to the original unwrapped widget. */
     flex: 1 1 auto;
     min-height: 0;
+    padding-top: 10px;
 }
 
 

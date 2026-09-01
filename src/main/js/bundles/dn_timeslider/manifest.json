@@ -36,13 +36,13 @@
                 "resizable": true,
                 "marginBox": {
                     "w": 475,
-                    "h": 310,
+                    "h": 280,
                     "l": 20,
                     "t": 125
                 },
                 "minSize": {
                     "w": 300,
-                    "h": 280
+                    "h": 250
                 },
                 "windowClass": "timeslider-window"
             }
@@ -101,13 +101,13 @@
                 "resizable": true,
                 "marginBox": {
                     "w": 475,
-                    "h": 310,
+                    "h": 280,
                     "l": 20,
                     "t": 125
                 },
                 "minSize": {
                     "w": 300,
-                    "h": 280
+                    "h": 250
                 },
                 "windowClass": "timeslider-window"
             }

@@ -17,92 +17,78 @@
 -->
 <template>
     <div class="timeslider-container__datepickers">
-        <div class="timeslider-container__datepicker timeslider-container__datepicker--start">
-            <v-menu
-                v-model="startMenu"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                min-width="290px"
-            >
-                <v-text-field
-                    slot="activator"
-                    :value="startDateTimeFormatted"
-                    prepend-icon="event"
-                    readonly
-                    hide-details
+        <v-menu
+            v-model="startMenu"
+            :position-x="startMenuX"
+            :position-y="startMenuY"
+            absolute
+            :close-on-content-click="false"
+            offset-y
+            min-width="290px"
+        >
+            <v-card>
+                <v-date-picker
+                    v-model="startDate"
+                    :min="fullMin"
+                    :max="fullMax"
+                    @input="onStartDateInput"
                 />
-                <v-card>
-                    <v-date-picker
-                        v-model="startDate"
-                        :min="fullMin"
-                        :max="fullMax"
-                        @input="onStartDateInput"
-                    />
-                    <v-combobox
-                        v-model="startTime"
-                        :items="timeOptions"
-                        class="timeslider-container__time-combobox"
-                        prepend-icon="access_time"
-                        hide-details
-                        @change="onStartTimeChange"
-                    />
-                    <v-card-actions>
-                        <v-spacer />
-                        <v-btn
-                            flat
-                            color="primary"
-                            @click="startMenu = false"
-                        >
-                            OK
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-menu>
-        </div>
-        <div class="timeslider-container__datepicker timeslider-container__datepicker--end">
-            <v-menu
-                v-model="endMenu"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                min-width="290px"
-            >
-                <v-text-field
-                    slot="activator"
-                    :value="endDateTimeFormatted"
-                    prepend-icon="event"
-                    readonly
+                <v-combobox
+                    v-model="startTime"
+                    :items="timeOptions"
+                    class="timeslider-container__time-combobox"
+                    prepend-icon="access_time"
                     hide-details
+                    @change="onStartTimeChange"
                 />
-                <v-card>
-                    <v-date-picker
-                        v-model="endDate"
-                        :min="fullMin"
-                        :max="fullMax"
-                        @input="onEndDateInput"
-                    />
-                    <v-combobox
-                        v-model="endTime"
-                        :items="timeOptions"
-                        class="timeslider-container__time-combobox"
-                        prepend-icon="access_time"
-                        hide-details
-                        @change="onEndTimeChange"
-                    />
-                    <v-card-actions>
-                        <v-spacer />
-                        <v-btn
-                            flat
-                            color="primary"
-                            @click="endMenu = false"
-                        >
-                            OK
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-menu>
-        </div>
+                <v-card-actions>
+                    <v-spacer />
+                    <v-btn
+                        flat
+                        color="primary"
+                        @click="startMenu = false"
+                    >
+                        OK
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-menu>
+        <v-menu
+            v-model="endMenu"
+            :position-x="endMenuX"
+            :position-y="endMenuY"
+            absolute
+            :close-on-content-click="false"
+            offset-y
+            min-width="290px"
+        >
+            <v-card>
+                <v-date-picker
+                    v-model="endDate"
+                    :min="fullMin"
+                    :max="fullMax"
+                    @input="onEndDateInput"
+                />
+                <v-combobox
+                    v-model="endTime"
+                    :items="timeOptions"
+                    class="timeslider-container__time-combobox"
+                    prepend-icon="access_time"
+                    hide-details
+                    @change="onEndTimeChange"
+                />
+                <v-card-actions>
+                    <v-spacer />
+                    <v-btn
+                        flat
+                        color="primary"
+                        @click="endMenu = false"
+                    >
+                        OK
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-menu>
     </div>
 </template>
 
@@ -113,15 +99,18 @@
 
     import type TimeSlider from "@arcgis/core/widgets/TimeSlider";
 
-    // Native <input type="date"> forces yyyy-mm-dd display, following the browser/OS locale
-    // only. Vuetify's v-date-picker/v-text-field own their display text instead, so the
-    // widget can show a fixed dd.mm.yyyy format regardless of locale.
     const ISO_DATE_FORMAT = "YYYY-MM-DD";
     const ISO_TIME_FORMAT = "HH:mm";
     const ISO_DATETIME_FORMAT = `${ISO_DATE_FORMAT} ${ISO_TIME_FORMAT}`;
-    const DISPLAY_FORMAT = "DD.MM.YYYY HH:mm";
 
     const TIME_STEP_MINUTES = 30;
+
+    // Classes on the TimeSlider widget's own (calcite) markup that the start/end date
+    // labels live in -- the icons are injected as extra children of these groups instead
+    // of being rendered by this component, so they sit directly beside Esri's own labels.
+    const START_GROUP_CLASS = "esri-time-slider__time-extent-start-group";
+    const END_GROUP_CLASS = "esri-time-slider__time-extent-end-group";
+    const ICON_CLASS = "timeslider-container__extent-icon";
 
     // 24h time-of-day options at a fixed interval, e.g. "00:00", "00:30", "01:00", ... shown
     // as v-combobox dropdown suggestions; the field itself still accepts free-typed values.
@@ -151,18 +140,15 @@
                 fullMax: undefined as string | undefined,
                 startMenu: false,
                 endMenu: false,
+                startMenuX: 0,
+                startMenuY: 0,
+                endMenuX: 0,
+                endMenuY: 0,
                 timeOptions: TIME_OPTIONS,
                 timeExtentHandle: undefined as any,
-                fullTimeExtentHandle: undefined as any
+                fullTimeExtentHandle: undefined as any,
+                extentIconsObserver: undefined as MutationObserver | undefined
             };
-        },
-        computed: {
-            startDateTimeFormatted(): string {
-                return this.formatForDisplay(this.startDate, this.startTime);
-            },
-            endDateTimeFormatted(): string {
-                return this.formatForDisplay(this.endDate, this.endTime);
-            }
         },
         mounted(): void {
             const timeSlider = this.timeSlider;
@@ -173,17 +159,66 @@
             this.syncFromTimeSlider();
             this.timeExtentHandle = timeSlider.watch("timeExtent", () => this.syncFromTimeSlider());
             this.fullTimeExtentHandle = timeSlider.watch("fullTimeExtent", () => this.syncFromTimeSlider());
+            this.setupExtentIcons();
         },
         beforeDestroy(): void {
             this.timeExtentHandle?.remove();
             this.fullTimeExtentHandle?.remove();
+            this.extentIconsObserver?.disconnect();
         },
         methods: {
-            formatForDisplay(isoDate: string, isoTime: string): string {
-                if (!isoDate) {
-                    return "";
+            setupExtentIcons(): void {
+                const container = this.timeSlider?.container as HTMLElement | undefined;
+                if (!container) {
+                    return;
                 }
-                return moment(`${isoDate} ${isoTime || "00:00"}`, ISO_DATETIME_FORMAT).format(DISPLAY_FORMAT);
+
+                const injectBoth = (): void => {
+                    this.injectExtentIcon(container, START_GROUP_CLASS, "start", true);
+                    this.injectExtentIcon(container, END_GROUP_CLASS, "end", false);
+                };
+
+                injectBoth();
+
+                // The TimeSlider widget renders its internal (calcite) DOM asynchronously and
+                // re-renders it on every timeExtent/fullTimeExtent change, so the injected icon
+                // is re-added here whenever it goes missing rather than relying on it surviving.
+                const observer = new MutationObserver(injectBoth);
+                observer.observe(container, { childList: true, subtree: true });
+                this.extentIconsObserver = observer;
+            },
+            injectExtentIcon(container: HTMLElement, groupClass: string, part: DateExtentPart, prepend: boolean): void {
+                const group = container.querySelector<HTMLElement>(`.${groupClass}`);
+                if (!group || group.querySelector(`.${ICON_CLASS}`)) {
+                    return;
+                }
+
+                const icon = document.createElement("span");
+                icon.className = ICON_CLASS;
+                icon.setAttribute("role", "button");
+                icon.setAttribute("aria-label", part === "start" ? this.startDateLabel : this.endDateLabel);
+                icon.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    this.openMenu(part, icon);
+                });
+
+                if (prepend) {
+                    group.insertBefore(icon, group.firstChild);
+                } else {
+                    group.appendChild(icon);
+                }
+            },
+            openMenu(part: DateExtentPart, anchor: HTMLElement): void {
+                const rect = anchor.getBoundingClientRect();
+                if (part === "start") {
+                    this.startMenuX = rect.left;
+                    this.startMenuY = rect.bottom;
+                    this.startMenu = true;
+                } else {
+                    this.endMenuX = rect.right;
+                    this.endMenuY = rect.bottom;
+                    this.endMenu = true;
+                }
             },
             toIsoDate(date: Date | undefined | null): string | undefined {
                 if (!date) {

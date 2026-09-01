@@ -54,15 +54,19 @@ class TimeSliderWidgetContainer extends Widget {
     render(): tsx.JSX.Element {
         return (
             tsx("div", { class: CSS.base }, [
-                this.showDatepickers ? tsx("div", {
-                    key: "datepickers-host",
-                    afterCreate: this.attachDatepickers.bind(this)
-                }) : null,
                 tsx("div", {
                     key: "timeslider-host",
                     class: CSS.host,
                     afterCreate: this.attachTimeSlider.bind(this)
-                })
+                }),
+                // Attached after the TimeSlider host above so `timeSlider.container` is
+                // already a live DOM element by the time this mounts -- the datepickers
+                // component injects icons into the TimeSlider's own rendered markup and
+                // needs that container to exist.
+                this.showDatepickers ? tsx("div", {
+                    key: "datepickers-host",
+                    afterCreate: this.attachDatepickers.bind(this)
+                }) : null
             ])
         );
     }
