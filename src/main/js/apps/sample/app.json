@@ -161,7 +161,8 @@
                                 "loop": true,
                                 "playRate": 800,
                                 "playOnStartup": true,
-                                "timeVisible": false
+                                "timeVisible": false,
+                                "showDatepickers": true
                             }
                         },
                         {
