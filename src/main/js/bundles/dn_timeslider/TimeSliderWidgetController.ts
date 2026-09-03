@@ -59,11 +59,16 @@ export default class TimeSliderWidgetController {
             if (!this.timeSliderWidget) {
                 await this.waitForTimeSliderWidget();
             }
-            // Whenever the TimeSlider is opened, we want to (re)set it to the configured time extent.
-            this.timeSliderWidget.timeExtent = this.getTimeExtentFromConfig(this._properties, "timeExtent");
 
-            view.timeExtent = this.timeSliderWidget.timeExtent;
-            this.changeAllLayerTimeExtents(view.timeExtent);
+            const configuredTimeExtent = this.getTimeExtentFromConfig(this._properties, "timeExtent");
+            if (configuredTimeExtent) {
+                this.timeSliderWidget.timeExtent = configuredTimeExtent;
+            }
+
+            if (this.timeSliderWidget.timeExtent) {
+                view.timeExtent = this.timeSliderWidget.timeExtent;
+                this.changeAllLayerTimeExtents(view.timeExtent);
+            }
             if (this._properties.playOnStartup) {
                 this.timeSliderWidget.play();
             }

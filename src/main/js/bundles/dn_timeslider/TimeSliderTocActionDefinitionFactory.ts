@@ -88,6 +88,10 @@ export default class TimeSliderTocActionDefinitionFactory {
                     layer.timeExtent = value;
                 });
 
+                if (timeSliderWidget.timeExtent) {
+                    layer.timeExtent = timeSliderWidget.timeExtent;
+                }
+
                 const timeSliderContainer = new TimeSliderWidgetContainer({
                     timeSlider: timeSliderWidget,
                     showDatepickers: !!timeSliderProperties.showDatepickers,

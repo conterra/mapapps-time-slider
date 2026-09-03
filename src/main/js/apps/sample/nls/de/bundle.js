@@ -73,7 +73,8 @@ module.exports = {
             gray: "Stra\xDFenkarte (grau)",
             streets: "Stra\xDFenkarte",
             topo: "Topographische Karte",
-            hybrid: "Luftbild (hybrid)"
+            hybrid: "Luftbild (hybrid)",
+            dark: "Dunkle Karte"
         }
     },
     tools: {

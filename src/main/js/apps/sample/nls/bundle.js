@@ -73,7 +73,8 @@ module.exports = {
                 gray: "Street Map (gray)",
                 streets: "Street Map",
                 topo: "Topographical Map",
-                hybrid: "Aerial (hybrid)"
+                hybrid: "Aerial (hybrid)",
+                dark: "Dark Gray Canvas"
             }
         },
         tools: {
