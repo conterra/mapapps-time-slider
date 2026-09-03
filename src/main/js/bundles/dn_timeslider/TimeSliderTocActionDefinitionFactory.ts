@@ -22,6 +22,7 @@ import { createDijit } from "esri-widgets/EsriDijit";
 import { MessagesReference } from "./nls/bundle";
 import type TimeSliderWidgetController from "./TimeSliderWidgetController";
 import { ExtendedLayer } from "../../types/ExtendedLayer";
+import TimeSliderWidgetContainer from "./TimeSliderWidgetContainer";
 
 export default class TimeSliderTocActionDefinitionFactory {
     public delay = 1000;
@@ -90,7 +91,15 @@ export default class TimeSliderTocActionDefinitionFactory {
                 if (timeSliderWidget.timeExtent) {
                     layer.timeExtent = timeSliderWidget.timeExtent;
                 }
-                const widget = createDijit(timeSliderWidget);
+
+                const timeSliderContainer = new TimeSliderWidgetContainer({
+                    timeSlider: timeSliderWidget,
+                    showDatepickers: !!timeSliderProperties.showDatepickers,
+                    startDateLabel: i18n.startDateLabel,
+                    endDateLabel: i18n.endDateLabel
+                });
+
+                const widget = createDijit(timeSliderContainer);
                 const serviceProperties = {
                     "widgetRole": "layerTimeSliderWidget"
                 };

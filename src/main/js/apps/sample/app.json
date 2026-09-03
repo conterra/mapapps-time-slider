@@ -61,9 +61,10 @@
                 },
                 "mode": "time-window",
                 "loop": true,
-                "playRate": 800,
-                "playOnStartup": true,
-                "timeVisible": false
+                "playRate": 1000,
+                "playOnStartup": false,
+                "timeVisible": false,
+                "showDatepickers": false
             }
         },
         "agssearch": {

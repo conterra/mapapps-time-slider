@@ -15,7 +15,64 @@
  */
 .ctAppRoot .timeslider-window .dijitDialogPaneContent {
     padding: 0;
+    overflow: hidden;
 }
+
+.ctAppRoot .timeslider-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ctAppRoot {
+    /* Material "event" glyph, reused as a mask so it can be recolored per element via
+       background-color instead of shipping one data-uri per color. */
+    --dn-timeslider-calendar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z'/%3E%3C/svg%3E");
+}
+
+/* Esri's TimeSlider stacks each date (and, in the wide layout, time) label in a column;
+   switch to a row so the injected calendar icon sits beside the label instead of above/
+   below it. */
+.ctAppRoot .esri-time-slider__time-extent-start-group,
+.ctAppRoot .esri-time-slider__time-extent-end-group {
+    flex-flow: row;
+    align-items: center;
+}
+
+.ctAppRoot .timeslider-container__extent-icon {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+    cursor: pointer;
+    background-color: var(--calcite-color-brand);
+    -webkit-mask: var(--dn-timeslider-calendar-icon) no-repeat center / contain;
+    mask: var(--dn-timeslider-calendar-icon) no-repeat center / contain;
+}
+
+.ctAppRoot .esri-time-slider__time-extent-start-group .timeslider-container__extent-icon {
+    margin-right: 6px;
+}
+
+.ctAppRoot .esri-time-slider__time-extent-end-group .timeslider-container__extent-icon {
+    margin-left: 6px;
+}
+
+.ctAppRoot .timeslider-container__time-combobox {
+    /* Inside the v-card popup (a definite-width block, unlike the activator's
+       shrink-to-fit wrapper), so this percentage actually resolves correctly. */
+    width: 40%;
+    margin: 0 auto;
+}
+
+.ctAppRoot .timeslider-container__host {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding-top: 10px;
+}
+
 
 .ctAppRoot .esri-time-slider .esri-time-slider__slider {
     background-color: transparent;
