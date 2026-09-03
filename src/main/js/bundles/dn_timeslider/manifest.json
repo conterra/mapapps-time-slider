@@ -12,6 +12,8 @@
     "dependencies": {
         "@arcgis/core": "^4.33.0",
         "esri-widgets": "^4.20.0",
+        "apprt-vue": "^4.20.0",
+        "apprt-vuetify": "^4.20.0",
         "map-widget": "^4.20.0"
     },
     "cssThemesExtension": [
@@ -33,14 +35,14 @@
                 "minimizeOnClose": true,
                 "resizable": true,
                 "marginBox": {
-                    "w": 435,
-                    "h": 230,
+                    "w": 475,
+                    "h": 280,
                     "l": 20,
                     "t": 125
                 },
                 "minSize": {
-                    "w": 435,
-                    "h": 230
+                    "w": 300,
+                    "h": 250
                 },
                 "windowClass": "timeslider-window"
             }
@@ -59,10 +61,14 @@
                     "r": true
                 },
                 "marginBox": {
-                    "h": 230,
+                    "h": 310,
                     "b": 42,
                     "r": 0,
                     "l": 0
+                },
+                "minSize": {
+                    "w": 260,
+                    "h": 280
                 }
             }
         },
@@ -74,10 +80,14 @@
             "window": {
                 "resizable": false,
                 "marginBox": {
-                    "h": 230,
+                    "h": 310,
                     "b": 0,
                     "r": 0,
                     "l": 50
+                },
+                "minSize": {
+                    "w": 260,
+                    "h": 280
                 }
             }
         },
@@ -90,14 +100,14 @@
                 "minimizeOnClose": false,
                 "resizable": true,
                 "marginBox": {
-                    "w": 435,
-                    "h": 230,
+                    "w": 475,
+                    "h": 280,
                     "l": 20,
                     "t": 125
                 },
                 "minSize": {
-                    "w": 435,
-                    "h": 230
+                    "w": 300,
+                    "h": 250
                 },
                 "windowClass": "timeslider-window"
             }
@@ -115,10 +125,14 @@
                     "r": true
                 },
                 "marginBox": {
-                    "h": 230,
+                    "h": 310,
                     "b": 42,
                     "r": 0,
                     "l": 0
+                },
+                "minSize": {
+                    "w": 260,
+                    "h": 280
                 }
             }
         },
@@ -130,10 +144,14 @@
             "window": {
                 "resizable": false,
                 "marginBox": {
-                    "h": 230,
+                    "h": 310,
                     "b": 0,
                     "r": 0,
                     "l": 50
+                },
+                "minSize": {
+                    "w": 260,
+                    "h": 280
                 }
             }
         }
@@ -172,7 +190,8 @@
                 "loop": true,
                 "playRate": 1000,
                 "playOnStartup": false,
-                "timeVisible": false
+                "timeVisible": false,
+                "showDatepickers": false
             },
             "references": [
                 {

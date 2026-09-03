@@ -68,7 +68,8 @@
                 "loop": true,
                 "playRate": 1000,
                 "playOnStartup": false,
-                "timeVisible": false
+                "timeVisible": false,
+                "showDatepickers": false
             }
         },
         "agssearch": {
